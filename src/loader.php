@@ -3,9 +3,11 @@
     // Load config files.
     require_once('config/config.php');
     require_once('config/clubs.php');
-
+    
     // Load all helpers
     require_once('helpers/printVar.php');
+    require_once('helpers/flash_messages.php');
+    // require_once('helpers/redirect.php');
 
     // Autoload Core Classes
     spl_autoload_register(function ($className) {
@@ -30,12 +32,14 @@
         $url = explode('/', $url);
 
         // If club exists in club_config then set clubLoad
-        if (array_key_exists($url[0], $_GLOBAL['clubs_config'])) {
+        if (array_key_exists($url[0], $GLOBALS['clubs_config'])) {
+        // if (array_key_exists($url[0], CLUBS)) {
             $clubLoad = $url[0];
             unset($url[0]);
 
             // If the second parameter is a valid page of the club given then set pageLoad
-            if (isset($url[1]) && in_array($url[1], $_GLOBAL['clubs_config'][$clubLoad]['sections'])) {
+            if (isset($url[1]) && in_array($url[1], $GLOBALS['clubs_config'][$clubLoad]['sections'])) {
+            // if (isset($url[1]) && in_array($url[1], CLUBS[$clubLoad]['sections'])) {    
                 $pageLoad = $url[1];
                 unset($url[1]);
 
@@ -48,8 +52,12 @@
             }
         } else {
             // TODO: Redirect 404
+            redirect('blah');
         }
     }
+
+    // Get the all of the club's information.
+    $club = new Club($clubLoad);
 
     // Load the relevant View from $pageLoad
     // If it's an invalid page then it should've been redirected to 404.php before doing this.
