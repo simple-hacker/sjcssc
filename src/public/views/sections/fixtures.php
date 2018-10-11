@@ -5,10 +5,9 @@
 <h4>View Fixtures</h4>
 
 <?php
-    $fixture = new Fixture;
-    $fixture->getFixture($club->id, 1);
+    // $fixture = new Fixture;
+    // $fixture->getFixture($club->id, 1);
     
-    // $fixtures = Fixture::getFixtures($club->id);
-
-    echo '<pre>',print_r($fixture,1),'</pre>';
+    $fixtures = Fixture::getFixtures($club->id);
+    printVar($fixtures);
 ?>

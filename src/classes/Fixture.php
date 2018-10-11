@@ -1,6 +1,4 @@
 <?php
-// TODO: Maybe don't need to require Event?
-require_once('Event.php');
 
 Class Fixture {
 
@@ -35,10 +33,8 @@ Class Fixture {
         $table_name = 'fixtures_' . Club::getClubName($club_id);
 
         if (isset($fixture_id)) {
-            // TODO: Do multiple joins on home_team_id, league_id, location_id etc.
-            // $sql = "SELECT * FROM `{$table_name}` WHERE `id`= :id";
 
-            $sql = "SELECT {$table_name}.*, home_teams.team AS home_team, away_teams.team AS away_team, leagues.league AS league, venues.venue AS venue, venues.location AS location FROM fixtures_bowls
+            $sql = "SELECT {$table_name}.*, home_teams.team AS home_team, away_teams.team AS away_team, leagues.league AS league, venues.venue AS venue, venues.location AS location FROM {$table_name}
                     LEFT JOIN leagues ON {$table_name}.league_id = leagues.id
                     LEFT JOIN teams AS home_teams ON {$table_name}.home_team_id = home_teams.id
                     LEFT JOIN teams AS away_teams ON {$table_name}.away_team_id = away_teams.id
@@ -120,9 +116,9 @@ Class Fixture {
             $db = new Database;
 
             $table_name = 'fixtures_' . Club::getClubName($club_id);
+            
             // $sql = "SELECT * FROM `fixtures_" . $club_name . "` WHERE `date` >= DATE(NOW()) ORDER BY `date` DESC";
-
-            $sql = "SELECT {$table_name}.*, home_teams.team AS home_team, away_teams.team AS away_team, leagues.league AS league, venues.venue AS venue, venues.location AS location FROM fixtures_bowls
+            $sql = "SELECT {$table_name}.*, home_teams.team AS home_team, away_teams.team AS away_team, leagues.league AS league, venues.venue AS venue, venues.location AS location FROM {$table_name}
                     LEFT JOIN leagues ON {$table_name}.league_id = leagues.id
                     LEFT JOIN teams AS home_teams ON {$table_name}.home_team_id = home_teams.id
                     LEFT JOIN teams AS away_teams ON {$table_name}.away_team_id = away_teams.id
@@ -203,9 +199,9 @@ Class Fixture {
             
             if ($data['valid']) {
                 if (isset($club_id)) {
-                    $tablename = 'fixtures_' . Club::getClubName($club_id);
+                    $table_name = 'fixtures_' . Club::getClubName($club_id);
 
-                    $sql = "INSERT INTO `{$tablename}` (home_team_id, away_team_id, league_id, date, time, location_id, meet_at, contact, other_information)
+                    $sql = "INSERT INTO `{$table_name}` (home_team_id, away_team_id, league_id, date, time, location_id, meet_at, contact, other_information)
                     VALUES (:home_team_id, :away_team_id, :league_id, :date, :time, :location_id, :meet_at, :contact, :other_information)";
 
                     $this->db->query($sql);
@@ -274,8 +270,8 @@ Class Fixture {
             if ($data['valid']) {
                 if (isset($club_id) && isset($fixture_id)) {
 
-                    $tablename = 'fixtures_' . Club::getClubName($club_id);
-                    $sql = "UPDATE `{$tablename}`
+                    $table_name = 'fixtures_' . Club::getClubName($club_id);
+                    $sql = "UPDATE `{$table_name}`
                             SET `home_team_id` = :home_team_id, `away_team_id` = :away_team_id, `league_id` = :league_id, `date` = :date, `time` = :time, `location_id` = :location_id, `meet_at` = :meet_at, `contact` = :contact, `other_information` = :other_information
                             WHERE id = :fixture_id";
 
@@ -344,8 +340,8 @@ Class Fixture {
 
             if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
-                $tablename = 'fixtures_' . Club::getClubName($club_id);
-                $sql = "DELETE FROM `{$tablename}`
+                $table_name = 'fixtures_' . Club::getClubName($club_id);
+                $sql = "DELETE FROM `{$table_name}`
                         WHERE id = :fixture_id";
 
                 $this->db->query($sql);

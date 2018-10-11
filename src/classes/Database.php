@@ -28,7 +28,7 @@ class Database {
 		try {
 			$this->dbh = new PDO ($dsn, $this->user, $this->pass, $options);
 		}		// Catch any errors
-		catch ( PDOException $e ) {
+		catch (PDOException $e ) {
 			$this->error = $e->getMessage();
 		}
 	}
@@ -60,7 +60,10 @@ class Database {
 	
 	// Execute the prepared statement
 	public function execute(){
-		return $this->stmt->execute();
+		$exec = $this->stmt->execute();
+		unset($stmt);
+		return $exec;
+		// return $this->stmt->execute();
 	}
 	
 	// Get result set as array of objects

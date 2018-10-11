@@ -4,24 +4,6 @@
         'social' => [
             'sections' => ['notices', 'events']
         ],
-        'rugby' => [
-            'sections' => ['notices', 'events', 'fixtures', 'results'],
-            'fixtures' => [
-                'fields' => [
-                    ['name' => 'home_team', 'type' => 'text', 'size' => 12, 'placeholder' => 'Enter Home Team'],
-                    ['name' => 'away_team', 'type' => 'text', 'size' => 12, 'placeholder' => 'Enter Away Team'],
-                    ['name' => 'date', 'type' => 'date', 'size' => 6],
-                    ['name' => 'time', 'type' => 'time', 'size' => 6],
-                    ['name' => 'player', 'type' => 'text', 'size' => 6, 'placeholder' => 'Player', 'count' => 15]
-                ]
-            ],
-            'results' => [
-                'fields' => [
-                    ['name' => 'home_team_score', 'type' => 'number', 'size' => 12, 'placeholder' => 'Enter Home Team Score'],
-                    ['name' => 'away_team_score', 'type' => 'number', 'size' => 12, 'placeholder' => 'Enter Away Team Score']
-                ]
-            ]
-        ],
         'bowls'  => [
             'sections' => ['notices', 'events', 'fixtures', 'results'],
             'fixtures' => [
@@ -49,6 +31,24 @@
                     ['name' => 'away_team_bonus_points', 'type' => 'number', 'size' => 12, 'placeholder' => 'Enter Away Team Bonus Points']
                 ]
             ],          
+        ],
+        'rugby' => [
+            'sections' => ['notices', 'events', 'fixtures', 'results'],
+            'fixtures' => [
+                'fields' => [
+                    ['name' => 'home_team', 'type' => 'text', 'size' => 12, 'placeholder' => 'Enter Home Team'],
+                    ['name' => 'away_team', 'type' => 'text', 'size' => 12, 'placeholder' => 'Enter Away Team'],
+                    ['name' => 'date', 'type' => 'date', 'size' => 6],
+                    ['name' => 'time', 'type' => 'time', 'size' => 6],
+                    ['name' => 'player', 'type' => 'text', 'size' => 6, 'placeholder' => 'Player', 'count' => 15]
+                ]
+            ],
+            'results' => [
+                'fields' => [
+                    ['name' => 'home_team_score', 'type' => 'number', 'size' => 12, 'placeholder' => 'Enter Home Team Score'],
+                    ['name' => 'away_team_score', 'type' => 'number', 'size' => 12, 'placeholder' => 'Enter Away Team Score']
+                ]
+            ]
         ],
         'football' => [
             'sections' => ['notices', 'events', 'fixtures', 'results'],
@@ -92,24 +92,6 @@
     //     'social' => [
     //         'sections' => ['notices', 'events']
     //     ],
-    //     'rugby' => [
-    //         'sections' => ['notices', 'events', 'fixtures', 'results'],
-    //         'fixtures' => [
-    //             'fields' => [
-    //                 ['name' => 'home_team', 'type' => 'text', 'size' => 12, 'placeholder' => 'Enter Home Team'],
-    //                 ['name' => 'away_team', 'type' => 'text', 'size' => 12, 'placeholder' => 'Enter Away Team'],
-    //                 ['name' => 'date', 'type' => 'date', 'size' => 6],
-    //                 ['name' => 'time', 'type' => 'time', 'size' => 6],
-    //                 ['name' => 'player', 'type' => 'text', 'size' => 6, 'placeholder' => 'Player', 'count' => 15]
-    //             ]
-    //         ],
-    //         'results' => [
-    //             'fields' => [
-    //                 ['name' => 'home_team_score', 'type' => 'number', 'size' => 12, 'placeholder' => 'Enter Home Team Score'],
-    //                 ['name' => 'away_team_score', 'type' => 'number', 'size' => 12, 'placeholder' => 'Enter Away Team Score']
-    //             ]
-    //         ]
-    //     ],
     //     'bowls'  => [
     //         'sections' => ['notices', 'events', 'fixtures', 'results'],
     //         'fixtures' => [
@@ -137,6 +119,24 @@
     //                 ['name' => 'away_team_bonus_points', 'type' => 'number', 'size' => 12, 'placeholder' => 'Enter Away Team Bonus Points']
     //             ]
     //         ],          
+    //     ],
+    //     'rugby' => [
+    //         'sections' => ['notices', 'events', 'fixtures', 'results'],
+    //         'fixtures' => [
+    //             'fields' => [
+    //                 ['name' => 'home_team', 'type' => 'text', 'size' => 12, 'placeholder' => 'Enter Home Team'],
+    //                 ['name' => 'away_team', 'type' => 'text', 'size' => 12, 'placeholder' => 'Enter Away Team'],
+    //                 ['name' => 'date', 'type' => 'date', 'size' => 6],
+    //                 ['name' => 'time', 'type' => 'time', 'size' => 6],
+    //                 ['name' => 'player', 'type' => 'text', 'size' => 6, 'placeholder' => 'Player', 'count' => 15]
+    //             ]
+    //         ],
+    //         'results' => [
+    //             'fields' => [
+    //                 ['name' => 'home_team_score', 'type' => 'number', 'size' => 12, 'placeholder' => 'Enter Home Team Score'],
+    //                 ['name' => 'away_team_score', 'type' => 'number', 'size' => 12, 'placeholder' => 'Enter Away Team Score']
+    //             ]
+    //         ]
     //     ],
     //     'football' => [
     //         'sections' => ['notices', 'events', 'fixtures', 'results'],

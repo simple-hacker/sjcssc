@@ -1,5 +1,8 @@
 <?php
 
+    // TODO:  I replace information with other_information
+    // TODO:  I'll need to change the input box name to other_information 
+
     require_once(APPROOT . "\\classes\\Venue.php");
 
 Class Event {
@@ -15,7 +18,7 @@ Class Event {
     public $location;
     public $meet_at;
     public $contact;
-    public $information;
+    public $other_information;
     
     public function __construct() {
         $this->db = new Database;
@@ -24,7 +27,7 @@ Class Event {
     private function getEvent($club_id, $event_id) {
         
         if (isset($event_id)) {
-            $sql = "SELECT `events`.`id`, `events`.`club_id`, `events`.`created_date`, `events`.`title`, `events`.`date`, `events`.`time`, `events`.`location_id`, `venues`.`venue` as `location`, `events`.`meet_at`, `events`.`contact`, `events`.`information`
+            $sql = "SELECT `events`.`id`, `events`.`club_id`, `events`.`created_date`, `events`.`title`, `events`.`date`, `events`.`time`, `events`.`location_id`, `venues`.`venue` as `location`, `events`.`meet_at`, `events`.`contact`, `events`.`other_information`
                     FROM `events`
                     LEFT JOIN `venues` ON `events`.`location_id`=`venues`.`id`
                     WHERE `events`.`club_id` = :club_id AND `events`.`id` = :id";
@@ -44,7 +47,7 @@ Class Event {
                 $this->location = $event->location;
                 $this->meet_at = $event->meet_at;
                 $this->contact = $event->contact;
-                $this->information = $event->information;
+                $this->other_information = $event->other_information;
             } else {
                 // Redirect to dashboard instead because the user tried changing the URL to edit a different club.
                 create_flash_message("dashboard", "Failed to retrieve the selected event.", "danger");
@@ -59,7 +62,7 @@ Class Event {
         if (isset($club_id)) {
             $db = new Database;
 
-            $sql = "SELECT `events`.`id`, `events`.`club_id`, `events`.`created_date`, `events`.`title`, `events`.`date`, `events`.`time`, `events`.`location_id`, `venues`.`venue` as `location`, `events`.`meet_at`, `events`.`contact`, `events`.`information`
+            $sql = "SELECT `events`.`id`, `events`.`club_id`, `events`.`created_date`, `events`.`title`, `events`.`date`, `events`.`time`, `events`.`location_id`, `venues`.`venue` as `location`, `events`.`meet_at`, `events`.`contact`, `events`.`other_information`
                     FROM `events`
                     LEFT JOIN `venues` ON `events`.`location_id`=`venues`.`id`
                     WHERE `events`.`club_id` = :club_id AND `date` >= DATE(NOW())
@@ -96,7 +99,7 @@ Class Event {
                 'location_id' => $_POST['location'],
                 'meet_at' => $_POST['meet_at'],
                 'contact' => $_POST['contact'],
-                'information' => $_POST['information'],
+                'other_information' => $_POST['other_information'],
                 'title_err' => '',
                 'date_err' => '',
                 'location_err' => '',
@@ -111,8 +114,8 @@ Class Event {
             }
             
             if ($data['valid']) {
-                $sql = "INSERT INTO `events` (club_id, title, date, time, location_id, meet_at, contact, information)
-                VALUES (:club_id, :title, :date, :time, :location_id, :meet_at, :contact, :information)";
+                $sql = "INSERT INTO `events` (club_id, title, date, time, location_id, meet_at, contact, other_information)
+                VALUES (:club_id, :title, :date, :time, :location_id, :meet_at, :contact, :other_information)";
                 $this->db->query($sql);
                 $this->db->bind(':club_id', $club_id);
                 $this->db->bind(':title', $data['title']);
@@ -121,7 +124,7 @@ Class Event {
                 $this->db->bind(':location_id', $data['location_id']);
                 $this->db->bind(':meet_at', $data['meet_at']);
                 $this->db->bind(':contact', $data['contact']);
-                $this->db->bind(':information', $data['information']);
+                $this->db->bind(':other_information', $data['other_information']);
 
                 if($this->db->execute()){
                     create_flash_message(strtolower(__CLASS__), "Successfully added the event <b>{$data['title']}</b>.");
@@ -152,7 +155,7 @@ Class Event {
                 'location' => $event->location,
                 'meet_at' => $event->meet_at,
                 'contact' => $event->contact,
-                'information' => $event->information,
+                'other_information' => $event->other_information,
                 'title_err' => '',
                 'date_err' => '',
                 'location_err' => '',
@@ -174,7 +177,7 @@ Class Event {
 
                 if ($data['valid']) {
 
-                    $sql = "UPDATE`events` SET `title` = :title, `date` = :date, `time` = :time, `location_id` = :location_id, `meet_at` = :meet_at, `contact` = :contact, `information` = :information
+                    $sql = "UPDATE`events` SET `title` = :title, `date` = :date, `time` = :time, `location_id` = :location_id, `meet_at` = :meet_at, `contact` = :contact, `other_information` = :other_information
                             WHERE `id` = :event_id AND `club_id` = :club_id";
                     $this->db->query($sql);
                     $this->db->bind(':event_id', $event_id);
@@ -185,7 +188,7 @@ Class Event {
                     $this->db->bind(':location_id', $_POST['location']);
                     $this->db->bind(':meet_at', $_POST['meet_at']);
                     $this->db->bind(':contact', $_POST['contact']);
-                    $this->db->bind(':information', $_POST['information']);
+                    $this->db->bind(':other_information', $_POST['other_information']);
                     
                     $data = [
                         'title' => $_POST['title'],
@@ -195,7 +198,7 @@ Class Event {
                         'location' => Venue::getVenue($_POST['location']),
                         'meet_at' => $_POST['meet_at'],
                         'contact' => $_POST['contact'],
-                        'information' => $_POST['information'],
+                        'other_information' => $_POST['other_information'],
                         'title_err' => '',
                         'date_err' => '',
                         'location_err' => '',
@@ -234,7 +237,7 @@ Class Event {
                 'location' => $event->location,
                 'meet_at' => $event->meet_at,
                 'contact' => $event->contact,
-                'information' => $event->information,
+                'other_information' => $event->other_information,
                 'title_err' => '',
                 'date_err' => '',
                 'location_err' => '',
