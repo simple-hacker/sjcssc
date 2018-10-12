@@ -1,7 +1,7 @@
 <p>NAVBAR</p>
 
 <?php
-    foreach ($GLOBALS['clubs_config'][$club->club]['sections'] as $section) {
+    foreach (CLUBS[$club->club]['sections'] as $section) {
         echo "<a href=\"" . URLROOT . $club->club . "\\" . $section . "\">" . ucwords($section) . "</a>";
         echo "-------";
     }

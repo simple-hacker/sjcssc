@@ -35,13 +35,13 @@
         $url = explode('/', $url);
 
         // If club exists in club_config then set clubLoad
-        if (array_key_exists($url[0], $GLOBALS['clubs_config'])) {
+        if (array_key_exists($url[0], CLUBS)) {
         // if (array_key_exists($url[0], CLUBS)) {
             $clubLoad = $url[0];
             unset($url[0]);
 
             // If the second parameter is a valid page of the club given then set pageLoad
-            if (isset($url[1]) && in_array($url[1], $GLOBALS['clubs_config'][$clubLoad]['sections'])) {
+            if (isset($url[1]) && in_array($url[1], CLUBS[$clubLoad]['sections'])) {
             // if (isset($url[1]) && in_array($url[1], CLUBS[$clubLoad]['sections'])) {    
                 $pageLoad = $url[1];
                 unset($url[1]);

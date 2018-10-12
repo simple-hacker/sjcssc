@@ -7,8 +7,8 @@
 
 <?php
     // Just double check club name is in clubs_cfg
-    if (array_key_exists($club->club, $GLOBALS['clubs_config'])) {
-        foreach ($GLOBALS['clubs_config'][$club->club]['sections'] as $section) {
+    if (array_key_exists($club->club, CLUBS)) {
+        foreach (CLUBS[$club->club]['sections'] as $section) {
             // Check to see if file exists first, to see if it's been accidentally deleted.
             if (file_exists(PUBLIC_VIEWS . 'sections\\' . strtolower($section) . '.php')) {
                 require_once(PUBLIC_VIEWS . 'sections\\' . strtolower($section) . '.php');
