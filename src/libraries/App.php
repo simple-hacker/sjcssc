@@ -10,55 +10,153 @@
     //
     // Admin    http://www.stjosephscssc.co.uk/admin/CLUB/PAGE/MODE/ID
     // e.g.     http://www.stjosephscssc.co.uk/admin/bowls/fixtures/edit/3
-    
-    // TODO:    Need to work out how to load User controllers etc.
-    //          /admin/user
-    //          /admin/settings
+
 
     class App {
 
         public function __construct() {
-            print_var($_GET);
 
-            if (isset($_GET['club']) && array_key_exists($_GET['club'], CLUBS)) {
-                $club = new Club($_GET['club']);
-            }
-            else {
-                // TODO: Delete line below and add redirect with error message.
-                // Maybe Top Banner which disappears?
-                $club = new Club('social');  // Else load default Social club.
-            }
+            // Sort out non admin side first.
+            if (!isset($_GET['admin'])) {
 
-            if (isset($_GET['page'])) {
-                // Lots of ucwords and strtolower in case users enter mixes of upper and lower cases in URL
-                $controller = ucwords(strtolower(trim($_GET['page'])));
-                // If a invalid controller is provided, i.e. not in Sections, then rever controller to Home.
-                // Convert back to lowercase as sections are all in lwoer case.
-                if (!in_array(strtolower($controller), CLUBS[$club->club]['sections'])) {
+                // CLUB
+                // =====================================================
+                // Get club from URL and load data.
+                // strtolower in case user enters mix of case.
+                if (isset($_GET['club'])) {
+                    // If club is given, then see if it's a valid club
+                    $club_name = strtolower($_GET['club']);
+                    array_key_exists($club_name, CLUBS) ? $club = new Club($club_name) : redirect('404.html');
+                } else {
+                    // Default club is social
+                    $club = new Club('social');
+                }
+
+                // CONTROLLER
+                // =====================================================        
+                // If Controller is set, make sure it is a valid club section or admin controller.
+                if (isset($_GET['controller'])) {
+                    // Set controller to given in URL.
+                    $controller = ucwords(strtolower($_GET['controller']));
+                    // If $controller provided is not in club sections then an invalid controller was provided, so redirect.
+                    if (!in_array(strtolower($controller), CLUBS[$club->club]['sections'])) {
+                        redirect('404.html');
+                    }
+                } else {
+                    // Default Controller is Home.
                     $controller = 'Home';
                 }
-            }
-            else {
-                // TODO: Redirect as invalid page.
-                // Redirect to $club->club
-                $controller = 'Home';
+
+                // ID
+                // =====================================================
+                // Page is always index in the public area, because we are editting or deleting.
+                $page = 'index';
+
+            } 
+            // Work through admin URLS.
+            else {    
+                // CLUB
+                // =====================================================
+                // Get club from URL and load data.
+                // strtolower in case user enters mix of case.
+
+                // admin/User gives a club that is actually a controller.
+                // admin/bowls should give a club as bowls, which is correct.
+                if (isset($_GET['club'])) {
+                    // If club is given, then see if it's a valid club
+                    $club_name = strtolower($_GET['club']);
+
+                    // Check if it's an actual club first.
+                    if (array_key_exists($club_name, CLUBS)) {
+                        // Check if it's an actual club first.
+                        $club = new Club($club_name);
+                    } elseif (in_array($club_name, CONTROLLERS)) {
+                        // If not a club, check if it's an admin controller.
+                        // This is only for User/Users/Settings etc
+                        $controller = ucwords($club_name);
+                        // Note, no $club is set at this condition.
+                    } else {
+                        // Incorrect URL, so redirect.
+                        redirect('404.html');
+                    }
+                }
+
+                // CONTROLLER
+                // =====================================================        
+                // If Controller is set, make sure it is a valid club section or admin controller.
+                if (isset($_GET['controller'])) {
+                    // Set controller to given in URL.
+                    $controller = ucwords(strtolower($_GET['controller']));
+                    if (isset($club)) {
+                        // Check in Controller in both club SECTIONS and admin CONTROLLERS
+                        if (!in_array(strtolower($controller), CLUBS[$club->club]['sections']) && !in_array(strtolower($controller), CONTROLLERS)) {
+                            redirect('404.html');
+                        }
+                    }
+                    else {
+                        // Club not provided, only check in CONTROLLERS
+                        if (!in_array(strtolower($controller), CONTROLLERS)) {
+                            redirect('404.html');
+                        }
+                    }
+                } else {
+                    // Default Controller is Home.
+                    $controller = 'Home';
+                }
+
+                // PAGE (i.e. edit/delete etc)
+                // =====================================================
+                $pages = ['index', 'add', 'edit', 'delete', 'view', 'show', 'login'];
+                if (isset($_GET['page'])) {
+                    $page = strtolower($_GET['page']);
+                    // If $page provided is not a valid mode, such as add, delete etc, then redirect as invalid URL.
+                    if (!in_array($page, $pages)) {
+                        redirect('404.html');
+                    }
+                } else {
+                    $page = 'index';
+                }
             }
 
-            // TODO: Need to edit .htaccess to make add/edit/delete/view case INSENSITIVE
-            if (isset($_GET['mode'])) {
-                $mode = $_GET['mode'];
-            } else {
-                $mode = 'index';
-            }
 
-            // Get id if provided, else empty array.
+            // ID - This doesn't need any special checks so is outside the if admin statement.
+            // =====================================================
+            // Get id if provided, else NULL.
             // In controller method that pass id, need to check if id is empty or has value.
             if (isset($_GET['id'])) {
-                $id = $_GET['id'];
+                $id = (int)$_GET['id'];
             } else {
                 $id = NULL;
             }
 
+
+            // TODO: Delete these testing comments.
+            // if (isset($_GET['admin'])) {
+            //     echo "Admin is <strong>provided</strong><br>";
+            // } else {
+            //     echo "Admin is not provided<br>";
+            // }
+
+            // if (isset($club)) {
+            //     echo "Club provided is <strong>" . $club->club . "</strong><br>";
+            // } else {
+            //     echo "No Club provided<br>";
+            // }
+
+            // echo "Controller is <strong>" . $controller . "</strong><br>";
+            // echo "Page is <strong>" . $page . "</strong><br>";
+
+            // if (isset($id)) {
+            //     echo "Id is <strong>" . $id . "</strong><br>";
+            // } else {
+            //     echo "No id.<br>";
+            // }
+
+
+            // APP
+            // =====================================================
+
+            // Check to see if the Controller file exists.
             if (file_exists('../src/controllers/' . $controller . '.php')) {
                 // Open up controller file and instantiate.
                 // We can set default functions to run in the __construct function, such as any redirects if not logged in etc.
@@ -73,14 +171,19 @@
             // Each function is essentially it's own page.
             // They gather the data needed from the model and then loads the relevant view.
             // First check if the function exists in the controller.
-            if (method_exists($controller, $mode)) {
+            if (method_exists($controller, $page)) {
                 // Call the function within controller, passing $id as the only parameter.
                 // Need to pass club_id with it so we know which page we're dealing with.
-                call_user_func_array([$controller, $mode], [$club->id, $id]);
+                if (isset($club)) {
+                    // If $club was set, then send club_id along with item id.
+                    call_user_func_array([$controller, $page], [$club->id, $id]);
+                } else {
+                    // Else it's only /admin/users CONTROLLERS which doesn't need a club.
+                    call_user_func([$controller, $page], $id);
+                }
             } else {
-                die('<strong>Fatal Error:</strong> Method <em>' . $mode . '</em> does not exist within <em>' . get_class($controller) . '</em>');
+                die('<strong>Fatal Error:</strong> Method <em>' . $page . '</em> does not exist within <em>' . get_class($controller) . '</em>');
             }
-
 
 
 

@@ -1,13 +1,13 @@
 <?php
 
-    class Home extends Controller {
+    class Settings extends Controller {
 
         public function __construct() {
-            
+
         }
 
         public function index() {
-            $this->view('home/index');
+            
         }
 
     }

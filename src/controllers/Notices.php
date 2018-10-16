@@ -17,7 +17,8 @@
                 ];
             } else if (isset($club_id)) {
                 // We're on index, so retrieve all Notices.
-                $notices = $this->noticeModel->getNotices($club_id);
+                // Default is 4 notices.  If left blank then all notices are returned.
+                $notices = $this->noticeModel->getNotices($club_id, 4);
 
                 $data = [
                     'notices' => $notices

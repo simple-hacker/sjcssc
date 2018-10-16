@@ -7,7 +7,7 @@
         require_once '../src/models/' . $model . '.php';
         return new $model();
       } else {
-        die('<strong>Fatal Error:</strong> Model . ' . $model .' does not exist');
+        die('<strong>Fatal Error:</strong> Model <em>' . $model .'</em> does not exist');
       }
     }
 
