@@ -11,7 +11,7 @@
             $this->club_id = $club_id;
 
             if ($this->admin === true) {
-                permissionCheck($this->club_id);
+                permissionCheckRedirect($this->club_id);
             }
             // Load all models needed.
             $this->resultModel = $this->model('Settings');

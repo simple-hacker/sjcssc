@@ -7,7 +7,7 @@
             $this->admin = $admin;
 
             if ($this->admin === true) {
-                adminCheck();  // Admin check because only admins can see this page.
+                adminCheckRedirect();  // Admin check because only admins can see this page.
             }
             $this->userModel = $this->model('UserModel');
         }

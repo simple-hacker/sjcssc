@@ -45,9 +45,21 @@
                 'username' => $user->username,
                 'name' => $user->name,
                 'email' => $user->email,
-                'permissions' => explode(',', $user->permissions),
+                'permissions' => $this->getClubPermissions($user->permissions),
                 'admin' => boolval($user->admin)
             ];
+        }
+
+        private function getClubPermissions($permissions) {
+
+            // If permissions is an empty string, -1 to return an empty array, else explode as normal.
+            $permissions_array = (empty($permissions)) ? explode(',', $permissions, -1) : explode(',', $permissions);
+            $club_permissions = []; // Blank array to start off with.
+
+            foreach ($permissions_array as $club_id) {
+                $club_permissions[$club_id] = Club::getClubName($club_id);
+            }
+            return $club_permissions;
         }
 
         public function logout() {

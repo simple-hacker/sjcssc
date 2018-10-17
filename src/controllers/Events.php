@@ -9,7 +9,7 @@
             $this->club_id = $club_id;
 
             if ($this->admin === true) {
-                permissionCheck($this->club_id);
+                permissionCheckRedirect($this->club_id);
             }
             // Load all models needed.
             $this->eventModel = $this->model('Event');
@@ -17,28 +17,28 @@
 
         public function index($event_id) {
             $data = [
-
+                'club_id' => $this->club_id
             ];
             $this->view('events/index', $data);
         }
 
         public function add() {
             $data = [
-                
+                'club_id' => $this->club_id
             ];
             $this->view('events/add', $data);
         }
 
         public function edit($event_id) {
             $data = [
-                
+                'club_id' => $this->club_id
             ];
              $this->view('events/edit', $data);
         }
 
         public function delete($event_id) {
             $data = [
-                
+                'club_id' => $this->club_id
             ];
             $this->view('events/delete', $data);
         }

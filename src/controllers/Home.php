@@ -9,13 +9,18 @@
             $this->club_id = $club_id;
 
             if ($this->admin === true) {
-                permissionCheck($this->club_id);
+                permissionCheckRedirect($this->club_id);
             }
             // Load all models needed.
         }
 
         public function index() {
-            $this->view('home/index');
+
+            $data = [
+                'club_id' => $this->club_id
+            ];
+
+            $this->view('home/index', $data);
         }
 
     }

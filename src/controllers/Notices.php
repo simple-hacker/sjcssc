@@ -9,7 +9,7 @@
             $this->club_id = $club_id;
 
             if ($this->admin === true) {
-                permissionCheck($this->club_id);
+                permissionCheckRedirect($this->club_id);
             }
             // Load all models needed.
             $this->noticeModel = $this->model('Notice');
@@ -22,6 +22,7 @@
                 $notice = $this->noticeModel->getNotice($this->club_id,$notice_id);
 
                 $data = [
+                    'club_id' => $this->club_id,
                     'notice' => $notice
                 ];
             } else {
@@ -30,6 +31,7 @@
                 $notices = $this->noticeModel->getNotices($this->club_id, 4);
 
                 $data = [
+                    'club_id' => $this->club_id,
                     'notices' => $notices
                 ];
             }
@@ -39,7 +41,7 @@
 
         public function add() {
             $data = [
-
+                'club_id' => $this->club_id
             ];
             $this->view('notices/add', $data);
         }
@@ -51,6 +53,7 @@
                 $notice = $this->noticeModel->getNotice($this->club_id,$notice_id);
 
                 $data = [
+                    'club_id' => $this->club_id,
                     'notice' => $notice
                 ];
             } else {
@@ -62,7 +65,7 @@
 
         public function delete($notice_id) {
             $data = [
-
+                'club_id' => $this->club_id
             ];
             $this->view('notices/delete', $data);
         }

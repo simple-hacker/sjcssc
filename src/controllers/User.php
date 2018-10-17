@@ -11,7 +11,7 @@
 
         public function index() {
             
-            loggedInCheck();  // Check log in first.  This isn't in __construct because it creates an infinite loop.
+            loggedInCheckRedirect();  // Check log in first.  This isn't in __construct because it creates an infinite loop.
 
             // This will load the page full of settings.
             // Email change, password change.
