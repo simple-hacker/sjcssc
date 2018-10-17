@@ -1,4 +1,4 @@
-I AM EDITING A NOTICE
+EDIT NOTICE
 
 <?php
     print_var($data);

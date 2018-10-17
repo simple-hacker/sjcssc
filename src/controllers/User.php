@@ -2,11 +2,17 @@
 
     class User extends Controller {
 
-        public function __construct() {
+        private $admin;
+
+        public function __construct($admin = true) {
+            $this->admin = $admin;
             $this->userModel = $this->model('UserModel');
         }
 
         public function index() {
+            
+            loggedInCheck();  // Check log in first.  This isn't in __construct because it creates an infinite loop.
+
             // This will load the page full of settings.
             // Email change, password change.
             // If POST data then resave all data.
@@ -21,13 +27,7 @@
             // Redirect to first CLUB/dashboard of the first permission.
             // If no permissions are provided, then redirect to user/index instead.
             if (isset($_SESSION['user'])) {
-                // If user has at least one permission.
-                if (sizeof($_SESSION['user']['permissions']) > 0) {
-                    $club_name = Club::getClubName($_SESSION['user']['permissions'][0]); // Get the club name of the first permission available.
-                    redirect($club_name . '/dashboard', true); // i.e. bowls/dashboard
-                } else {
-                    redirect('user', true); // user/index
-                }
+                permissionRedirect();
             }
 
             if ($_SERVER['REQUEST_METHOD'] === "POST") {

@@ -13,7 +13,8 @@
     ### TODO: remove .html from 404.html
 
     # Special Rules because these pages have no club, so controllers->club, page->controllers etc.
-    RewriteRule ^admin/?$ index.php?admin=true&controller=user [L,QSA]
+    RewriteRule ^admin/?$ index.php?admin=true&controller=user&page=login [L,QSA]
+    RewriteRule ^admin/user/settings?$ index.php?admin=true&controller=user&page=index [L,QSA]
     RewriteRule ^admin/(user|users|settings)/?$ index.php?admin=true&controller=$1 [L,QSA]
     RewriteRule ^admin/(user|users|settings)/([a-zA-Z]+)/?$ index.php?admin=true&controller=$1&page=$2 [L,QSA]
     RewriteRule ^admin/(user|users|settings)/([a-zA-Z]+)/([0-9]+)/?$ index.php?admin=true&controller=$1&page=$2&id=$3 [L,QSA]
@@ -21,13 +22,10 @@
 
     # This will be given club and default page i.e. social/index or bowls/index
     RewriteRule ^admin/([a-zA-Z]+)/?$ index.php?admin=true&club=$1 [L,QSA]
-
     # This will be given club and given page
     RewriteRule ^admin/([a-zA-Z]+)/([a-zA-Z]+)/?$ index.php?admin=true&club=$1&controller=$2 [L,QSA]
-
     # This will be given club and given page and add mode (Doesn't have id)
     RewriteRule ^admin/([a-zA-Z]+)/([a-zA-Z]+)/add/?$ index.php?admin=true&club=$1&controller=$2&page=add [L,QSA]
-
     # This will be given club and given page and given mode and id
     RewriteRule ^admin/([a-zA-Z]+)/([a-zA-Z]+)/([a-zA-Z]+)/([0-9]+)/?$ index.php?admin=true&club=$1&controller=$2&page=$3&id=$4 [L,QSA]
     
@@ -36,13 +34,10 @@
 
     # This will be given club and default page i.e. social/index or bowls/index
     RewriteRule ^([a-zA-Z]+)/?$ index.php?club=$1 [L,QSA]
-
     # This will be given club and given page
     RewriteRule ^([a-zA-Z]+)/([a-zA-Z]+)/?$ index.php?club=$1&controller=$2 [L,QSA]
-
     # This will be given club and given page and given id
     RewriteRule ^([a-zA-Z]+)/([a-zA-Z]+)/([0-9]+)/?$ index.php?club=$1&controller=$2&id=$3 [L,QSA]
-
     ### If all else fails
     #RewriteRule ^(.*)$ 404.html [R=301,L]
 

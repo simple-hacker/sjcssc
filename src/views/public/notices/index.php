@@ -1,4 +1,4 @@
-<strong><em>I am in the public notices</em></strong>
+<strong><em>PUBLIC NOTICES</em></strong>
 
 <?php
     print_var($data);

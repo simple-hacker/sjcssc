@@ -8,7 +8,7 @@
     // Public   http://www.stjosephscssc.co.uk/CLUB/PAGE/ID
     // e.g.     http://www.stjosephscssc.co.uk/social/events/8
     //
-    // Admin    http://www.stjosephscssc.co.uk/admin/CLUB/PAGE/MODE/ID
+    // Admin    http://www.stjosephscssc.co.uk/admin/CLUB/CONTROLLER/PAGE/ID
     // e.g.     http://www.stjosephscssc.co.uk/admin/bowls/fixtures/edit/3
 
 
@@ -119,7 +119,7 @@
             }
 
 
-            // ID - This doesn't need any special checks so is outside the if admin statement.
+            // ID - This doesn't need any special admin checks so is outside the if admin statement.
             // =====================================================
             // Get id if provided, else NULL.
             // In controller method that pass id, need to check if id is empty or has value.
@@ -130,39 +130,25 @@
             }
 
 
-            // TODO: Delete these testing comments.
-            // if (isset($_GET['admin'])) {
-            //     echo "Admin is <strong>provided</strong><br>";
-            // } else {
-            //     echo "Admin is not provided<br>";
-            // }
-
-            // if (isset($club)) {
-            //     echo "Club provided is <strong>" . $club->club . "</strong><br>";
-            // } else {
-            //     echo "No Club provided<br>";
-            // }
-
-            // echo "Controller is <strong>" . $controller . "</strong><br>";
-            // echo "Page is <strong>" . $page . "</strong><br>";
-
-            // if (isset($id)) {
-            //     echo "Id is <strong>" . $id . "</strong><br>";
-            // } else {
-            //     echo "No id.<br>";
-            // }
-
-
             // APP
             // =====================================================
-
             // Check to see if the Controller file exists.
             if (file_exists('../src/controllers/' . $controller . '.php')) {
                 // Open up controller file and instantiate.
                 // We can set default functions to run in the __construct function, such as any redirects if not logged in etc.
                 // We also load the models in the __construct function so that we can load data from the models.
                 require_once('../src/controllers/' . $controller . '.php');
-                $controller = new $controller;
+                // Need to provide whether admin or not in each Controller's __construct function.
+                // This is so that we can perform logged in and permission checks before loading the model.
+                // If $admin === false then we still need to be able to load the model as we're in the public section.
+                $admin = (isset($_GET['admin'])) ? true : false;
+                if (isset($club)) {
+                    // If $club was set, then send club_id along with item id.
+                    $controller = new $controller($admin, $club->id);
+                } else {
+                    // Else it's only /admin/users CONTROLLERS which doesn't need a club.
+                    $controller = new $controller($admin);
+                }
             } else {
                 die('<strong>Fatal Error:</strong> Controller' . $controller . ' does not exist');
             }
@@ -173,19 +159,9 @@
             // First check if the function exists in the controller.
             if (method_exists($controller, $page)) {
                 // Call the function within controller, passing $id as the only parameter.
-                // Need to pass club_id with it so we know which page we're dealing with.
-                if (isset($club)) {
-                    // If $club was set, then send club_id along with item id.
-                    call_user_func_array([$controller, $page], [$club->id, $id]);
-                } else {
-                    // Else it's only /admin/users CONTROLLERS which doesn't need a club.
-                    call_user_func([$controller, $page], $id);
-                }
+                call_user_func([$controller, $page], $id);
             } else {
                 die('<strong>Fatal Error:</strong> Method <em>' . $page . '</em> does not exist within <em>' . get_class($controller) . '</em>');
             }
-
-
-
         }
     }

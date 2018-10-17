@@ -3,6 +3,9 @@
   class Controller {
 
     public function model($model){
+
+      $model = ucwords(strtolower($model)); // Convert to camelcase in case I make a mistake in each Controller.
+
       if(file_exists('../src/models/' . $model . '.php')){
         require_once '../src/models/' . $model . '.php';
         return new $model();
@@ -12,6 +15,9 @@
     }
 
     public function view($page, $data = []){
+      
+      $page = strtolower($page); // Make sure $page is lowercase in case I make a mistake in each Controller.
+
       if (isset($_GET['admin'])) {
         //First check is /admin/ was provided in URL.  If so convert to boolean.
         $admin = settype($_GET['admin'], "bool");
