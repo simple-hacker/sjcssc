@@ -56,6 +56,15 @@ Class Club {
         $db->bind(':id', $club_id);
         $result = $db->result();
         return strtolower($result->club);
+    }
+
+    public static function getClubID($club_name) {
+        $db = new Database;
+        $sql = "SELECT `id` FROM `clubs` WHERE `club`= :club_name";
+        $db->query($sql);
+        $db->bind(':club_name', $club_name);
+        $result = $db->result();
+        return $result->id;
     } 
 
 }
