@@ -12,9 +12,40 @@
     <form action="<?php echo ADMIN_URLROOT . $data['club_name'] . '/settings/venues'; ?>" method="POST">
 
         <h2>Add Venue</h2>
-            <input type="hidden" name="venue_id[]" value=""/>
-            <input type="text" name="venue[]" value="" placeholder="Add Venue"/>
-            <input type="text" name="venue_location[]" value="" placeholder="Add Venue Location"/>
+        <table>
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Venue</th>
+                    <th>Location</th>
+                <tr>
+            </thead>
+            <tbody>
+<?php
+    if (isset($data['venues'])) {
+        foreach ($data['venues'] as $i => $venue) {
+            if (empty($venue->id)) {
+?>
+                <tr>
+                    <td><input type="hidden" name="venue_id[]" value="<?php echo (!empty($venue->id)) ? $venue->id : ''; ?>"/></td>
+                    <td><input type="text" name="venue[]" value="<?php echo (!empty($venue->venue)) ? $venue->venue : ''; ?>" placeholder="Add Venue"/></td>
+                    <td><input type="text" name="venue_location[]" value="<?php echo (!empty($venue->location)) ? $venue->location : ''; ?>" placeholder="Add Venue Location"/></td>
+                </tr>
+<?php
+                if (isset($data['venues_err'][$i])) {
+                    echo '<tr><td></td><td>' . $data['venues_err'][$i] . '</td></tr>';
+                }
+            }
+        }
+    }
+?>
+                <tr>
+                    <td><input type="hidden" name="venue_id[]" value=""/></td>
+                    <td><input type="text" name="venue[]" value="" placeholder="Add Venue"/></td>
+                    <td><input type="text" name="venue_location[]" value="" placeholder="Add Venue Location"/></td>
+                </tr>
+            </tbody>
+        </table>
         
         <h2>Edit Venues</h2>
 
@@ -31,16 +62,18 @@
 <?php
     if (isset($data['venues'])) {
         foreach ($data['venues'] as $i => $venue) {
+            if (!empty($venue->id)) {
 ?>
-            <tr>
-                <td><input type="hidden" name="venue_id[]" value="<?php echo (!empty($venue->id)) ? $venue->id : ''; ?>"/></td>
-                <td><input type="text" name="venue[]" value="<?php echo (!empty($venue->venue)) ? $venue->venue : ''; ?>" placeholder="Add Venue"/></td>
-                <td><input type="text" name="venue_location[]" value="<?php echo (!empty($venue->location)) ? $venue->location : ''; ?>" placeholder="Add Venue Location"/></td>
-                <td><?php echo !empty($venue->id) ? 'Remove?' : ''; ?></td>
-            </tr>
+                <tr>
+                    <td><input type="hidden" name="venue_id[]" value="<?php echo (!empty($venue->id)) ? $venue->id : ''; ?>"/></td>
+                    <td><input type="text" name="venue[]" value="<?php echo (!empty($venue->venue)) ? $venue->venue : ''; ?>" placeholder="Add Venue"/></td>
+                    <td><input type="text" name="venue_location[]" value="<?php echo (!empty($venue->location)) ? $venue->location : ''; ?>" placeholder="Add Venue Location"/></td>
+                    <td><?php echo !empty($venue->id) ? 'Remove?' : ''; ?></td>
+                </tr>
 <?php
-            if (isset($data['venues_err'][$i])) {
-                echo '<tr><td></td><td>' . $data['venues_err'][$i] . '</td></tr>';
+                if (isset($data['venues_with_id_err'][$venue->id])) {
+                    echo '<tr><td></td><td>' . $data['venues_with_id_err'][$venue->id] . '</td></tr>';
+                }
             }
         }
     }

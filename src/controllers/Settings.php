@@ -208,8 +208,14 @@
                 foreach ($_POST['team'] as $i => $team) {
                     if (empty($team) && !empty($_POST['team_location'][$i])) {
                         // If user enters location without a team name, then team name error.
-                        $teams_err[$i] = 'Please make sure you enter the team name.';
+                        if (empty($_POST['team_id'][$i])) {
+                            $teams_err[] = 'Please make sure you enter the team name.';
+                        } else {
+                            // Else put it error with id array.
+                            $teams_with_id_err[$_POST['team_id'][$i]] = 'Please make sure you enter the team name.';
+                        }
                     }
+                    
                     // Add all POST data to teams array as long as at least one data is not empty.
                     if (!empty($_POST['team_id'][$i]) || !empty($team) || !empty($_POST['team_location'][$i])) {
                         $teams[] = (object) ['id' => $_POST['team_id'][$i], 'club_id' => $this->club_id, 'team' => $team, 'location' => $_POST['team_location'][$i]];
@@ -221,10 +227,11 @@
                     'club_name' => $this->club_name,
                     'teams' => isset($teams) ? $teams : [],
                     'teams_err' => isset($teams_err) ? $teams_err : [],
+                    'teams_with_id_err' => isset($teams_with_id_err) ? $teams_with_id_err : [],
                 ];
 
                 // If no errors exist then proceed with saving all data.
-                if (!isset($teams_err)) {
+                if (!isset($teams_err) && !isset($teams_with_id_err)) {
                     // Save all data.
                     if ($this->clubModel->updateTeams($this->club_id, $data['teams'])) {
                         create_flash_message('settings', 'Successfully saved club teams.');
@@ -252,7 +259,12 @@
                 foreach ($_POST['league'] as $i => $league) {
                     if (empty($league) && (!empty($_POST['league_full'][$i]) || !empty($_POST['league_website'][$i]))) {
                         // If user enters league_full or league_website without a league, then league error.
-                        $leagues_err[$i] = 'Please make sure you enter the league.';
+                        if (empty($_POST['league_id'][$i])) {
+                            $leagues_err[] = 'Please make sure you enter the league.';
+                        } else {
+                            // Else put it error with id array.
+                            $leagues_with_id_err[$_POST['league_id'][$i]] = 'Please make sure you enter the league.';
+                        }
                     }
                     // Add all POST data to teams array as long as at least one data is not empty.
                     if (!empty($_POST['league_id'][$i]) || !empty($league) || !empty($_POST['league_full'][$i]) || !empty($_POST['league_website'][$i])) {
@@ -265,10 +277,11 @@
                     'club_name' => $this->club_name,
                     'leagues' => isset($leagues) ? $leagues : [],
                     'leagues_err' => isset($leagues_err) ? $leagues_err : [],
+                    'leagues_with_id_err' => isset($leagues_with_id_err) ? $leagues_with_id_err : [],
                 ];
 
                 // If no errors exist then proceed with saving all data.
-                if (!isset($leagues_err)) {
+                if (!isset($leagues_err) && !isset($leagues_with_id_err)) {
                     // Save all data.
                     if ($this->clubModel->updateLeagues($this->club_id, $data['leagues'])) {
                         create_flash_message('settings', 'Successfully saved club leagues.');
@@ -296,7 +309,12 @@
                 foreach ($_POST['venue'] as $i => $venue) {
                     if (empty($venue) && !empty($_POST['venue_location'][$i])) {
                         // If user enters location without a venue name, then venue name error.
-                        $venues_err[$i] = 'Please make sure you enter the venue name.';
+                        if (empty($_POST['venue_id'][$i])) {
+                            $venues_err[] = 'Please make sure you enter the venue name.';
+                        } else {
+                            // Else put it error with id array.
+                            $venues_with_id_err[$_POST['venue_id'][$i]] = 'Please make sure you enter the venue\'s name.';
+                        }
                     }
                     // Add all POST data to venues array as long as at least one data is not empty.
                     if (!empty($_POST['venue_id'][$i]) || !empty($venue) || !empty($_POST['venue_location'][$i])) {
@@ -309,10 +327,11 @@
                     'club_name' => $this->club_name,
                     'venues' => isset($venues) ? $venues : [],
                     'venues_err' => isset($venues_err) ? $venues_err : [],
+                    'venues_with_id_err' => isset($venues_with_id_err) ? $venues_with_id_err : [],
                 ];
 
                 // If no errors exist then proceed with saving all data.
-                if (!isset($venues_err)) {
+                if (!isset($venues_err) && !isset($venues_with_id_err)) {
                     // Save all data.
                     if ($this->clubModel->updateVenues($this->club_id, $data['venues'])) {
                         create_flash_message('settings', 'Successfully saved club venues.');
@@ -349,10 +368,8 @@
                         } else {
                             // Else put it error with id array.
                             $people_with_id_err[$_POST['people_id'][$i]] = 'Please make sure you enter the person\'s name.';
-                        }
-                        
+                        }   
                     }
-
                     // Add all POST data to venues array as long as at least one data is not empty.
                     if (!empty($_POST['people_id'][$i]) || !empty($person) || !empty($_POST['people_email'][$i])) {
                     // if (!empty($_POST['people_id'][$i]) || !empty($people) || !empty($_POST['people_email'][$i])) {

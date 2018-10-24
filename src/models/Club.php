@@ -277,7 +277,7 @@ Class Club {
                 $sql = "INSERT INTO `venues` (`club_id`, `venue`, `location`) VALUES (:club_id, :venue, :location)";
                 $this->db->query($sql);
                 $this->db->bind(':club_id', $club_id);
-                $this->db->bind(':venue', $venue->title);
+                $this->db->bind(':venue', $venue->venue);
                 $this->db->bind(':location', $venue->location);
                 if (!$this->db->execute()) return false; // If sql fails for some reason return false otherwise continue with loop.
             }
