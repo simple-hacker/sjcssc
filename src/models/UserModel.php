@@ -1,11 +1,13 @@
 <?php
 
-    class UserModel {
+    class UserModel extends Controller {
 
         private $db;
 
         public function __construct() {
             $this->db = new Database;
+
+            $this->clubModel = $this->model('Club');
         }
 
         public function login($username, $password) {
@@ -56,7 +58,7 @@
             $club_permissions = []; // Blank array to start off with.
 
             foreach ($permissions_array as $club_id) {
-                $club_permissions[$club_id] = Club::getClubName($club_id);
+                $club_permissions[$club_id] =$this->clubModel->getClubName($club_id);
             }
             // Returns key value array of club_id => club_name
             // e.g. $club_permissions[2] => bowls
@@ -141,7 +143,7 @@
             // Loop through given permission array.
             $string = []; //Empty string array, ready for imploding.
             foreach($permissions as $permission) {
-                $string[] = Club::getClubID($permission); // Add club_id to $string array
+                $string[] = $this->clubModel->getClubID($permission); // Add club_id to $string array
             }
             return implode(',', $string);
         }
@@ -172,5 +174,54 @@
             $this->db->query($sql);
             $this->db->bind(':username', $username);
             return $this->db->result();
+        }
+
+        public function loggedInCheckRedirect() {
+            if (!isset($_SESSION)) {
+                session_start();
+            }
+
+            // If user is not logged in, then redirect to login page.  Else do nothing.
+            if (!isset($_SESSION['user'])) {
+                create_flash_message('user', 'You need to log in before you view this page.', 'warning');
+                redirect('user/login', true);
+            }
+        }
+
+        public function permissionCheckRedirect($club_id) {
+            // Perform log in check first.
+            $this->loggedInCheckRedirect();
+    
+            // If club_id is not within the user's permissions array as a key, then they don't have permission so need to redirect.
+            // Redirect to first club with permission available.
+            // If no permissions exists then redirect to user/index.
+            if (!array_key_exists($club_id, $_SESSION['user']['permissions'])) {
+                create_flash_message('user', 'You do not have permission to view the page you requested.', 'danger');
+                permissionRedirect();
+            }
+        }
+
+        public function adminCheckRedirect() {
+            // Perform log in check first.
+            $this->loggedInCheckRedirect();
+    
+            // If admin is false then redirect with error message.
+            // Redirect to first club with permission available.
+            // If no permissions exists then redirect to user/index.
+            if ($_SESSION['user']['admin'] === false) {
+                create_flash_message('user', 'You do not have permission to view the page you requested.', 'danger');
+                permissionRedirect();
+            }
+        }
+
+        public function permissionRedirect(){
+            // Redirect to first club with permission available.
+            // If no permissions exists then redirect to user/index.
+            if (sizeof($_SESSION['user']['permissions']) > 0) {
+                $club_name = $this->clubModel->getClubName(key($_SESSION['user']['permissions'])); // Get the club name of the first permission available.  The first club_id will be the first key of the permissions array.
+                redirect($club_name . '/dashboard', true); // i.e. bowls/dashboard
+            } else {
+                redirect('user', true); // user/index
+            }
         }
     }

@@ -11,7 +11,7 @@
 
         public function index() {
             
-            loggedInCheckRedirect();  // Check log in first.  This isn't in __construct because it creates an infinite loop.
+            $this->userModel->loggedInCheckRedirect();  // Check log in first.  This isn't in __construct because it creates an infinite loop.
 
             $user = $this->userModel->getUserByID($_SESSION['user']['id']);
 
@@ -105,7 +105,7 @@
             // Redirect to first CLUB/dashboard of the first permission.
             // If no permissions are provided, then redirect to user/index instead.
             if (isset($_SESSION['user'])) {
-                permissionRedirect();
+                $this->userModel->permissionRedirect();
             }
 
             if ($_SERVER['REQUEST_METHOD'] === "POST") {
@@ -132,8 +132,8 @@
                 if (!isset($username_err) && !isset($password_err)) {
                     // Send username and password to userModel login function.  If return true then create successful log in message and redirect to either CLUB/dashboard or user/index page.
                     if ($this->userModel->login($data['username'], $data['password'])) {
-                        create_flash_message('user', 'You have successfully logged in.');
-                        permissionRedirect();
+                        create_flash_message('user', 'Welcome ' . $data['username'] . '. You have successfully logged in.');
+                        $this->userModel->permissionRedirect();
                     } else {
                         // Else there was an error logging in.  Create error message because we want to reload this same page with previous username.
                         $data['password'] = ''; // Clear given password so user has to give it another try.  Note, password could've been correct and username incorrect, but most likely password is wrong.

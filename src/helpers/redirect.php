@@ -2,8 +2,10 @@
   // Simple page redirect
   function redirect($page, $admin = false){
     if ($admin === true) {
-      header('location: '.ADMIN_URLROOT .$page);
+      header('Location: '. ADMIN_URLROOT . $page);
+      exit(0); // Need this otherwise flash_messages won't display if code keeps running.
     } else {
-      header('location: '.URLROOT .$page);
+      header('Location: '. URLROOT . $page);
+      exit(0); // Need this otherwise flash_messages won't display if code keeps running.
     }
   }

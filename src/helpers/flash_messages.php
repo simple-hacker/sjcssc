@@ -21,11 +21,12 @@
     }
 
     function display_flash_messages($name) {
-        // If flash message exists then display, then unset so we can reuse $name.
+
+        // If flash message exists then display, then unset so we can reuse $name.       
         if (isset($_SESSION['flash_messages'][$name])) {
             foreach ($_SESSION['flash_messages'][$name] as $i => $flash_message) {
-                echo "<div class=\"alert alert-{$_SESSION['flash_messages'][$name][$i]['alert']}\" role=\"alert\">{$_SESSION['flash_messages'][$name][$i]['message']}<div>";
-            } 
+                echo "<hr><div class=\"alert alert-{$flash_message['alert']}\" role=\"alert\">{$flash_message['message']}</div><hr>";
+            }
             unset($_SESSION['flash_messages'][$name]);
         }
     }

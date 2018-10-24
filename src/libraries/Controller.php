@@ -33,7 +33,7 @@
         $loadView = PUBLIC_VIEWS . $page . '.php';
       }
 
-      // Check if file hasn't been deleted or anything.
+      // Check if file hasn't been deleted.
       if(file_exists($loadView)){
         require_once $loadView;
       } else {

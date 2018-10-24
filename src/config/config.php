@@ -89,5 +89,6 @@
 
     // These define the other controllers we can use, mainly for the admin area.
     // Other controllers are defined from 'sections' for each club, such as Notices, Fixtures etc.
-    define('CONTROLLERS', ['user', 'users', 'settings']);
-    // Need to include these variables in .htaccess
+    define('CONTROLLERS', ['user', 'users', 'settings']); // Need to include these variables in .htaccess
+    // Array of all possible pages, each controller could have.
+    // define('PAGES', ['index', 'add', 'edit', 'delete', 'view', 'show', 'login', 'settings']);

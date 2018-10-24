@@ -6,10 +6,11 @@
         public function __construct($admin = true) {
             $this->admin = $admin;
 
-            if ($this->admin === true) {
-                adminCheckRedirect();  // Admin check because only admins can see this page.
-            }
             $this->userModel = $this->model('UserModel');
+            
+            if ($this->admin === true) {
+                $this->userModel->adminCheckRedirect();  // Admin check because only admins can see this page.
+            }
         }
 
         public function index() {

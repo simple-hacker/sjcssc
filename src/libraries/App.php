@@ -12,9 +12,11 @@
     // e.g.     http://www.stjosephscssc.co.uk/admin/bowls/fixtures/edit/3
 
 
-    class App {
+    class App extends Controller {
 
         public function __construct() {
+
+            $this->clubModel = $this->model('Club');            
 
             // Sort out non admin side first.
             if (!isset($_GET['admin'])) {
@@ -22,14 +24,20 @@
                 // CLUB
                 // =====================================================
                 // Get club from URL and load data.
-                // strtolower in case user enters mix of case.
+                // If club is given, then see if it's a valid club
                 if (isset($_GET['club'])) {
-                    // If club is given, then see if it's a valid club
-                    $club_name = strtolower($_GET['club']);
-                    array_key_exists($club_name, CLUBS) ? $club = new Club($club_name) : redirect('404.html');
+                    $club_name = strtolower($_GET['club']); // strtolower in case user enters mix of case.
                 } else {
-                    // Default club is social
-                    $club = new Club('social');
+                    $club_name = 'social';  // Default club.
+                }
+
+                // Check if it's an actual club first.
+                if (array_key_exists($club_name, CLUBS)) {
+                    // Check if it's an actual club first.
+                    $club = $this->clubModel->getClubByName($club_name);
+                } else {
+                    // Incorrect URL, so redirect.
+                    redirect('404.html');
                 }
 
                 // CONTROLLER
@@ -49,7 +57,7 @@
 
                 // ID
                 // =====================================================
-                // Page is always index in the public area, because we are editting or deleting.
+                // Page is always index in the public area
                 $page = 'index';
 
             } 
@@ -69,7 +77,7 @@
                     // Check if it's an actual club first.
                     if (array_key_exists($club_name, CLUBS)) {
                         // Check if it's an actual club first.
-                        $club = new Club($club_name);
+                        $club = $this->clubModel->getClubByName($club_name);
                     } elseif (in_array($club_name, CONTROLLERS)) {
                         // If not a club, check if it's an admin controller.
                         // This is only for User/Users/Settings etc
@@ -104,15 +112,23 @@
                     $controller = 'Home';
                 }
 
+                // TODO: Delete the below PAGES comment?
+                // // PAGE (i.e. edit/delete etc)
+                // // =====================================================
+                // if (isset($_GET['page'])) {
+                //     $page = strtolower($_GET['page']);
+                //     // If $page provided is not a valid mode, such as add, delete etc, then redirect as invalid URL.
+                //     if (!in_array($page, PAGES)) {
+                //         redirect('404.html');
+                //     }
+                // } else {
+                //     $page = 'index';
+                // }
+
                 // PAGE (i.e. edit/delete etc)
                 // =====================================================
-                $pages = ['index', 'add', 'edit', 'delete', 'view', 'show', 'login'];
                 if (isset($_GET['page'])) {
                     $page = strtolower($_GET['page']);
-                    // If $page provided is not a valid mode, such as add, delete etc, then redirect as invalid URL.
-                    if (!in_array($page, $pages)) {
-                        redirect('404.html');
-                    }
                 } else {
                     $page = 'index';
                 }
@@ -150,7 +166,7 @@
                     $controller = new $controller($admin);
                 }
             } else {
-                die('<strong>Fatal Error:</strong> Controller' . $controller . ' does not exist');
+                die('<strong>Fatal Error:</strong> Controller ' . $controller . ' does not exist');
             }
 
             // Next we need to call the the function in the Controller.

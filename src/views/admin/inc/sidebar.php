@@ -9,7 +9,7 @@
                 echo '<li>';
                 echo '<a href="' . ADMIN_URLROOT . $club_name . '/dashboard">' . ucwords($club_name) . '</a>';
                     echo '<ul><li>';
-                    echo '<a href="' . ADMIN_URLROOT . $club_name . '/dashboard">Settings</a> | ';
+                    echo '<a href="' . ADMIN_URLROOT . $club_name . '/settings">Settings</a> | ';
                     foreach (CLUBS[$club_name]['sections'] as $section) {
                         echo '<a href="' . ADMIN_URLROOT . $club_name . '/' . $section . '">' . ucwords($section) . '</a> | ';
                     }
