@@ -22,6 +22,9 @@
         public function index() {
 
             if ($_SERVER['REQUEST_METHOD'] === "POST") {
+
+                $_POST  = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+                
                 // Validate all form.
                 if (empty($_POST['name'])) {
                     $name_err = "Please enter the club's full name.";
@@ -30,6 +33,14 @@
                 if (empty($_POST['message'])) {
                     $message_err = "Please enter the front page message.";
                 }
+
+                if (empty($_POST['team_name'])) {
+                    $team_name_err = "Please enter the club's team name.";
+                }
+
+                // Not all clubs will have team_name or team_address, so need to assign blank if the input box doesn't exist.
+                $team_name = (!empty($_POST['team_name'])) ? trim($_POST['team_name']) : '';
+                $team_address = (!empty($_POST['team_address'])) ? trim($_POST['team_address']) : '';
 
                 // Validate Addresses
                 foreach ($_POST['address_id'] as $i => $id) {
@@ -150,7 +161,7 @@
 
                 // TODO: Need to do HTML entities.
                 $data = [
-                    'club' => (object) ['id' => $this->club_id, 'club' => $this->club_name ,'name' => trim($_POST['name']), 'message' => trim($_POST['message'])], // Need to convert POST data to objects.
+                    'club' => (object) ['id' => $this->club_id, 'club' => $this->club_name ,'name' => trim($_POST['name']), 'message' => trim($_POST['message']), 'team_name' => $team_name, 'team_address' => $team_address], // Need to convert POST data to objects.
                     'addresses' => isset($addresses) ? $addresses : [],
                     'emails' => isset($emails) ? $emails : [],
                     'phone_numbers' => isset($phone_numbers) ? $phone_numbers : [],

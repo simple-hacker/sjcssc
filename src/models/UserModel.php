@@ -197,7 +197,7 @@
             // If no permissions exists then redirect to user/index.
             if (!array_key_exists($club_id, $_SESSION['user']['permissions'])) {
                 create_flash_message('user', 'You do not have permission to view the page you requested.', 'danger');
-                permissionRedirect();
+                $this->permissionRedirect();
             }
         }
 
@@ -210,7 +210,7 @@
             // If no permissions exists then redirect to user/index.
             if ($_SESSION['user']['admin'] === false) {
                 create_flash_message('user', 'You do not have permission to view the page you requested.', 'danger');
-                permissionRedirect();
+                $this->permissionRedirect();
             }
         }
 

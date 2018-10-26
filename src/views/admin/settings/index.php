@@ -10,9 +10,11 @@
 
 <form action="<?php echo ADMIN_URLROOT . $data['club']->club . '/settings'; ?>" method="POST">
     <h1>Club Settings</h1>
+    <h2>Home Page Settings</h2>
     <input type="hidden" value="<?php echo (isset($data['club']->id)) ? $data['club']->id : ''; ?>"?>
     <input type="text" name="name" value="<?php echo (isset($data['club']->name)) ? $data['club']->name : ''; ?>" placeholder="Full Club Name"/>
     <textarea name="message" cols="30" rows="10" placeholder="Enter front page message."><?php echo (isset($data['club']->message)) ? $data['club']->message : ''; ?></textarea>
+
     
     <h2>Addresses</h2>
 <?php
@@ -96,7 +98,15 @@
     }
 ?>
 
-    <h1>Teams</h1>
+<?php
+    // Only show team name if the club has a results or outings section.  i.e. All but social should show this.
+    if (!empty(array_intersect(['results', 'outings'], CLUBS[$data['club']->club]['sections']))) {
+?>
+        <h1>Team Settings</h1>
+            <input type="text" name="team_name" value="<?php echo (isset($data['club']->team_name)) ? $data['club']->team_name : ''; ?>" placeholder="Enter Team Name"/>
+            <input type="text" name="team_address" value="<?php echo (isset($data['club']->team_address)) ? $data['club']->team_address : ''; ?>" placeholder="Enter Team's Home Address"/>
+
+        <h2>Teams</h2>
 <?php
     if (isset($data['teams'])) {
         foreach ($data['teams'] as $i => $team) {
@@ -112,13 +122,13 @@
         }
     }
 ?>
-    <input type="hidden" name="team_id[]" value=""/>
-    <input type="text" name="team[]" value="" placeholder="Add Team"/>
-    <input type="text" name="team_location[]" value="" placeholder="Add Team Location"/>
-    <a href="<?php echo ADMIN_URLROOT . $data['club']->club . '/settings/teams'; ?>">View All Teams</a>
+        <input type="hidden" name="team_id[]" value=""/>
+        <input type="text" name="team[]" value="" placeholder="Add Team"/>
+        <input type="text" name="team_location[]" value="" placeholder="Add Team Location"/>
+        <a href="<?php echo ADMIN_URLROOT . $data['club']->club . '/settings/teams'; ?>">View All Teams</a>
 
 
-    <h1>Leagues</h1>
+        <h2>Leagues</h2>
 <?php
     if (isset($data['leagues'])) {
         foreach ($data['leagues'] as $i => $league) {
@@ -136,13 +146,13 @@
         }
     }
 ?>
-    <input type="hidden" name="league_id[]" value=""/>
-    <input type="text" name="league[]" value="" placeholder="Add League Abbreviation"/>
-    <input type="text" name="league_full[]" value="" placeholder="Add League Full"/>
-    <input type="url" name="league_website[]" value="" placeholder="Add League's Website"/>
-    <a href="<?php echo ADMIN_URLROOT . $data['club']->club . '/settings/leagues'; ?>">View All Leagues</a>
+        <input type="hidden" name="league_id[]" value=""/>
+        <input type="text" name="league[]" value="" placeholder="Add League Abbreviation"/>
+        <input type="text" name="league_full[]" value="" placeholder="Add League Full"/>
+        <input type="url" name="league_website[]" value="" placeholder="Add League's Website"/>
+        <a href="<?php echo ADMIN_URLROOT . $data['club']->club . '/settings/leagues'; ?>">View All Leagues</a>
 
-    <h1>Venues</h1>
+        <h2>Venues</h2>
 <?php
     foreach ($data['venues'] as $i => $venue) {
 ?>
@@ -156,14 +166,16 @@
         }
     }
 ?>
-    <input type="hidden" name="venue_id[]" value=""/>
-    <input type="text" name="venue[]" value="" placeholder="Add Venue Name"/>
-    <input type="text" name="venue_location[]" value="" placeholder="Add Venue Location"/>
-    <a href="<?php echo ADMIN_URLROOT . $data['club']->club . '/settings/venues'; ?>">View All Venues</a>
+        <input type="hidden" name="venue_id[]" value=""/>
+        <input type="text" name="venue[]" value="" placeholder="Add Venue Name"/>
+        <input type="text" name="venue_location[]" value="" placeholder="Add Venue Location"/>
+        <a href="<?php echo ADMIN_URLROOT . $data['club']->club . '/settings/venues'; ?>">View All Venues</a>
 
-    <h1>People</h1>
-    <a href="<?php echo ADMIN_URLROOT . $data['club']->club . '/settings/people'; ?>">View All People</a>
-    
+        <h1>People</h1>
+        <a href="<?php echo ADMIN_URLROOT . $data['club']->club . '/settings/people'; ?>">View All People</a>
+<?php
+    }
+?>
     <hr>
     <h1>Save Changes</h1>
     <input type="submit" value="Save Changes"/>

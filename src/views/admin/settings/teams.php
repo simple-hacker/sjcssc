@@ -21,7 +21,7 @@
                 <tr>
             </thead>
             <tbody>
-<?php
+<?php                           
     if (isset($data['teams'])) {
         foreach ($data['teams'] as $i => $team) {
             if (empty($team->id)) {

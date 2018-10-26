@@ -6,9 +6,7 @@
     }
 ?>
 
-ADMIN ONLY
-<hr>
-DELETE USER
+<h1>Delete User</h1>
 <form action="<?php echo ADMIN_URLROOT . 'users/delete/' . $data['user_id'];  ?>" method="POST">
     <h2>Are you sure you want to delete the user <?php echo $data['username']; ?>?</h2>
     <input type="submit" value="Yes, delete <?php echo $data['username']; ?>."/>

@@ -46,11 +46,13 @@ Class Club {
     }
 
     public function updateClub($data) {
-        $sql = "UPDATE `clubs` SET `name`=:name, `message`=:message WHERE `id`=:id";
+        $sql = "UPDATE `clubs` SET `name`=:name, `message`=:message, `team_name`=:team_name, `team_address`=:team_address WHERE `id`=:id";
         $this->db->query($sql);
         $this->db->bind(':id', $data['club']->id);
         $this->db->bind(':name', $data['club']->name);
         $this->db->bind(':message', $data['club']->message);
+        $this->db->bind(':team_name', $data['club']->team_name);
+        $this->db->bind(':team_address', $data['club']->team_address);
         $club = $this->db->execute();
 
         $addresses = $this->updateAddresses($data['club']->id, $data['addresses']);
