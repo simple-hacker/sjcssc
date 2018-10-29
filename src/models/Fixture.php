@@ -45,7 +45,7 @@ class Fixture extends Controller {
         // If fixture exists then try and get the squad too.
         if ($fixture) {
             $fixture->squad = $this->getSquad($club_id, $fixture->id);
-            $fixture->substitutes = implode(", ", $fixture->squad[0]);
+            $fixture->substitutes = !empty($fixture->squad[0]) ? implode(", ", $fixture->squad[0]) : '';
         }
         return $fixture;
     }

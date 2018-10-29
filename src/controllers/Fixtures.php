@@ -221,7 +221,6 @@
 
         public function delete($fixture_id) {
             if (isset($fixture_id)) {
-                // Get single Notice
                 $fixture = $this->fixtureModel->getFixture($this->club_name, $fixture_id);
                 // If fixture exist then proceed with deletion.
                 if ($fixture) {

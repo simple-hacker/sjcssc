@@ -27,13 +27,6 @@
             $this->view('reports/index', $data);
         }
 
-        public function add() {
-            $data = [
-                'club' => $this->clubModel->getClubByID($this->club_id),
-            ];
-            $this->view('reports/add', $data);
-        }
-
         public function edit($report_id) {
             $data = [
                 'club' => $this->clubModel->getClubByID($this->club_id),
