@@ -9,6 +9,10 @@
             // Load all models needed.
             $this->userModel = $this->model('UserModel');
             $this->clubModel = $this->model('Club');
+            $this->teamModel = $this->model('Team');
+            $this->leagueModel = $this->model('League');
+            $this->venueModel = $this->model('Venue');
+            $this->peopleModel = $this->model('People');
 
             $this->admin = $admin;
             $this->club_id = $club_id;
@@ -186,8 +190,8 @@
 
                 // If no errors exist then proceed with saving all data.
                 if (!isset($name_err) && !isset($message) && !isset($addresses_title_err) && !isset($addresses_err) && !isset($emails_title_err) && !isset($emails_err) && !isset($phone_numbers_title_err) && !isset($phone_numbers_err) && !isset($menu_links_title_err) && !isset($menu_links_err) && !isset($teams_err) && !isset($leagues_err) && !isset($venues_err)) {
-                    // Save all data.
-                    if ($this->clubModel->updateClub($data)) {
+                    // Save all data as long as all items successfully update.
+                    if ($this->clubModel->updateClub($data) && $this->teamModel->updateTeams($this->club_id, $data['teams']) && $this->leagueModel->updateLeagues($this->club_id, $data['leagues']) && $this->venueModel->updateVenues($this->club_id, $data['venues'])) {
                         create_flash_message('settings', 'Successfully saved club settings.');
                         redirect($this->club_name . '/settings', true);
                     } else {

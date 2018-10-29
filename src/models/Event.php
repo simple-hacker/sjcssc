@@ -14,7 +14,7 @@ class Event {
                     FROM `events`
                     LEFT JOIN `venues` ON `events`.`location_id`=`venues`.`id`
                     WHERE `events`.`club_id` = :club_id AND `date` >= DATE(NOW())
-                    ORDER BY `events`.`date` DESC";
+                    ORDER BY `events`.`date` ASC";
             
             if ($n > 0) {
                 // To prevent negative numbers.  If n isn't provided then get unlimited events, else only return n events.

@@ -30,6 +30,17 @@
         <input type="meet_at" name="meet_at" placeholder="Enter Meet At" value="<?php echo (isset($data['event']->meet_at)) ? $data['event']->meet_at : ''; ?>"/>
         <input type="contact" name="contact" placeholder="Enter Contact Information" value="<?php echo (isset($data['event']->contact)) ? $data['event']->contact : ''; ?>"/>
         <textarea name="other_information" cols="30" rows="5" placeholder="Enter More Information"><?php echo (isset($data['event']->other_information)) ? $data['event']->other_information : ''; ?></textarea>
+<?php
+        if (!empty($data['title_err'])) {
+            print_var($data['title_err']);
+        }
+        if (!empty($data['date_err'])) {
+            print_var($data['date_err']);
+        }
+        if (!empty($data['time_err'])) {
+            print_var($data['time_err']);
+        }
+?>
         <h2>Save Changes</h2>
         <input type="submit" value="Save Changes">
     </form>
@@ -43,6 +54,7 @@
                 <tr>
                     <th>ID</th>
                     <th>Created Date</th>
+                    <th>Event Date</th>
                     <th>Title</th>
                     <th>Venue</th>
                     <th>Edit</th>
@@ -56,6 +68,7 @@
                 <tr>
                     <td><?php echo $event->event_id; ?></td>
                     <td><?php echo $event->created_date; ?></td>
+                    <td><?php echo $event->date; ?></td>
                     <td><?php echo $event->title; ?></td>
                     <td><?php echo $event->venue; ?></td>
                     <td><a href="<?php echo ADMIN_URLROOT . $data['club']->club . "/events/edit/" . $event->event_id;  ?>">Edit</td>

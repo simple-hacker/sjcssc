@@ -71,7 +71,6 @@
                             }
                         } else {
                             create_flash_message('events', 'Please correct all highlighted errors and try again.', 'danger');
-                            redirect($this->club_name . '/events', true);
                         }
                     } else {
                         // No post submitted, so blank form.
@@ -94,7 +93,8 @@
         public function edit($event_id) {
             if (isset($event_id)) {
                 // If event exists then proceed
-                if ($this->eventModel->getEvent($this->club_id, $event_id)) {
+                $event = $this->eventModel->getEvent($this->club_id, $event_id);
+                if ($event) {
 
                     if ($_SERVER['REQUEST_METHOD'] === "POST") {
                         // Validate POST data.
@@ -134,12 +134,11 @@
                             }
                         } else {
                             create_flash_message('events', 'Please correct all highlighted errors and try again.', 'danger');
-                            redirect($this->club_name . '/events', true);
                         }
                     } else {
                         $data = [
                             'club' => $this->clubModel->getClubByID($this->club_id),
-                            'event' => $this->eventModel->getEvent($this->club_id, $event_id),
+                            'event' => $event,
                             'events' => $this->eventModel->getEvents($this->club_id),
                         ];
                     }

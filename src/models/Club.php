@@ -59,12 +59,9 @@ Class Club {
         $emails = $this->updateEmails($data['club']->id, $data['emails']);
         $phone_numbers = $this->updatePhoneNumbers($data['club']->id, $data['phone_numbers']);
         $menu_links = $this->updateMenuLinks($data['club']->id, $data['menu_links']);
-        $teams = $this->updateTeams($data['club']->id, $data['teams']);
-        $leagues = $this->updateLeagues($data['club']->id, $data['leagues']);
-        $venues = $this->updateVenues($data['club']->id, $data['venues']);
 
         // Returns true if all added successfully, else if one fails return false.
-        return ($club && $addresses && $emails && $phone_numbers && $menu_links && $teams && $leagues && $venues);
+        return ($club && $addresses && $emails && $phone_numbers && $menu_links);
     }
 
     private function updateAddresses($club_id, $addresses) {
@@ -190,135 +187,4 @@ Class Club {
         }
         return true; // Else no errors with db, return true
     }
-
-
-    public function updateTeams($club_id, $teams) {
-        foreach ($teams as $team) {
-            if (!empty($team->id)) {
-                if (!empty($team->team)) {
-                    // If ID and team are provided then UPDATE.
-                    $sql = "UPDATE `teams` SET `team`=:team, `location`=:location WHERE `id`=:id";
-                    $this->db->query($sql);
-                    $this->db->bind(':id', $team->id);
-                    $this->db->bind(':team', $team->team);
-                    $this->db->bind(':location', $team->location);
-                    if (!$this->db->execute()) return false; // If sql fails for some reason return false otherwise continue with loop.
-                } else {
-                    // ID given but blank team, so DELETE from database.
-                    $sql = "DELETE FROM `teams` WHERE `id`=:id";
-                    $this->db->query($sql);
-                    $this->db->bind(':id', $team->id);
-                    if (!$this->db->execute()) return false; // If sql fails for some reason return false otherwise continue with loop.
-                }
-            } else {
-                // Insert new row.
-                $sql = "INSERT INTO `teams` (`club_id`, `team`, `location`) VALUES (:club_id, :team, :location)";
-                $this->db->query($sql);
-                $this->db->bind(':club_id', $club_id);
-                $this->db->bind(':team', $team->team);
-                $this->db->bind(':location', $team->location);
-                if (!$this->db->execute()) return false; // If sql fails for some reason return false otherwise continue with loop.
-            }
-        }
-        return true; // Else no errors with db, return true
-    }
-
-    public function updateLeagues($club_id, $leagues) {
-        foreach ($leagues as $league) {
-            if (!empty($league->id)) {
-                if (!empty($league->league)) {
-                    // If ID and league are provided then UPDATE.
-                    $sql = "UPDATE `leagues` SET `league`=:league, `league_full`=:league_full, `league_website`=:league_website WHERE `id`=:id";
-                    $this->db->query($sql);
-                    $this->db->bind(':id', $league->id);
-                    $this->db->bind(':league', $league->league);
-                    $this->db->bind(':league_full', $league->league_full);
-                    $this->db->bind(':league_website', $league->league_website);
-                    if (!$this->db->execute()) return false; // If sql fails for some reason return false otherwise continue with loop.
-                } else {
-                    // ID given but blank league, so DELETE from database.
-                    $sql = "DELETE FROM `leagues` WHERE `id`=:id";
-                    $this->db->query($sql);
-                    $this->db->bind(':id', $league->id);
-                    if (!$this->db->execute()) return false; // If sql fails for some reason return false otherwise continue with loop.
-                }
-            } else {
-                // Insert new row.
-                $sql = "INSERT INTO `leagues` (`club_id`, `league`, `league_full`, `league_website`) VALUES (:club_id, :league, :league_full, :league_website)";
-                $this->db->query($sql);
-                $this->db->bind(':club_id', $club_id);
-                $this->db->bind(':league', $league->league);
-                $this->db->bind(':league_full', $league->league_full);
-                $this->db->bind(':league_website', $league->league_website);
-                if (!$this->db->execute()) return false; // If sql fails for some reason return false otherwise continue with loop.
-            }
-        }
-        return true; // Else no errors with db, return true
-    }
-
-    public function updateVenues($club_id, $venues) {
-        foreach ($venues as $venue) {
-            if (!empty($venue->id)) {
-                if (!empty($venue->venue)) {
-                    // If ID and venue are provided then UPDATE.
-                    $sql = "UPDATE `venues` SET `venue`=:venue, `location`=:location WHERE `id`=:id";
-                    $this->db->query($sql);
-                    $this->db->bind(':id', $venue->id);
-                    $this->db->bind(':venue', $venue->venue);
-                    $this->db->bind(':location', $venue->location);
-                    if (!$this->db->execute()) return false; // If sql fails for some reason return false otherwise continue with loop.
-                } else {
-                    // ID given but blank venue, so DELETE from database.
-                    $sql = "DELETE FROM `venues` WHERE `id`=:id";
-                    $this->db->query($sql);
-                    $this->db->bind(':id', $venue->id);
-                    if (!$this->db->execute()) return false; // If sql fails for some reason return false otherwise continue with loop.
-                }
-            } else {
-                // Insert new row.
-                $sql = "INSERT INTO `venues` (`club_id`, `venue`, `location`) VALUES (:club_id, :venue, :location)";
-                $this->db->query($sql);
-                $this->db->bind(':club_id', $club_id);
-                $this->db->bind(':venue', $venue->venue);
-                $this->db->bind(':location', $venue->location);
-                if (!$this->db->execute()) return false; // If sql fails for some reason return false otherwise continue with loop.
-            }
-        }
-        return true; // Else no errors with db, return true
-    }
-    
-    public function updatePeople($club_id, $people) {
-        foreach ($people as $person) {
-            if (!empty($person->id)) {
-                if (!empty($person->name)) {
-                    // If ID and person are provided then UPDATE.
-                    $sql = "UPDATE `people` SET `name`=:name, `email`=:email, `active`=:active WHERE `id`=:id";
-                    $this->db->query($sql);
-                    $this->db->bind(':id', $person->id);
-                    $this->db->bind(':name', $person->name);
-                    $this->db->bind(':email', $person->email);
-                    $this->db->bind(':active', $person->active);
-                    if (!$this->db->execute()) return false; // If sql fails for some reason return false otherwise continue with loop.
-                } else {
-                    // ID given but blank person, so DELETE from database.
-                    $sql = "DELETE FROM `people` WHERE `id`=:id";
-                    $this->db->query($sql);
-                    $this->db->bind(':id', $person->id);
-                    if (!$this->db->execute()) return false; // If sql fails for some reason return false otherwise continue with loop.
-                }
-            } else {
-                print_var($person);
-                // Insert new row.
-                $sql = "INSERT INTO `people` (`club_id`, `name`, `email`, `active`) VALUES (:club_id, :name, :email, :active)";
-                $this->db->query($sql);
-                $this->db->bind(':club_id', $club_id);
-                $this->db->bind(':name', $person->name);
-                $this->db->bind(':email', $person->email);
-                $this->db->bind(':active', $person->active);
-                if (!$this->db->execute()) return false; // If sql fails for some reason return false otherwise continue with loop.
-            }
-        }
-        return true; // Else no errors with db, return true
-    }
-
 }
