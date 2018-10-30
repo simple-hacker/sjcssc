@@ -94,7 +94,7 @@
             ],
             'reports' => [
                 'fields' => [
-                    ['name' => 'reports', 'type' => 'textarea', 'size' => 12, 'placeholder' => 'Enter Report']
+                    ['name' => 'report', 'type' => 'textarea', 'size' => 12, 'placeholder' => 'Enter Report']
                 ]
             ]
         ]

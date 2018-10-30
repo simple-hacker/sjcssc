@@ -25,8 +25,6 @@
     RewriteRule ^admin/([a-zA-Z]+)/?$ index.php?admin=true&club=$1 [L,QSA]
     # This will be given club and given page
     RewriteRule ^admin/([a-zA-Z]+)/([a-zA-Z]+)/?$ index.php?admin=true&club=$1&controller=$2 [L,QSA]
-    # This will be given club and given page and add mode (Doesn't have id)
-    RewriteRule ^admin/([a-zA-Z]+)/([a-zA-Z]+)/add/?$ index.php?admin=true&club=$1&controller=$2&page=add [L,QSA]
     # This will be for  given club, given page and mode.
     RewriteRule ^admin/([a-zA-Z]+)/([a-zA-Z]+)/([a-zA-Z]+)/?$ index.php?admin=true&club=$1&controller=$2&page=$3 [L,QSA]
     # This will be given club and given page and given mode and id

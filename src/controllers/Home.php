@@ -8,6 +8,7 @@
             // Load all models needed.
             $this->userModel = $this->model('UserModel');
             $this->clubModel = $this->model('Club');
+            $this->fixtureModel = $this->model('Fixture');
 
             $this->admin = $admin;
             $this->club_id = $club_id;
@@ -21,6 +22,7 @@
         public function index() {
             $data = [
                 'club' => $this->clubModel->getClubByID($this->club_id),
+                'unpublished_results' => $this->fixtureModel->getUnpublishedResults($this->club_name),
             ];
 
             $this->view('home/index', $data);

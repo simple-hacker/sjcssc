@@ -63,4 +63,22 @@ class Outing {
         return $this->db->execute();
     }
 
+    public function getPastOutings() {
+        $sql = "SELECT `outings`.*, venues.venue AS venue, venues.location AS location FROM `outings`
+                LEFT JOIN venues ON `outings`.venue_id = venues.id
+                WHERE `outings`.date <= DATE(NOW())
+                ORDER BY `outings`.date DESC";
+        $this->db->query($sql);
+        return $this->db->results();
+    }
+
+    public function updateReport($report) {
+        $sql = "UPDATE `outings` SET `report`=:report, `publish_report`=:publish_report WHERE `id`=:id";
+        $this->db->query($sql);
+        $this->db->bind(':id', $report->id);
+        $this->db->bind(':report', $report->report);
+        $this->db->bind(':publish_report', true);
+        return $this->db->execute();
+    }
+
 }

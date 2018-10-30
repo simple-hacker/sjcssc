@@ -18,8 +18,14 @@
         }
     }
 ?>
-<h2>Results</h2>
-<p>List of fixtures that need consolidating because results haven't been submitted yet.</p>
+<?php
+    if (!empty($data['unpublished_results'])) {
+        echo '<h2>Unpublished Results</h2>';
+        foreach ($data['unpublished_results'] as $ur) {
+            echo '<a href="' . ADMIN_URLROOT . $data['club']->club . '/results/edit/' . $ur->id . '">' . $ur->date . ' - ' . $ur->home_team . ' v ' . $ur->away_team . '</a><br/>';
+        }
+    }
+?>
 
 <h2>Mailing List</h2>
 <a href="#">Message All Club Members</a>

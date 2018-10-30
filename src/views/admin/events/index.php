@@ -71,8 +71,8 @@
                     <td><?php echo $event->date; ?></td>
                     <td><?php echo $event->title; ?></td>
                     <td><?php echo $event->venue; ?></td>
-                    <td><a href="<?php echo ADMIN_URLROOT . $data['club']->club . "/events/edit/" . $event->event_id;  ?>">Edit</td>
-                    <td><a href="<?php echo ADMIN_URLROOT . $data['club']->club . "/events/delete/" . $event->event_id; ?>">Delete?</td>
+                    <td><a href="<?php echo ADMIN_URLROOT . $data['club']->club . "/events/edit/" . $event->event_id;  ?>">Edit</a></td>
+                    <td><a href="<?php echo ADMIN_URLROOT . $data['club']->club . "/events/delete/" . $event->event_id; ?>">Delete?</a></td>
                 </tr>
 <?php
     }

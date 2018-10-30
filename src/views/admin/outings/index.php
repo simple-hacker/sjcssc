@@ -103,8 +103,8 @@
                 <td><?php echo $outing->date; ?></td>
                 <td><?php echo $outing->title; ?></td>
                 <td><?php echo $outing->venue; ?></td>
-                <td><a href="<?php echo ADMIN_URLROOT . $data['club']->club . "/outings/edit/" . $outing->id;  ?>">Edit</td>
-                <td><a href="<?php echo ADMIN_URLROOT . $data['club']->club . "/outings/delete/" . $outing->id; ?>">Delete?</td>
+                <td><a href="<?php echo ADMIN_URLROOT . $data['club']->club . "/outings/edit/" . $outing->id;  ?>">Edit</a></td>
+                <td><a href="<?php echo ADMIN_URLROOT . $data['club']->club . "/outings/delete/" . $outing->id; ?>">Delete?</a></td>
             </tr>
 <?php
             }

@@ -107,8 +107,8 @@
                 <td><?php echo $fixture->home_team; ?></td>
                 <td><?php echo $fixture->away_team; ?></td>
                 <td><?php echo $fixture->venue; ?></td>
-                <td><a href="<?php echo ADMIN_URLROOT . $data['club']->club . "/fixtures/edit/" . $fixture->id;  ?>">Edit</td>
-                <td><a href="<?php echo ADMIN_URLROOT . $data['club']->club . "/fixtures/delete/" . $fixture->id; ?>">Delete?</td>
+                <td><a href="<?php echo ADMIN_URLROOT . $data['club']->club . "/fixtures/edit/" . $fixture->id;  ?>">Edit</a></td>
+                <td><a href="<?php echo ADMIN_URLROOT . $data['club']->club . "/fixtures/delete/" . $fixture->id; ?>">Delete?</a></td>
             </tr>
 <?php
             }

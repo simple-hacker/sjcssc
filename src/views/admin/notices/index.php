@@ -62,8 +62,8 @@
                 <td><?php echo $notice->important; ?></td>
                 <td><?php echo $notice->title; ?></td>
                 <td><?php echo $notice->notice; ?></td>
-                <td><a href="<?php echo ADMIN_URLROOT . $data['club']->club . "/notices/edit/" . $notice->notice_id;  ?>">Edit</td>
-                <td><a href="<?php echo ADMIN_URLROOT . $data['club']->club . "/notices/delete/" . $notice->notice_id; ?>">Delete?</td>
+                <td><a href="<?php echo ADMIN_URLROOT . $data['club']->club . "/notices/edit/" . $notice->notice_id;  ?>">Edit</a></td>
+                <td><a href="<?php echo ADMIN_URLROOT . $data['club']->club . "/notices/delete/" . $notice->notice_id; ?>">Delete?</a></td>
             </tr>
 <?php
     }
