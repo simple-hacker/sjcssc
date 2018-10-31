@@ -22,7 +22,7 @@
         public function index() {
             $data = [
                 'club' => $this->clubModel->getClubByID($this->club_id),
-                'unpublished_results' => $this->fixtureModel->getUnpublishedResults($this->club_name),
+                // 'unpublished_results' => $this->fixtureModel->getUnpublishedResults($this->club_name),
             ];
 
             $this->view('home/index', $data);
