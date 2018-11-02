@@ -1,0 +1,186 @@
+.sj-heading, .sj-heading-small, .sj-heading-large {
+  color: #f0d64e;
+  text-shadow: 2px 2px #925818;
+  font-weight: bolder;
+  font-size: 2em;
+}
+
+.sj-heading-small {
+  font-size: 1.5em;
+}
+
+.sj-heading-large {
+  font-size: 2.5em;
+}
+
+i {
+  color: #f0d64e;
+  font-size: 1.2em;
+  text-align: center;
+  padding-top: 8px;
+}
+
+i.border {
+  background-color: #925818;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 10px solid #f0d64e;
+}
+
+.btn-brown {
+  color: #ffffff;
+  background-color: #925818;
+  border-color: #7C4B14;
+}
+
+.btn-brown:hover,
+.btn-brown:focus,
+.btn-brown:active,
+.btn-brown.active,
+.open .dropdown-toggle.btn-brown {
+  color: #ffffff;
+  background-color: #be721f;
+  border-color: #7C4B14;
+}
+
+.btn-brown:active,
+.btn-brown.active,
+.open .dropdown-toggle.btn-brown {
+  background-image: none;
+}
+
+.btn-brown.disabled,
+.btn-brown[disabled],
+fieldset[disabled] .btn-brown,
+.btn-brown.disabled:hover,
+.btn-brown[disabled]:hover,
+fieldset[disabled] .btn-brown:hover,
+.btn-brown.disabled:focus,
+.btn-brown[disabled]:focus,
+fieldset[disabled] .btn-brown:focus,
+.btn-brown.disabled:active,
+.btn-brown[disabled]:active,
+fieldset[disabled] .btn-brown:active,
+.btn-brown.disabled.active,
+.btn-brown[disabled].active,
+fieldset[disabled] .btn-brown.active {
+  background-color: #925818;
+  border-color: #7C4B14;
+}
+
+.btn-brown .badge {
+  color: #925818;
+  background-color: #ffffff;
+}
+
+.card-header {
+  border-bottom: 3px solid #f0d64e;
+}
+
+tr.win {
+  background-color: #ccffcc;
+}
+
+tr.draw {
+  background-color: #ffffe6;
+}
+
+tr.lose {
+  background-color: #ffe6e6;
+}
+
+nav.clubbar {
+  background-color: #925818;
+  border-bottom: 5px solid #f0d64e;
+  padding-top: 5px;
+}
+
+nav.clubbar a {
+  display: inline-block;
+  padding: 10px;
+}
+
+nav.clubbar a .nav-club-image {
+  float: left;
+}
+
+nav.clubbar a .nav-club-image img {
+  height: 40px;
+}
+
+nav.clubbar a .nav-club-text {
+  margin-left: 10px;
+  float: right;
+  font-size: 2em;
+  font-variant: small-caps;
+  color: #f0d64e;
+  text-shadow: 2px 2px #663e11;
+  text-decoration: none;
+}
+
+nav.clubbar a:hover {
+  background-color: #663e11;
+  cursor: pointer;
+  -webkit-transition: all 0.3s ease-out;
+  transition: all 0.3s ease-out;
+}
+
+nav.clubbar a.active {
+  background-color: #663e11;
+}
+
+section {
+  padding: 10px;
+  margin: 10px;
+}
+
+section .card {
+  width: 100%;
+}
+
+footer {
+  padding-top: 20px;
+  padding-bottom: 5px;
+  border-top: 3px solid #f0d64e;
+  position: absolute;
+  width: 100%;
+  background-color: #F3F3F3;
+}
+
+.parallax {
+  height: 250px;
+  position: relative;
+}
+
+.parallax .parallax-text {
+  position: absolute;
+  top: 30%;
+  width: 100%;
+  text-align: center;
+  z-index: 1;
+}
+
+.parallax .parallax-background {
+  height: 100%;
+  width: 100%;
+  opacity: 0.50;
+  background-repeat: repeat;
+  background-position: 0 0;
+  background-size: auto;
+  background-attachment: fixed;
+  z-index: -1;
+  background-color: #925818;
+}
+
+.navbar {
+  border-bottom: 3px solid #f0d64e;
+}
+
+a {
+  color: #c7aa11;
+}
+
+a:hover {
+  color: #f0d64e;
+}

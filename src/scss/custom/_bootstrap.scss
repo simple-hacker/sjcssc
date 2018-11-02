@@ -1,0 +1,11 @@
+.navbar {
+    border-bottom: 3px solid $gold;
+}
+
+a {
+    color: $dark-gold;
+
+    &:hover {
+        color: $gold;
+    }
+}

@@ -1,10 +1,20 @@
 <?php
     define('CLUBS', [
         'social' => [
-            'sections' => ['notices', 'events']
+            'sections' => ['notices', 'events'],
+            'section_titles' => [
+                'notices' => 'Latest News',
+                'events' => 'Upcoming Events',
+            ],
         ],
         'bowls'  => [
             'sections' => ['notices', 'events', 'fixtures', 'results'],
+            'section_titles' => [
+                'notices' => 'Latest News',
+                'events' => 'Upcoming Events',
+                'fixtures' => 'Upcoming Fixtures',
+                'results' => 'Latest Results'
+            ],
             'fixtures' => [
                 'fields' => [
                     ['name' => 'home_team_id', 'type' => 'select', 'size' => 6, 'placeholder' => 'Select Home Team', 'select_item_model' => 'teams', 'select_item' => 'team'],
@@ -28,11 +38,18 @@
                     ['name' => 'away_team_points', 'type' => 'number', 'size' => 12, 'placeholder' => 'Enter Away Team Points'],
                     ['name' => 'home_team_bonus_points', 'type' => 'number', 'size' => 12, 'placeholder' => 'Enter Home Team Bonus Points'],
                     ['name' => 'away_team_bonus_points', 'type' => 'number', 'size' => 12, 'placeholder' => 'Enter Away Team Bonus Points']
-                ]
+                ],
+                'scoreline' => 'home_team_score (home_team_points+home_team_bonus_points) - away_team_score (away_team_points+away_team_bonus_points)',
             ],          
         ],
         'rugby' => [
             'sections' => ['notices', 'events', 'fixtures', 'results'],
+            'section_titles' => [
+                'notices' => 'Latest News',
+                'events' => 'Upcoming Events',
+                'fixtures' => 'Upcoming Fixtures',
+                'results' => 'Latest Results'
+            ],
             'fixtures' => [
                 'fields' => [
                     ['name' => 'home_team_id', 'type' => 'select', 'size' => 6, 'placeholder' => 'Select Home Team', 'select_item_model' => 'teams', 'select_item' => 'team'],
@@ -52,11 +69,18 @@
                 'fields' => [
                     ['name' => 'home_team_score', 'type' => 'number', 'size' => 12, 'placeholder' => 'Enter Home Team Score'],
                     ['name' => 'away_team_score', 'type' => 'number', 'size' => 12, 'placeholder' => 'Enter Away Team Score']
-                ]
+                ],
+                'scoreline' => 'home_team_score - away_team_score',
             ]
         ],
         'football' => [
             'sections' => ['notices', 'events', 'fixtures', 'results'],
+            'section_titles' => [
+                'notices' => 'Latest News',
+                'events' => 'Upcoming Events',
+                'fixtures' => 'Upcoming Fixtures',
+                'results' => 'Latest Results'
+            ],
             'fixtures' => [
                 'fields' => [
                     ['name' => 'home_team_id', 'type' => 'select', 'size' => 6, 'placeholder' => 'Select Home Team', 'select_item_model' => 'teams', 'select_item' => 'team'],
@@ -76,11 +100,18 @@
                 'fields' => [
                     ['name' => 'home_team_score', 'type' => 'number', 'size' => 12, 'placeholder' => 'Enter Home Team Score'],
                     ['name' => 'away_team_score', 'type' => 'number', 'size' => 12, 'placeholder' => 'Enter Away Team Score']
-                ]
+                ],
+                'scoreline' => 'home_team_score - away_team_score',
             ]
         ],
         'fishing' => [
             'sections' => ['notices', 'events', 'outings', 'reports'],
+            'section_titles' => [
+                'notices' => 'Lastest News',
+                'events' => 'Upcoming Events',
+                'outings' => 'Upcoming Outings',
+                'reports' => 'Latest Reports'
+            ],
             'outings' => [
                 'fields' => [
                     ['name' => 'title', 'type' => 'text', 'size' => 12, 'placeholder' => 'Enter Outing Title'],

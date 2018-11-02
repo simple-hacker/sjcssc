@@ -1,0 +1,19 @@
+// Main Theme Colors
+$gold: rgba(240,214,78,1);
+$light-gold: ligthen($gold, 10%);
+$dark-gold: darken($gold, 20%);
+$gold-shadow: 2px 2px $dark-gold;
+$brown: rgba(146,88,24,1);
+$light-brown: lighten($brown, 2%);
+$dark-brown: darken($brown, 10%);
+$brown-shadow: 2px 2px $dark-brown;
+
+// Navbar
+$nav-bar-height: 50px;
+// $nav-bar-width: 100%;
+
+
+// Table Variables
+$win: #ccffcc;
+$draw: #ffffe6;
+$lose: #ffe6e6;

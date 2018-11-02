@@ -10,6 +10,7 @@
             $this->userModel = $this->model('UserModel');
             $this->clubModel = $this->model('Club');
             $this->fixtureModel = $this->model('Fixture');
+            $this->resultModel = $this->model('Result');
             
             $this->admin = $admin;
             $this->club_id = $club_id;
@@ -47,7 +48,7 @@
                         }
 
                         if (isset(CLUBS[$this->club_name]['results']['fields'])) {
-                            // Loop through all results fields in CLUBS, and put the POSt data in to the result object.
+                            // Loop through all results fields in CLUBS, and put the POST data in to the result object.
                             foreach (CLUBS[$this->club_name]['results']['fields'] as $field) {
                                 $result->{$field['name']} = isset($_POST[$field['name']]) ? $_POST[$field['name']] : NULL;
                             }
@@ -65,7 +66,7 @@
 
                         if (!isset($home_team_score_err) && !isset($away_team_score_err)) {
                             // Proceed with saving results.
-                            if ($this->fixtureModel->updateResult($this->club_name, $data['result'])) {
+                            if ($this->resultModel->updateResult($this->club_name, $data['result'])) {
                                 create_flash_message('results', 'Successfully saved the results for <strong>' . $data['result']->home_team . ' v ' . $data['result']->away_team . '</strong>');
                                 redirect($this->club_name . '/results', true);
                             } else {

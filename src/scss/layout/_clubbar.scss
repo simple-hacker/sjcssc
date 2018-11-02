@@ -1,0 +1,39 @@
+nav {
+    &.clubbar {
+        background-color: $brown;
+        border-bottom: 5px solid $gold;
+        padding-top: 5px;
+
+        a {
+            display: inline-block;
+            padding: 10px;
+            
+            .nav-club-image {
+                float: left;
+                img {
+                    height: $nav-bar-height - 10px;
+                }
+            }
+
+            .nav-club-text {
+                margin-left: 10px;
+                float: right;
+                font-size: 2em;
+                font-variant: small-caps;
+                color: $gold;
+                text-shadow: $brown-shadow;
+                text-decoration: none;
+            }
+
+            &:hover {
+                background-color: $dark-brown;
+                cursor: pointer;
+                transition: all 0.3s ease-out;
+            }
+
+            &.active {
+                background-color: $dark-brown;
+            }
+        }
+    }
+}

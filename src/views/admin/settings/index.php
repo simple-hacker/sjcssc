@@ -18,7 +18,7 @@
     
     <h2>Addresses</h2>
 <?php
-    foreach ($data['addresses'] as $i => $address) {
+    foreach ($data['club']->addresses as $i => $address) {
 ?>
         <input type="hidden" name="address_id[]" value="<?php echo (!empty($address->id)) ? $address->id : ''; ?>"/>
         <input type="text" name="address_title[]" value="<?php echo (!empty($address->address_title)) ? $address->address_title : ''; ?>" placeholder="Address Title"/>
@@ -39,7 +39,7 @@
 
     <h2>Emails</h2>
 <?php
-    foreach ($data['emails'] as $i => $email) {
+    foreach ($data['club']->emails as $i => $email) {
 ?>
         <input type="hidden" name="email_id[]" value="<?php echo (!empty($email->id)) ? $email->id : ''; ?>"/>
         <input type="text" name="email_title[]" value="<?php echo (!empty($email->email_title)) ? $email->email_title : ''; ?>" placeholder="Email Title"/>
@@ -60,7 +60,7 @@
 
     <h2>Phone Numbers</h2>
 <?php
-    foreach ($data['phone_numbers'] as $i => $phone_number) {
+    foreach ($data['club']->phone_numbers as $i => $phone_number) {
 ?>
         <input type="hidden" name="phone_number_id[]" value="<?php echo (!empty($phone_number->id)) ? $phone_number->id : ''; ?>"/>
         <input type="text" name="phone_number_title[]" value="<?php echo (!empty($phone_number->phone_number_title)) ? $phone_number->phone_number_title : ''; ?>" placeholder="Phone Number Title"/>
@@ -84,9 +84,9 @@
 <?php
     for ($i = 0; $i < 5; $i++) {
 ?>
-        <input type="hidden" name="menu_link_id[]" value="<?php echo (!empty($data['menu_links'][$i]->id)) ? $data['menu_links'][$i]->id : ''; ?>"/>
-        <input type="text" name="menu_link_title[]" value="<?php echo (!empty($data['menu_links'][$i]->menu_link_title)) ? $data['menu_links'][$i]->menu_link_title : ''; ?>" placeholder="Link Title"/>
-        <input type="url" name="menu_link[]" value="<?php echo (!empty($data['menu_links'][$i]->menu_link)) ? $data['menu_links'][$i]->menu_link : ''; ?>" placeholder="Link URL"/>
+        <input type="hidden" name="menu_link_id[]" value="<?php echo (!empty($data['club']->menu_links[$i]->id)) ? $data['club']->menu_links[$i]->id : ''; ?>"/>
+        <input type="text" name="menu_link_title[]" value="<?php echo (!empty($data['club']->menu_links[$i]->menu_link_title)) ? $data['club']->menu_links[$i]->menu_link_title : ''; ?>" placeholder="Link Title"/>
+        <input type="url" name="menu_link[]" value="<?php echo (!empty($data['club']->menu_links[$i]->menu_link)) ? $data['club']->menu_links[$i]->menu_link : ''; ?>" placeholder="Link URL"/>
         <br />
 <?php
         if (isset($data['menu_links_title_err'][$i])) {
@@ -102,73 +102,34 @@
     // Only show team name if the club has a results or outings section.  i.e. All but social should show this.
     if (!empty(array_intersect(['results', 'outings'], CLUBS[$data['club']->club]['sections']))) {
 ?>
-        <h1>Team Settings</h1>
-            <input type="text" name="team_name" value="<?php echo (isset($data['club']->team_name)) ? $data['club']->team_name : ''; ?>" placeholder="Enter Team Name"/>
-            <input type="text" name="team_address" value="<?php echo (isset($data['club']->team_address)) ? $data['club']->team_address : ''; ?>" placeholder="Enter Team's Home Address"/>
+        <h1>Home Team</h1>
+<?php
+        if (!empty($data['teams'])) {
+?>
+            <select name="team_id">
+<?php
+                foreach ($data['teams'] as $team) {
+?>
+                    <option value="<?php echo $team->id; ?>" <?php echo ($team->id === $data['club']->team_id) ? 'selected' : ''; ?>><?php echo $team->team; ?></option>
+<?php
+                }
+?>
+            </select>
+<?php
+        } else {
+?>
+            <input type="text" name="home_team" value="No Teams Found.  Please enter teams in Settings." disabled><br/>
+<?php
+        }
+?>
 
         <h2>Teams</h2>
-<?php
-    if (isset($data['teams'])) {
-        foreach ($data['teams'] as $i => $team) {
-?>
-            <input type="hidden" name="team_id[]" value="<?php echo (!empty($team->id)) ? $team->id : ''; ?>"/>
-            <input type="text" name="team[]" value="<?php echo (!empty($team->team)) ? $team->team : ''; ?>" placeholder="Add Team"/>
-            <input type="text" name="team_location[]" value="<?php echo (!empty($team->location)) ? $team->location : ''; ?>" placeholder="Add Team Location"/>
-            <br />
-<?php
-        if (isset($data['teams_err'][$i])) {
-                print_var($data['teams_err'][$i]);
-            }
-        }
-    }
-?>
-        <input type="hidden" name="team_id[]" value=""/>
-        <input type="text" name="team[]" value="" placeholder="Add Team"/>
-        <input type="text" name="team_location[]" value="" placeholder="Add Team Location"/>
         <a href="<?php echo ADMIN_URLROOT . $data['club']->club . '/settings/teams'; ?>">View All Teams</a>
 
-
         <h2>Leagues</h2>
-<?php
-    if (isset($data['leagues'])) {
-        foreach ($data['leagues'] as $i => $league) {
-?>
-            <input type="hidden" name="league_id[]" value="<?php echo (!empty($league->id)) ? $league->id : ''; ?>"/>
-            <input type="text" name="league[]" value="<?php echo (!empty($league->league)) ? $league->league : ''; ?>" placeholder="Add League Abbreviation"/>
-            <input type="text" name="league_full[]" value="<?php echo (!empty($league->league_full)) ? $league->league_full : ''; ?>" placeholder="Add League Full"/>
-            <input type="url" name="league_website[]" value="<?php echo (!empty($league->league_website)) ? $league->league_website : ''; ?>" placeholder="Add League's Website"/>
-            <br />
-<?php
-
-            if (isset($data['leagues_err'][$i])) {
-                print_var($data['leagues_err'][$i]);
-            }
-        }
-    }
-?>
-        <input type="hidden" name="league_id[]" value=""/>
-        <input type="text" name="league[]" value="" placeholder="Add League Abbreviation"/>
-        <input type="text" name="league_full[]" value="" placeholder="Add League Full"/>
-        <input type="url" name="league_website[]" value="" placeholder="Add League's Website"/>
         <a href="<?php echo ADMIN_URLROOT . $data['club']->club . '/settings/leagues'; ?>">View All Leagues</a>
 
         <h2>Venues</h2>
-<?php
-    foreach ($data['venues'] as $i => $venue) {
-?>
-        <input type="hidden" name="venue_id[]" value="<?php echo (!empty($venue->id)) ? $venue->id : ''; ?>"/>
-        <input type="text" name="venue[]" value="<?php echo (!empty($venue->venue)) ? $venue->venue : ''; ?>" placeholder="Add Venue Name"/>
-        <input type="text" name="venue_location[]" value="<?php echo (!empty($venue->location)) ? $venue->location : ''; ?>" placeholder="Add Venue Location"/>
-        <br />
-<?php
-        if (isset($data['venues_err'][$i])) {
-            print_var($data['venues_err'][$i]);
-        }
-    }
-?>
-        <input type="hidden" name="venue_id[]" value=""/>
-        <input type="text" name="venue[]" value="" placeholder="Add Venue Name"/>
-        <input type="text" name="venue_location[]" value="" placeholder="Add Venue Location"/>
         <a href="<?php echo ADMIN_URLROOT . $data['club']->club . '/settings/venues'; ?>">View All Venues</a>
 
         <h1>People</h1>

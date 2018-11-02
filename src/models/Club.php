@@ -11,14 +11,26 @@ Class Club {
         $sql = "SELECT * FROM `clubs` WHERE `club`= :club_name LIMIT 1";
         $this->db->query($sql);
         $this->db->bind(':club_name', $club_name);
-        return $this->db->result();
+        $club = $this->db->result();
+
+        $club->menu_links = $this->getData('menu_links', $club->id);
+        $club->addresses = $this->getData('addresses', $club->id);
+        $club->emails = $this->getData('emails', $club->id);
+        $club->phone_numbers = $this->getData('phone_numbers', $club->id);
+        return $club;
     }
 
     public function getClubByID($club_id) {
         $sql = "SELECT * FROM `clubs` WHERE `id`= :club_id LIMIT 1";
         $this->db->query($sql);
         $this->db->bind(':club_id', $club_id);
-        return $this->db->result();
+        $club = $this->db->result();
+
+        $club->menu_links = $this->getData('menu_links', $club->id);
+        $club->addresses = $this->getData('addresses', $club->id);
+        $club->emails = $this->getData('emails', $club->id);
+        $club->phone_numbers = $this->getData('phone_numbers', $club->id);
+        return $club;
     }
 
     public function getData($table, $club_id) {
@@ -46,14 +58,15 @@ Class Club {
     }
 
     public function updateClub($data) {
-        $sql = "UPDATE `clubs` SET `name`=:name, `message`=:message, `team_name`=:team_name, `team_address`=:team_address WHERE `id`=:id";
+        $sql = "UPDATE `clubs` SET `name`=:name, `message`=:message, `team_id`=:team_id WHERE `id`=:id";
         $this->db->query($sql);
         $this->db->bind(':id', $data['club']->id);
         $this->db->bind(':name', $data['club']->name);
         $this->db->bind(':message', $data['club']->message);
-        $this->db->bind(':team_name', $data['club']->team_name);
-        $this->db->bind(':team_address', $data['club']->team_address);
+        $this->db->bind(':team_id', $data['club']->team_id);
         $club = $this->db->execute();
+
+        $this->updateHomeTeam($data['club']->id, $data['club']->team_id);
 
         $addresses = $this->updateAddresses($data['club']->id, $data['addresses']);
         $emails = $this->updateEmails($data['club']->id, $data['emails']);
@@ -62,6 +75,20 @@ Class Club {
 
         // Returns true if all added successfully, else if one fails return false.
         return ($club && $addresses && $emails && $phone_numbers && $menu_links);
+    }
+
+    private function updateHomeTeam($club_id, $team_id) {
+        // First remove previous home_team values.
+        $sql = "UPDATE `teams` SET `home_team`=0 WHERE `club_id`=:club_id";
+        $this->db->query($sql);
+        $this->db->bind(':club_id', $club_id);
+        if (!$this->db->execute()) return false;
+        // Next set new home_team = 1 to new team id.
+        $sql = "UPDATE `teams` SET `home_team`=1 WHERE `club_id`=:club_id AND `id`=:id";
+        $this->db->query($sql);
+        $this->db->bind(':club_id', $club_id);
+        $this->db->bind(':id', $team_id);
+        return $this->db->execute();
     }
 
     private function updateAddresses($club_id, $addresses) {

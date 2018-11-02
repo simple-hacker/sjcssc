@@ -9,7 +9,7 @@ class Team {
     }
 
     public function getTeams($club_id) {
-        $sql = "SELECT * FROM `teams` WHERE `club_id`=:club_id ORDER BY `team` ASC";
+        $sql = "SELECT * FROM `teams` WHERE `club_id`=:club_id ORDER BY `home_team` DESC, `team` ASC";
         $this->db->query($sql);
         $this->db->bind(':club_id', $club_id);
         return $this->db->results();

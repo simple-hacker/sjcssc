@@ -1,0 +1,27 @@
+.parallax {
+    height: 250px;
+    position: relative;
+    
+
+    .parallax-text {
+        position: absolute;
+        top: 30%;
+        width: 100%;
+        text-align: center;
+        z-index: 1;
+    }
+
+    .parallax-background {
+        height: 100%;
+        width: 100%;
+        opacity: 0.50;
+        background-repeat: repeat;
+        background-position: 0 0;
+        background-size: auto;
+        background-attachment: fixed;
+        z-index: -1;
+        background-color: $brown;
+        // background-image: url('../img/parallax/bowls/1.jpg');
+    }
+
+}

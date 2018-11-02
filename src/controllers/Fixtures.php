@@ -81,7 +81,7 @@
                     'teams' => $this->teamModel->getTeams($this->club_id),
                     'leagues' => $this->leagueModel->getLeagues($this->club_id),
                     'venues' => $this->venueModel->getVenues($this->club_id),
-                    'fixtures' => $this->fixtureModel->getFixtures($this->club_name),  // Send club_name instead of club_id because tables are fixtures_bowls etc
+                    'fixtures' => $this->fixtureModel->getFixtures($this->club_id),
                     'fixture' => (object) $fixture_arr,
                     'home_team_err' => isset($home_team_err) ? $home_team_err : '',
                     'away_team_err' => isset($away_team_err) ? $away_team_err : '',
@@ -107,7 +107,7 @@
                     'teams' => $this->teamModel->getTeams($this->club_id),
                     'leagues' => $this->leagueModel->getLeagues($this->club_id),
                     'venues' => $this->venueModel->getVenues($this->club_id),
-                    'fixtures' => $this->fixtureModel->getFixtures($this->club_name),  // Send club_name instead of club_id because tables are fixtures_bowls etc
+                    'fixtures' => $this->fixtureModel->getFixtures($this->club_id),
                 ];
             }
             $this->view('fixtures/index', $data);

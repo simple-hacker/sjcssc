@@ -10,6 +10,7 @@
             $this->userModel = $this->model('UserModel');
             $this->clubModel = $this->model('Club');
             $this->outingModel = $this->model('Outing');
+            $this->reportModel = $this->model('Report');
             
             $this->admin = $admin;
             $this->club_id = $club_id;
@@ -51,7 +52,7 @@
 
                         if (!isset($report_err)) {
                             // Proceed with saving report.
-                            if ($this->outingModel->updateReport($data['report'])) {
+                            if ($this->reportModel->updateReport($data['report'])) {
                                 create_flash_message('reports', 'Successfully saved the report for <strong>' . $data['report']->title . '</strong>');
                                 redirect($this->club_name . '/reports', true);
                             } else {

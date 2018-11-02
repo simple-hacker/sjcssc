@@ -1,0 +1,31 @@
+.sj-heading {
+    color: $gold;
+    text-shadow: 2px 2px $brown;
+    font-weight: bolder;
+    font-size: 2em;
+    &-small {
+        @extend .sj-heading;
+        font-size: 1.5em;
+    }
+    &-large {
+        @extend .sj-heading;
+        font-size: 2.5em;
+    }
+}
+
+i {
+    color: $gold;
+    font-size: 1.2em;
+    text-align: center;
+    padding-top: 8px;
+    // margin: 10px 15px;
+    // vertical-align: middle;
+
+    &.border {
+        background-color: 
+        $brown;width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        border: 10px solid $gold;
+    }
+}

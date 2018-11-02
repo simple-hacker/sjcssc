@@ -8,9 +8,9 @@
   // App Root
   define('APPROOT', dirname(dirname(__FILE__)) . '\\');
   // Public Views Root
-  define('PUBLIC_VIEWS', APPROOT . '\\views\\public\\');
+  define('PUBLIC_VIEWS', APPROOT . 'views\\public\\');
   // Admin Views Root
-  define('ADMIN_VIEWS', APPROOT . '\\views\\admin\\');
+  define('ADMIN_VIEWS', APPROOT . 'views\\admin\\');
   // URL Root
   define('URLROOT', 'http://localhost/sjcssc/');
   // URL Root

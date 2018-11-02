@@ -42,10 +42,6 @@
                     $team_name_err = "Please enter the club's team name.";
                 }
 
-                // Not all clubs will have team_name or team_address, so need to assign blank if the input box doesn't exist.
-                $team_name = (!empty($_POST['team_name'])) ? trim($_POST['team_name']) : '';
-                $team_address = (!empty($_POST['team_address'])) ? trim($_POST['team_address']) : '';
-
                 // Validate Addresses
                 foreach ($_POST['address_id'] as $i => $id) {
                     // Only put in to array if value is not null, and title and address are not empty.
@@ -127,52 +123,17 @@
                     }
                 }
 
-                // Validate Team
-                foreach ($_POST['team'] as $i => $team) {
-                    if (empty($team) && !empty($_POST['team_location'][$i])) {
-                        // If user enters location without a team name, then team name error.
-                        $teams_err[$i] = 'Please make sure you enter the team name.';
-                    }
-                    // Add all POST data to teams array as long as at least on data is not empty.
-                    if (!empty($_POST['team_id'][$i]) || !empty($team) || !empty($_POST['team_location'][$i])) {
-                        $teams[] = (object) ['id' => $_POST['team_id'][$i], 'club_id' => $this->club_id, 'team' => $team, 'location' => $_POST['team_location'][$i]];
-                    }
-                }
-
-                // Validate League
-                foreach ($_POST['league'] as $i => $league) {
-                    if (empty($league) && (!empty($_POST['league_full'][$i]) || !empty($_POST['league_website'][$i]))) {
-                        // If user enters league_full or league_website without a league, then league error.
-                        $leagues_err[$i] = 'Please make sure you enter the league.';
-                    }
-                    // Add all POST data to teams array as long as at least one data is not empty.
-                    if (!empty($_POST['league_id'][$i]) || !empty($league) || !empty($_POST['league_full'][$i]) || !empty($_POST['league_website'][$i])) {
-                        $leagues[] = (object) ['id' => $_POST['league_id'][$i], 'club_id' => $this->club_id, 'league' => $league, 'league_full' => $_POST['league_full'][$i], 'league_website' => $_POST['league_website'][$i]];
-                    }
-                }
-
-                // Validate Venue
-                foreach ($_POST['venue'] as $i => $venue) {
-                    if (empty($venue) && !empty($_POST['venue_location'][$i])) {
-                        // If user enters location without a venue name, then venue name error.
-                        $venues_err[$i] = 'Please make sure you enter the venue name.';
-                    }
-                    // Add all POST data to teams array as long as at least on data is not empty.
-                    if (!empty($_POST['venue_id'][$i]) || !empty($venue) || !empty($_POST['venue_location'][$i])) {
-                        $venues[] = (object) ['id' => $_POST['venue_id'][$i], 'club_id' => $this->club_id, 'venue' => $venue, 'location' => $_POST['venue_location'][$i]];
-                    }
-                }
+                // TODO: HOME TEAM
+                $team_id = (!empty($_POST['team_id'])) ? $_POST['team_id'] : 0;
 
                 // TODO: Need to do HTML entities.
                 $data = [
-                    'club' => (object) ['id' => $this->club_id, 'club' => $this->club_name ,'name' => trim($_POST['name']), 'message' => trim($_POST['message']), 'team_name' => $team_name, 'team_address' => $team_address], // Need to convert POST data to objects.
+                    'club' => (object) ['id' => $this->club_id, 'club' => $this->club_name ,'name' => trim($_POST['name']), 'message' => trim($_POST['message']), 'team_id' => $team_id] , // Need to convert POST data to objects.
                     'addresses' => isset($addresses) ? $addresses : [],
                     'emails' => isset($emails) ? $emails : [],
                     'phone_numbers' => isset($phone_numbers) ? $phone_numbers : [],
                     'menu_links' => isset($menu_links) ? $menu_links : [],
                     'teams' => isset($teams) ? $teams : [],
-                    'leagues' => isset($leagues) ? $leagues : [],
-                    'venues' => isset($venues) ? $venues : [],
                     'name_err' => isset($name_err) ? $name_err : '',
                     'message_err' => isset($message_err) ? $message_err : '',
                     'addresses_title_err' => isset($addresses_title_err) ? $addresses_title_err : [],
@@ -183,9 +144,6 @@
                     'phone_numbers_err' => isset($phone_numbers_err) ? $phone_numbers_err : [],
                     'menu_links_title_err' => isset($menu_links_title_err) ? $menu_links_title_err : [],
                     'menu_links_err' => isset($menu_links_err) ? $menu_links_err : [],
-                    'teams_err' => isset($teams_err) ? $teams_err : [],
-                    'leagues_err' => isset($leagues_err) ? $leagues_err : [],
-                    'venues_err' => isset($venues_err) ? $venues_err : [],
                 ];
 
                 // If no errors exist then proceed with saving all data.
@@ -203,13 +161,7 @@
             } else {
                 $data = [
                     'club' => $this->clubModel->getClubByID($this->club_id),
-                    'addresses' => $this->clubModel->getData('addresses', $this->club_id),
-                    'emails' => $this->clubModel->getData('emails', $this->club_id),
-                    'phone_numbers' => $this->clubModel->getData('phone_numbers', $this->club_id),
-                    'menu_links' => $this->clubModel->getData('menu_links', $this->club_id),
-                    'teams' => [],
-                    'leagues' => [],
-                    'venues' => [],
+                    'teams' => $this->teamModel->getTeams($this->club_id),
                 ];
             }
             $this->view('settings/index', $data);
