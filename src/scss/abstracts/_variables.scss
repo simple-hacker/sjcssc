@@ -7,10 +7,13 @@ $brown: rgba(146,88,24,1);
 $light-brown: lighten($brown, 2%);
 $dark-brown: darken($brown, 10%);
 $brown-shadow: 2px 2px $dark-brown;
+$grey: rgba(243, 243, 243, 1);
+$dark-grey: darken($grey, 20%);
 
 // Navbar
 $nav-bar-height: 50px;
 // $nav-bar-width: 100%;
+
 
 
 // Table Variables

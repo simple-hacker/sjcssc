@@ -14,7 +14,12 @@
 <?php
     foreach (CLUBS[$data['club']->club]['sections'] as $club_section) {
         if (!in_array($club_section, ['results', 'reports'])) {
-            echo '<a href="' . ADMIN_URLROOT . $data['club']->club . '/' . $club_section . '/add">Add ' . ucwords(rtrim($club_section, "s")) . '</a> | ';
+?>
+            <a href="<?php echo ADMIN_URLROOT . $data['club']->club . '/' . $club_section; ?>" class="db-btn">
+                <span class="db-btn-icon"><?php echo isset(ICONS[$club_section]) ? ICONS[$club_section] : ''; ?></span>    
+                <p class="db-btn-text">Add <?php echo trim(ucwords($club_section), "s"); ?></p>
+            </a>
+<?php
         }
     }
 ?>

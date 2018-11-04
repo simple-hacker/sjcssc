@@ -6,8 +6,6 @@
     }
 ?>
 
-LOGIN FORM
-
 <?php
     display_flash_messages('user');
 ?>
@@ -23,11 +21,6 @@ LOGIN FORM
     ?>
 </form>
 
-<?php
-    if (isset($_SESSION)) {
-        print_var($_SESSION);
-    }
-?>
 
 <?php
     if (file_exists(ADMIN_VIEWS . 'inc/footer.php')) {

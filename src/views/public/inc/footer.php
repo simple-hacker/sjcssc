@@ -82,6 +82,11 @@
                     <p><span>Designed by <a href="http://www.simplehacker.co.uk" target="_blank">Michael Perks</a></span></p>
                 </div>
             </div>
+            <div class="row text-center pt-2 pb-3">
+                <div class="col-12">
+                    <a href="<?php echo ADMIN_URLROOT; ?>" target="_blank">Admin Login</a>
+                </div>
+            </div>
         </div>
     </footer>
 </body>

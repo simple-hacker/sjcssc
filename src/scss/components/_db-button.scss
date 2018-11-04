@@ -1,0 +1,28 @@
+.db-btn {
+    display: inline-block;
+    width: 200px;
+    height: 200px;
+    background: $grey;
+    margin-right: 10px;
+    margin-left: 10px;
+    border: 1px solid $dark-grey;
+    border-radius: 10px;
+
+    &:hover {
+        background: darken($grey, 5%);
+        border: 1px solid $dark-grey;
+        text-decoration: none;
+    }
+
+    .db-btn-icon {
+        display: block;
+        text-align: center;
+        font-size: 4em;
+    }
+
+    .db-btn-text {
+        display: block;
+        text-align: center;
+        font-size: 2em;
+    }
+}

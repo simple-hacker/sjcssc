@@ -142,3 +142,12 @@
     define('CONTROLLERS', ['user', 'users', 'settings']); // Need to include these variables in .htaccess
     // Array of all possible pages, each controller could have.
     // define('PAGES', ['index', 'add', 'edit', 'delete', 'view', 'show', 'login', 'settings']);
+
+    define('ICONS', [
+        'notices' => '<i class="fas fa-edit"></i>',
+        'events' => '<i class="fas fa-calendar-alt"></i>',
+        'fixtures' => '<i class="fas fa-calendar-plus"></i>',
+        'results' => '<i class="fas fa-star"></i>',
+        'outings' => '<i class="fas fa-calendar-plus"></i>',
+        'reports' => '<i class="fas fa-star"></i>',
+    ]);

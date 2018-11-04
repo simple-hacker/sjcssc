@@ -1,11 +1,13 @@
 <?php 
 
-class Fixture {
+class Fixture extends Controller {
 
     private $db;
 
     public function __construct() {
         $this->db = new Database;
+
+        $this->peopleModel = $this->model('People');
     }
 
     private function getClubName($club_id) {
