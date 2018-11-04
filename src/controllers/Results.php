@@ -22,10 +22,19 @@
         }
 
         public function index($result_id) {
-            $data = [
-                'club' => $this->clubModel->getClubByID($this->club_id),
-                'results' => $this->fixtureModel->getPastFixtures($this->club_name),
-            ];
+            if (isset($result_id)) {
+                // Get single result.
+                // This should be PUBLIC_VIEWS because in admin results with an id will have page of add/edit/delete etc.  Public views will be i.e. bowls/results/2 which loads index.
+                $data = [
+                    'club' => $this->clubModel->getClubByID($this->club_id),
+                    'result' => $this->resultModel->getResult($this->club_id, $result_id),
+                ];
+            } else {
+                $data = [
+                    'club' => $this->clubModel->getClubByID($this->club_id),
+                    'results' => $this->resultModel->getResults($this->club_id),
+                ];
+            }
             $this->view('results/index', $data);
         }
 

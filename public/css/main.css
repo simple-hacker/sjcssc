@@ -90,6 +90,18 @@ tr.lose {
   background-color: #ffe6e6;
 }
 
+.jumbotron.win {
+  background-color: #ccffcc;
+}
+
+.jumbotron.draw {
+  background-color: #ffffe6;
+}
+
+.jumbotron.lose {
+  background-color: #ffe6e6;
+}
+
 nav.clubbar {
   background-color: #925818;
   border-bottom: 5px solid #f0d64e;
@@ -140,10 +152,8 @@ section .card {
 }
 
 footer {
-  padding-top: 20px;
   padding-bottom: 5px;
   border-top: 3px solid #f0d64e;
-  position: absolute;
   width: 100%;
   background-color: #F3F3F3;
 }
@@ -165,9 +175,9 @@ footer {
   height: 100%;
   width: 100%;
   opacity: 0.50;
-  background-repeat: repeat;
-  background-position: 0 0;
-  background-size: auto;
+  background-repeat: repeat-y;
+  background-position: center;
+  background-size: cover;
   background-attachment: fixed;
   z-index: -1;
   background-color: #925818;

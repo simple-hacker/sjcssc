@@ -5,14 +5,14 @@
     if (!empty($data['fixtures'])) {
         foreach ($data['fixtures'] as $fixture) {
 ?>
-            <div class="col-12 col-lg-6">
+            <div class="col-12 col-lg-4">
                 <div class="card mb-3">
                     <div class="card-header text-center sj-heading-small">
                         <?php echo $fixture->league; ?>
                     </div>
                     <div class="card-body">
                         <div class="container">
-                        <div class="row mt-1">
+                            <div class="row mt-1">
                                 <div class="col-2"><i class="fa fa-star border"></i></div>
                                 <div class="col-10">
                                     <?php

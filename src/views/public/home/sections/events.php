@@ -32,7 +32,7 @@
                     ?>
                             <div class="row mt-3">
                                 <div class="col-12 text-center">
-                                    <a href="<?php echo URLROOT . $data['club']->club . '/events/' . $event->id; ?>" class="btn btn-brown">View Event</a>
+                                    <a href="<?php echo URLROOT . $data['club']->club . '/events/' . $event->event_id; ?>" class="btn btn-brown">View Event</a>
                                 </div>
                             </div>
                             <div class="row mt-3">

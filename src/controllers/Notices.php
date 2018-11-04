@@ -86,7 +86,7 @@
                     // In public we only need the notices and not the form data.
                     $data = [
                         'club' => $this->clubModel->getClubByID($this->club_id),
-                        'notices' => $this->noticeModel->getNotices($this->club_id, 4)  // Default is 4 notices.  If left blank then all notices are returned.
+                        'notices' => $this->noticeModel->getNotices($this->club_id)  // Default is 4 notices.  If left blank then all notices are returned.
                     ];
                 }
             }

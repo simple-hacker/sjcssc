@@ -15,9 +15,9 @@
         height: 100%;
         width: 100%;
         opacity: 0.50;
-        background-repeat: repeat;
-        background-position: 0 0;
-        background-size: auto;
+        background-repeat: repeat-y;
+        background-position: center;
+        background-size: cover;
         background-attachment: fixed;
         z-index: -1;
         background-color: $brown;

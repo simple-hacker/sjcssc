@@ -28,7 +28,9 @@
                     ['name' => 'squad', 'type' => 'text', 'size' => 6, 'placeholder' => 'Rink', 'count' => 6],
                     ['name' => 'substitutes', 'type' => 'text', 'size' => 12, 'placeholder' => 'Reserves'],
                     ['name' => 'other_information', 'type' => 'textarea', 'size' => 12, 'placeholder' => 'Other Information']
-                ]
+                ],
+                'squad_title' => 'Rink',
+                'substitutes_title' => 'Reserves',
             ],
             'results' => [
                 'fields' => [
@@ -63,7 +65,9 @@
                     ['name' => 'squad', 'type' => 'text', 'size' => 6, 'placeholder' => 'Player', 'count' => 15],
                     ['name' => 'substitutes', 'type' => 'text', 'size' => 12, 'placeholder' => 'Substitutes'],
                     ['name' => 'other_information', 'type' => 'textarea', 'size' => 12, 'placeholder' => 'Other Information']
-                ]
+                ],
+                'squad_title' => 'Player',
+                'substitutes_title' => 'Substitutes',
             ],
             'results' => [
                 'fields' => [
@@ -94,7 +98,9 @@
                     ['name' => 'squad', 'type' => 'text', 'size' => 6, 'placeholder' => 'Player', 'count' => 11],
                     ['name' => 'substitutes', 'type' => 'text', 'size' => 12, 'placeholder' => 'Substitutes'],
                     ['name' => 'other_information', 'type' => 'textarea', 'size' => 12, 'placeholder' => 'Other Information']
-                ]
+                ],
+                'squad_title' => 'Player',
+                'substitutes_title' => 'Substitutes',
             ],
             'results' => [
                 'fields' => [

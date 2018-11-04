@@ -22,10 +22,19 @@
         }
 
         public function index($report_id) {
-            $data = [
-                'club' => $this->clubModel->getClubByID($this->club_id),
-                'reports' => $this->outingModel->getPastOutings(),
-            ];
+            if (isset($report_id)) {
+                // Get single fixture.
+                // This should be PUBLIC_VIEWS because in admin fixtures with an id will have page of add/edit/delete etc.  Public views will be i.e. bowls/fixtures/2 which loads index.
+                $data = [
+                    'club' => $this->clubModel->getClubByID($this->club_id),
+                    'report' => $this->reportModel->getReport($report_id),
+                ];
+            } else {
+                $data = [
+                    'club' => $this->clubModel->getClubByID($this->club_id),
+                    'reports' => $this->outingModel->getPastOutings(),
+                ];
+            }
             $this->view('reports/index', $data);
         }
 

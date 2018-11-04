@@ -8,6 +8,30 @@ class Result extends Controller {
         $this->db = new Database;
 
         $this->clubModel = $this->model('Club');
+        $this->fixtureModel = $this->model('Fixture');
+    }
+
+    public function getResult($club_id, $result_id) {
+        $club_name = $this->clubModel->getClubName($club_id);
+        $table_name = 'fixtures_' . $club_name;
+        $sql = "SELECT {$table_name}.*, home_teams.team AS home_team, away_teams.team AS away_team, leagues.league AS league, venues.venue AS venue, venues.location AS location FROM {$table_name}
+                    LEFT JOIN leagues ON {$table_name}.league_id = leagues.id
+                    LEFT JOIN teams AS home_teams ON {$table_name}.home_team_id = home_teams.id
+                    LEFT JOIN teams AS away_teams ON {$table_name}.away_team_id = away_teams.id
+                    LEFT JOIN venues ON {$table_name}.venue_id = venues.id
+                    WHERE {$table_name}.`id`=:id";
+        $this->db->query($sql);
+        $this->db->bind(':id', $result_id);
+        $result = $this->db->result();
+        // If fixture exists then try and get the squad too.
+        if ($result) {
+            $result->squad = $this->fixtureModel->getSquad($club_id, $result->id);
+            if (!empty($result->squad[0])) {
+                $result->substitutes = !empty($result->squad[0]) ? implode(", ", $result->squad[0]) : '';
+                unset($result->squad[0]); // Remove 0 index which are substitutes.
+            }
+        }
+        return $result;
     }
 
     public function getResults($club_id, $n = 0) {

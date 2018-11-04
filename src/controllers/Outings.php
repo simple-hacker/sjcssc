@@ -23,60 +23,70 @@
 
         public function index($outing_id) {
 
-            if ($_SERVER['REQUEST_METHOD'] === "POST") {
-
-                $_POST  = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-
-                // Validate Form
-                if (empty($_POST['title'])) {
-                    $title_err = 'Please enter a title.';
-                }
-                if (empty($_POST['date'])) {
-                    $date_err = 'Please select a date.';
-                } elseif ($_POST['date'] < date("Y-m-d")) {
-                    $date_err = 'Date cannot be in the past.';
-                }
-                if (empty($_POST['time'])) {
-                    $time_err = 'Please select a time.';
-                }
-
-                $outing_arr = [
-                    'title' => isset($_POST['title']) ? trim($_POST['title']) : '',
-                    'date' => isset($_POST['date']) ? $_POST['date'] : '',
-                    'time' => isset($_POST['time']) ? $_POST['time'] : '',
-                    'venue_id' => isset($_POST['venue_id']) ? $_POST['venue_id'] : '',
-                    'meet_at' => isset($_POST['meet_at']) ? trim($_POST['meet_at']) : '',
-                    'contact' => isset($_POST['contact']) ? trim($_POST['contact']) : '',
-                    'other_information' => isset($_POST['other_information']) ? trim($_POST['other_information']) : '',
-                ];
-
+            if (isset($outing_id)) {
+                // Get single fixture.
+                // This should be PUBLIC_VIEWS because in admin fixtures with an id will have page of add/edit/delete etc.  Public views will be i.e. bowls/fixtures/2 which loads index.
                 $data = [
                     'club' => $this->clubModel->getClubByID($this->club_id),
-                    'outings' => $this->outingModel->getOutings(),
-                    'outing' => (object) $outing_arr,
-                    'title_err' => isset($title_err) ? $title_err : '',
-                    'date_err' => isset($date_err) ? $date_err : '',
-                    'time_err' => isset($time_err) ? $time_err : '',
+                    'outing' => $this->outingModel->getOuting($outing_id),
                 ];
-                
-                // If no errors then proceeed with adding Outing.
-                if (!isset($title_err) && !isset($date_err) && !isset($time_err)) {
-                    if ($this->outingModel->addOuting($data['outing'])) {
-                        create_flash_message('outings', 'Successfully added the outing <strong>' . $data['outing']->title . '</strong>');
-                        redirect($this->club_name . '/outings', true);
+            } else {
+
+                if ($_SERVER['REQUEST_METHOD'] === "POST") {
+
+                    $_POST  = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+                    // Validate Form
+                    if (empty($_POST['title'])) {
+                        $title_err = 'Please enter a title.';
+                    }
+                    if (empty($_POST['date'])) {
+                        $date_err = 'Please select a date.';
+                    } elseif ($_POST['date'] < date("Y-m-d")) {
+                        $date_err = 'Date cannot be in the past.';
+                    }
+                    if (empty($_POST['time'])) {
+                        $time_err = 'Please select a time.';
+                    }
+
+                    $outing_arr = [
+                        'title' => isset($_POST['title']) ? trim($_POST['title']) : '',
+                        'date' => isset($_POST['date']) ? $_POST['date'] : '',
+                        'time' => isset($_POST['time']) ? $_POST['time'] : '',
+                        'venue_id' => isset($_POST['venue_id']) ? $_POST['venue_id'] : '',
+                        'meet_at' => isset($_POST['meet_at']) ? trim($_POST['meet_at']) : '',
+                        'contact' => isset($_POST['contact']) ? trim($_POST['contact']) : '',
+                        'other_information' => isset($_POST['other_information']) ? trim($_POST['other_information']) : '',
+                    ];
+
+                    $data = [
+                        'club' => $this->clubModel->getClubByID($this->club_id),
+                        'outings' => $this->outingModel->getOutings(),
+                        'outing' => (object) $outing_arr,
+                        'title_err' => isset($title_err) ? $title_err : '',
+                        'date_err' => isset($date_err) ? $date_err : '',
+                        'time_err' => isset($time_err) ? $time_err : '',
+                    ];
+                    
+                    // If no errors then proceeed with adding Outing.
+                    if (!isset($title_err) && !isset($date_err) && !isset($time_err)) {
+                        if ($this->outingModel->addOuting($data['outing'])) {
+                            create_flash_message('outings', 'Successfully added the outing <strong>' . $data['outing']->title . '</strong>');
+                            redirect($this->club_name . '/outings', true);
+                        } else {
+                            die('<strong>Fatal Error: </strong> Something went wrong when adding a fixture.');
+                        }
                     } else {
-                        die('<strong>Fatal Error: </strong> Something went wrong when adding a fixture.');
+                        create_flash_message('outings', 'Please correct all highlighted errors and try again', 'danger');
                     }
                 } else {
-                    create_flash_message('outings', 'Please correct all highlighted errors and try again', 'danger');
+                    $data = [
+                        'club' => $this->clubModel->getClubByID($this->club_id),
+                        'outings' => $this->outingModel->getOutings(),
+                        'venues' => $this->venueModel->getVenues($this->club_id)
+                    ];
                 }
-            } else {
-                $data = [
-                    'club' => $this->clubModel->getClubByID($this->club_id),
-                    'outings' => $this->outingModel->getOutings(),
-                    'venues' => $this->venueModel->getVenues($this->club_id)
-                ];
-            }            
+            }
             $this->view('outings/index', $data);
         }
 

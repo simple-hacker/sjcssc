@@ -27,7 +27,7 @@ class Fixture {
                     WHERE {$table_name}.date >= DATE(NOW())
                     ORDER BY {$table_name}.date DESC";
         if ($n > 0) {
-            // To prevent negative numbers.  If n isn't provided then get unlimited events, else only return n events.
+            // To prevent negative numbers.  If n isn't provided then get unlimited fixtures, else only return n fixtures.
             $sql .= " LIMIT 0, {$n}";
         }
         $this->db->query($sql);
@@ -50,12 +50,15 @@ class Fixture {
         // If fixture exists then try and get the squad too.
         if ($fixture) {
             $fixture->squad = $this->getSquad($club_id, $fixture->id);
-            $fixture->substitutes = !empty($fixture->squad[0]) ? implode(", ", $fixture->squad[0]) : '';
+            if (!empty($fixture->squad[0])) {
+                $fixture->substitutes = !empty($fixture->squad[0]) ? implode(", ", $fixture->squad[0]) : '';
+                unset($fixture->squad[0]); // Remove 0 index which are substitutes.
+            }
         }
         return $fixture;
     }
 
-    private function getSquad($club_id, $fixture_id) {
+    public function getSquad($club_id, $fixture_id) {
         if (isset($club_id) && isset($fixture_id)) {
             $sql = "SELECT squads.club_id, squads.fixture_id, squads.position_id, squads.name_id, people.name FROM `squads`
                     INNER JOIN people

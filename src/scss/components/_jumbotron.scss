@@ -1,0 +1,11 @@
+.jumbotron {
+    &.win {
+        background-color: $win;
+    }
+    &.draw {
+        background-color: $draw;
+    }
+    &.lose {
+        background-color: $lose;
+    }
+}

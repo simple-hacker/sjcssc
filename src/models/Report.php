@@ -8,6 +8,17 @@ class Report {
         $this->db = new Database;
     }
 
+    public function getReport($report_id) {
+        $sql = "SELECT `outings`.*, venues.venue AS venue, venues.location AS location FROM `outings`
+                    LEFT JOIN venues ON `outings`.venue_id = venues.id
+                    WHERE `outings`.id = :id
+                    AND `publish_report` = true
+                    ORDER BY `date` DESC";
+        $this->db->query($sql);
+        $this->db->bind(':id', $report_id);
+        return $this->db->result();
+    }
+
     public function getReports($club_id, $n = 0) {
         $sql = "SELECT `outings`.*, venues.venue AS venue, venues.location AS location FROM `outings`
                     LEFT JOIN venues ON `outings`.venue_id = venues.id
@@ -19,7 +30,7 @@ class Report {
             $sql .= " LIMIT 0, {$n}";
         }
         $this->db->query($sql);
-        return $this->db->result();
+        return $this->db->results();
     }
 
     public function updateReport($report) {
