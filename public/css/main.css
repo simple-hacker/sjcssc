@@ -92,18 +92,22 @@ fieldset[disabled] .btn-brown.active {
   display: inline-block;
   width: 200px;
   height: 200px;
-  background: #f3f3f3;
-  margin-right: 10px;
-  margin-left: 10px;
+  background: #f8f8f8;
+  margin: 5px 25px 5px 25px;
+  padding-top: 20px;
   border: 1px solid silver;
   border-radius: 10px;
-  vertical-align: 50%;
 }
 
 .db-btn:hover {
-  background: #e6e6e6;
+  background: #f3f3f3;
   border: 1px solid silver;
   text-decoration: none;
+  -webkit-box-shadow: 2px 2px 2px 2px #dadada;
+          box-shadow: 2px 2px 2px 2px #dadada;
+  position: relative;
+  top: 2px;
+  left: 2px;
 }
 
 .db-btn .db-btn-icon {
@@ -205,14 +209,23 @@ nav.clubbar a.active {
   padding: 10px;
 }
 
+#sidebar ul li a.active {
+  background: #FFF;
+}
+
+#sidebar ul li a i {
+  min-width: 30px;
+  margin-right: 10px;
+}
+
 #sidebar ul li a:hover {
   color: #f0d64e;
-  background: #fff;
+  background: #FFF;
   text-decoration: none;
 }
 
 #sidebar ul li.active > a, #sidebar a[aria-expanded="true"] {
-  color: #fff;
+  color: #FFF;
   background: #f0d64e;
 }
 

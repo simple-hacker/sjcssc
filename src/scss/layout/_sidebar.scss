@@ -13,16 +13,25 @@
         font-size: 1.1em;
         display: block;
         padding: 10px;
+
+        &.active {
+            background: #FFF;
+        }
+
+        i {
+            min-width: 30px;
+            margin-right: 10px;
+        }
     }
 
     ul li a:hover {
         color: $gold;
-        background: #fff;
+        background: #FFF;
         text-decoration: none;
     }
 
     ul li.active > a, a[aria-expanded="true"] {
-        color: #fff;
+        color: #FFF;
         background: $gold;
     }
 

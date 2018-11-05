@@ -10,7 +10,9 @@
 
 
 <h1>DASHBOARD</h1>
-<h2>Quick Add Buttons</h2>
+
+<div class="container">
+    <div class="row">
 <?php
     foreach (CLUBS[$data['club']->club]['sections'] as $club_section) {
         if (!in_array($club_section, ['results', 'reports'])) {
@@ -23,6 +25,9 @@
         }
     }
 ?>
+    </div>
+</div>
+
 <?php
     if (!empty($data['unpublished_results'])) {
         echo '<h2>Unpublished Results</h2>';
