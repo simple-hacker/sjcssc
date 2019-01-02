@@ -1,5 +1,5 @@
 <nav class="clubbar">
-    <div class="container text-center">     
+    <div class="container text-center">
         <?php 
             foreach (CLUBS as $club_name => $club_data) {
                 $url = URLROOT . $club_name;

@@ -8,26 +8,39 @@
     display_flash_messages('fixtures');
 ?>
 
-<h1>Edit Fixture</h1>
-
-<form action="<?php echo ADMIN_URLROOT . $data['club']->club . '/fixtures/edit/' . $data['fixture']->id; ?>" method="POST">
+<div class="wrap">
+    <h3>Edit Fixture</h3>
+    <form action="<?php echo ADMIN_URLROOT . $data['club']->club . '/fixtures'; ?>" method="POST">
+        <div class="row">
 <?php
             if (isset(CLUBS[$data['club']->club]['fixtures']['fields'])) {
-
                 foreach (CLUBS[$data['club']->club]['fixtures']['fields'] as $field) {
-
+                    $output = '';
+                    $name = $field['name'];
+                    $size = isset($field['size']) ? $field['size'] : '12';
+                    $label = isset($field['label']) ? $field['label'] : ucwords($field['name']);
+                    $placeholder = isset($field['placeholder']) ? $field['placeholder'] : '';
                     $input_data = isset($data['fixture']->{$field['name']}) ? $data['fixture']->{$field['name']} : '';                
                     // First check if there are multiple of the same field, mainly for Rinks and Players
                     if (!isset($field['count'])) {
                         if ($field['type'] === 'textarea') {
-                            $output = "<textarea name=\"{$field['name']}\" class=\"col-{$field['size']}\"";
-                            $output .= (isset($field['placeholder'])) ? " placeholder=\"{$field['placeholder']}\"" : "";
-                            $output .= ">{$input_data}</textarea><br/>";
+                            $output = "<div class=\"col-{$size}\">";
+                            $output .= "<div class=\"form-group row\">";
+                            $output .= "<label for=\"{$name}\" class=\"col-2 col-form-label\">{$label}</label>";
+                            $output .= "<div class=\"col-10\">";
+                            $output .= "<textarea name=\"{$name}\"";
+                            $output .= (!empty($placeholder)) ? " placeholder=\"{$placeholder}\"" : "";
+                            $output .= " class=\"form-control\">{$input_data}</textarea>";
+                            $output .= "</div></div></div>";
                         } elseif ($field['type'] === 'select') {
                             //First need to check if the select_item exists in config.
                             if (isset($field['select_item_model']) && isset($field['select_item'])) {
                                 // Loop through all $select_items
-                                $output = "<select name=\"{$field['name']}\" class=\"col-{$field['size']}\">";
+                                $output = "<div class=\"col-{$size}\">";
+                                $output .= "<div class=\"form-group row\">";
+                                $output .= "<label for=\"{$name}\" class=\"col-2 col-form-label\">{$label}</label>";
+                                $output .= "<div class=\"col-10\">";
+                                $output .= "<select name=\"{$field['name']}\" class=\"form-control\">";
                                 // Get all the select items from the data. e.g. get all the teams, league or venues.
                                 $select_items = $data[$field['select_item_model']];
                                 if (!empty($select_items)) {
@@ -42,30 +55,47 @@
                                         $output .= ($select_item->id === $input_data) ? ' selected' : '';
                                         $output .= ">{$select_item_value}</option>";
                                     }
-                                    $output .= "</select><br/>";
+                                    $output .= "</select>";
+                                    $output .= "</div></div></div>";
                                 } else {
                                     // Put a disabled input box telling user to enter items in Settings page.
-                                    $output = "<input type=\"text\" name=\"{$field['name']}}\" value=\"No " . ucwords($field['name']) . "s Found.  Please enter " . ucwords($field['name']) . " in Settings page.\" disabled><br/>";
+                                    $output = "<div class=\"col-{$size}\">";
+                                    $output .= "<div class=\"form-group row\">";
+                                    $output .= "<label for=\"{$name}\" class=\"col-2 col-form-label\">{$label}</label>";
+                                    $output .= "<div class=\"col-10\">";
+                                    $output .= "<input type=\"text\" name=\"{$field['name']}}\" class=\"form-control\" value=\"No " . ucwords($field['name']) . "s Found.  Please enter " . ucwords($field['name']) . " in Settings page.\" disabled><br/>";
+                                    $output .= "</div></div></div>";
                                 }
                             } else {
                                 die("<b>Fatal error:</b> There is no select_item_model or select_item for {$field['name']} for the club " . ucwords($data['club']->club) . " in the config.php file.");
                             }
                         }
                         else {
-                            $output = "<input name=\"{$field['name']}\" type=\"{$field['type']}\" class=\"col-{$field['size']}\"";
+                            $output = "<div class=\"col-{$size}\">";
+                            $output .= "<div class=\"form-group row\">";
+                            $output .= "<label for=\"{$name}\" class=\"col-2 col-form-label\">{$label}</label>";
+                            $output .= "<div class=\"col-10\">";
+                            $output .= "<input name=\"{$field['name']}\" type=\"{$field['type']}\" class=\"form-control\"";
                             $output .= (isset($field['placeholder'])) ? " placeholder=\"{$field['placeholder']}\"" : "";
                             $output .= (isset($input_data)) ? " value=\"{$input_data}\"" : "";
-                            $output .= "></input><br/>";
+                            $output .= "></input>";
+                            $output .= "</div></div></div>";
                         }
                         echo $output;
                     } else {
                         for ($i = 1; $i <= $field['count']; $i++) {
                             // Put all names together for each array at position index.
                             $names = isset($data['fixture']->squad[$i]) ? implode(", ", $data['fixture']->squad[$i]) : "";
-                            $output = "<input name=\"{$field['name']}[]\" type=\"{$field['type']}\" class=\"col-{$field['size']}\"";
+                            $output = "<div class=\"col-{$size}\">";
+                            $output .= "<div class=\"form-group row\">";
+                            $output .= "<label for=\"{$name}\" class=\"col-2 col-form-label\">{$label} {$i}</label>";
+                            $output .= "<div class=\"col-10\">";
+                            $output .= "<input name=\"{$field['name']}[]\" type=\"{$field['type']}\" class=\"form-control\"";
                             $output .= (isset($field['placeholder'])) ? " placeholder=\"{$field['placeholder']} {$i}\"" : "";
                             $output .= (isset($names)) ? " value=\"{$names}\"" : "";
-                            $output .= "></input><br/>";
+                            $output .= "></input>";
+                            $output .= "</div></div></div>";
+
                             echo $output;
                         }
                     }
@@ -74,51 +104,56 @@
                 die('Missing CLUBS field configuration');
             }
 ?>
-            <h2>Save Changes</h2>
-            <input type="submit" value="Save Changes">
+            </div>
+            <div class="form-group row mt-3">
+                <div class="col-6 mx-auto text-center">
+                    <input type="submit" value="Save Changes" class="btn btn-brown btn-block">
+                </div>
+            </div>
         </form>
+    </div>
 
 <?php
     if (!empty($data['fixtures'])) {
 ?>
-        <h1>Edit Fixtures</h1>
-        <table>
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Date</th>
-                    <th>League</th>
-                    <th>Home Team</th>
-                    <th>Away Team</th>
-                    <th>Venue</th>
-                    <th>Edit</th>
-                    <th>Delete</th>
-                </tr>
-            </thead>
-            <tbody>
+    <div class="wrap">
+        <h3>Edit Fixtures</h3>
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped table-sm">
+                <thead>
+                    <tr class="thead-light">
+                        <th>Date</th>
+                        <th>League</th>
+                        <th>Home Team</th>
+                        <th>Away Team</th>
+                        <th>Venue</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
 <?php
             foreach ($data['fixtures'] as $fixture) {
 ?>
-            <tr>
-                <td><?php echo $fixture->id; ?></td>
-                <td><?php echo $fixture->date; ?></td>
-                <td><?php echo $fixture->league; ?></td>
-                <td><?php echo $fixture->home_team; ?></td>
-                <td><?php echo $fixture->away_team; ?></td>
-                <td><?php echo $fixture->venue; ?></td>
-                <td><a href="<?php echo ADMIN_URLROOT . $data['club']->club . "/fixtures/edit/" . $fixture->id;  ?>">Edit</td>
-                <td><a href="<?php echo ADMIN_URLROOT . $data['club']->club . "/fixtures/delete/" . $fixture->id; ?>">Delete?</td>
-            </tr>
+                <tr>
+                    <td><?php echo date("d/m/y", strtotime($fixture->date)); ?></td>
+                    <td><?php echo $fixture->league; ?></td>
+                    <td><?php echo $fixture->home_team; ?></td>
+                    <td><?php echo $fixture->away_team; ?></td>
+                    <td><?php echo $fixture->venue; ?></td>
+                    <td><a href="<?php echo ADMIN_URLROOT . $data['club']->club . "/fixtures/edit/" . $fixture->id; ?>" class="btn btn-small btn-primary"><i class="fas fa-sm fa-edit"></i></a></td>
+                    <td><a href="<?php echo ADMIN_URLROOT . $data['club']->club . "/fixtures/delete/" . $fixture->id; ?>" class="btn btn-small btn-danger"><i class="fas fa-sm fa-trash-alt"></i></a></td>
+                </tr>
 <?php
             }
 ?>
-            </tbody>
-        </table>
+                </tbody>
+            </table>
+        </div>
+    </div>
 <?php
     }
 ?>
-
-
 
 <?php
     if (file_exists(ADMIN_VIEWS . 'inc/footer.php')) {

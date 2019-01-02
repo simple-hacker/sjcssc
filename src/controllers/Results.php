@@ -93,11 +93,11 @@
                         ];
                     }
                 } else {
-                    create_flash_message('results', 'Invalid Fixture ID.', 'warning');
+                    create_flash_message('results', 'Invalid Fixture ID.', 'warning', true);
                     redirect($this->club_name . '/results', true);
                 }
             } else {
-                create_flash_message('results', 'Please supply a valid fixture ID.', 'warning');
+                create_flash_message('results', 'Please supply a valid fixture ID.', 'warning', true);
                 redirect($this->club_name . '/results', true);
             }
              $this->view('results/edit', $data);

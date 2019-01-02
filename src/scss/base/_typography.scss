@@ -14,16 +14,22 @@
 }
 
 i {
-    color: $gold;
-    font-size: 1.2em;
-    text-align: center;
-    padding-top: 8px;
+    // color: $gold;
+    // font-size: 1.2em;
+    // text-align: center;
+    // padding-top: 8px;
     // margin: 10px 15px;
     // vertical-align: middle;
 
     &.border {
-        background-color: 
-        $brown;width: 38px;
+        color: $gold;
+        font-size: 1.2em;
+        text-align: center;
+        padding-top: 8px;
+        margin: 10px 15px;
+        vertical-align: middle;
+        background-color: $brown;
+        width: 38px;
         height: 38px;
         border-radius: 50%;
         border: 10px solid $gold;
@@ -32,4 +38,19 @@ i {
     &.i-lg {
         font-size: 1.6em;
     }
+}
+
+.wrap {
+    h1, h2, h3, h4, h5, h6 {
+        color: #666666;
+        margin-bottom: 15px;
+        padding-bottom: 5px;
+        border-bottom: 1px solid $grey;
+    }
+}
+
+span.invalid {
+    color: #dc3545;
+    padding: 5px;
+    margin-top: 15px;
 }

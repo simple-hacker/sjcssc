@@ -6,12 +6,16 @@
     }
 ?>
 
-<h1>Delete Notice</h1>
-<form action="<?php echo ADMIN_URLROOT . $data['club']->club . '/notices/delete/' . $data['notice']->notice_id;  ?>" method="POST">
-    <h2>Are you sure you want to delete the notice <?php echo $data['notice']->title; ?>?</h2>
-    <input type="submit" value="Yes, delete <?php echo $data['notice']->title; ?>."/>
-    <a href="<?php echo ADMIN_URLROOT . $data['club']->club . '/notices'; ?>">No, take me back!</a>
-</form>
+<div class="wrap">
+    <h1>Delete Notice</h1>
+    <form action="<?php echo ADMIN_URLROOT . $data['club']->club . '/notices/delete/' . $data['notice']->notice_id;  ?>" method="POST">
+        <p>Are you sure you want to delete the notice <strong><?php echo $data['notice']->title; ?></strong>?</p>
+        <div class="form-group row">
+            <div class="col-6 text-center"><input type="submit" value="Yes, delete <?php echo $data['notice']->title; ?>." class="btn btn-brown w-50"/></div>
+            <div class="col-6 text-center"><a href="<?php echo ADMIN_URLROOT . $data['club']->club . '/notices'; ?>" class="btn btn-brown-secondary w-50">No, take me back!</a></div>
+        </div>
+    </form>
+</div>
 
 
 <?php

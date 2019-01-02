@@ -147,7 +147,7 @@
                 ];
 
                 // If no errors exist then proceed with saving all data.
-                if (!isset($name_err) && !isset($message) && !isset($addresses_title_err) && !isset($addresses_err) && !isset($emails_title_err) && !isset($emails_err) && !isset($phone_numbers_title_err) && !isset($phone_numbers_err) && !isset($menu_links_title_err) && !isset($menu_links_err) && !isset($teams_err) && !isset($leagues_err) && !isset($venues_err)) {
+                if (!isset($name_err) && !isset($message_err) && !isset($addresses_title_err) && !isset($addresses_err) && !isset($emails_title_err) && !isset($emails_err) && !isset($phone_numbers_title_err) && !isset($phone_numbers_err) && !isset($menu_links_title_err) && !isset($menu_links_err) && !isset($teams_err) && !isset($leagues_err) && !isset($venues_err)) {
                     // Save all data as long as all items successfully update.
                     if ($this->clubModel->updateClub($data) && $this->teamModel->updateTeams($this->club_id, $data['teams']) && $this->leagueModel->updateLeagues($this->club_id, $data['leagues']) && $this->venueModel->updateVenues($this->club_id, $data['venues'])) {
                         create_flash_message('settings', 'Successfully saved club settings.');
@@ -161,6 +161,10 @@
             } else {
                 $data = [
                     'club' => $this->clubModel->getClubByID($this->club_id),
+                    'addresses' => $this->clubModel->getData('addresses', $this->club_id),
+                    'emails' => $this->clubModel->getData('emails', $this->club_id),
+                    'phone_numbers' => $this->clubModel->getData('phone_numbers', $this->club_id),
+                    'menu_links' => $this->clubModel->getData('menu_links', $this->club_id),
                     'teams' => $this->teamModel->getTeams($this->club_id),
                 ];
             }

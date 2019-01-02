@@ -39,4 +39,14 @@
             return 'No Scoreline in CONFIG file.';
         }
     }
+
+    function result_label($label, $home_team, $away_team) {
+        if (strpos($label, 'Home Team') !== false) {
+            return str_replace('Home Team', $home_team, $label);
+        } elseif (strpos($label, 'Away Team') !== false) {
+            return str_replace('Away Team', $away_team, $label);
+        } else {
+            return $label;
+        }
+    }
 ?>

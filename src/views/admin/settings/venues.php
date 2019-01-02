@@ -7,82 +7,60 @@
 
     display_flash_messages('venues');
 ?>
-
-    <h1>Venues</h1>
     <form action="<?php echo ADMIN_URLROOT . $data['club_name'] . '/settings/venues'; ?>" method="POST">
-
-        <h2>Add Venue</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th></th>
-                    <th>Venue</th>
-                    <th>Location</th>
-                <tr>
-            </thead>
-            <tbody>
+        <div class="wrap">
+            <h3>Add Venue</h3>
 <?php
     if (isset($data['venues'])) {
         foreach ($data['venues'] as $i => $venue) {
             if (empty($venue->id)) {
 ?>
-                <tr>
-                    <td><input type="hidden" name="venue_id[]" value="<?php echo (!empty($venue->id)) ? $venue->id : ''; ?>"/></td>
-                    <td><input type="text" name="venue[]" value="<?php echo (!empty($venue->venue)) ? $venue->venue : ''; ?>" placeholder="Add Venue"/></td>
-                    <td><input type="text" name="venue_location[]" value="<?php echo (!empty($venue->location)) ? $venue->location : ''; ?>" placeholder="Add Venue Location"/></td>
-                </tr>
+                <div class="form-group row">
+                    <input type="hidden" name="venue_id[]" value="<?php echo (!empty($venue->id)) ? $venue->id : ''; ?>"/>
+                    <div class="col-4"><input type="text" name="venue[]" class="form-control<?php if (!empty($data['venues_err'][$i])) echo ' is-invalid'; ?>" value="<?php echo (!empty($venue->venue)) ? $venue->venue : ''; ?>" placeholder="Add Venue"/></div>
+                    <div class="col-4"><input type="text" name="venue_location[]" class="form-control" value="<?php echo (!empty($venue->location)) ? $venue->location : ''; ?>" placeholder="Add Venue Full"/></div>
+                    <div class="col-12"><?php if (isset($data['venues_err'][$i])) display_invalid($data['venues_err'][$i]); ?></div>
+                </div>
 <?php
-                if (isset($data['venues_err'][$i])) {
-                    echo '<tr><td></td><td>' . $data['venues_err'][$i] . '</td></tr>';
-                }
             }
         }
     }
 ?>
-                <tr>
-                    <td><input type="hidden" name="venue_id[]" value=""/></td>
-                    <td><input type="text" name="venue[]" value="" placeholder="Add Venue"/></td>
-                    <td><input type="text" name="venue_location[]" value="" placeholder="Add Venue Location"/></td>
-                </tr>
-            </tbody>
-        </table>
-        
-        <h2>Edit Venues</h2>
+            <div class="form-group row">
+                <input type="hidden" name="venue_id[]" value=""/>
+                <div class="col-4"><input type="text" name="venue[]" class="form-control" value="" placeholder="Add Venue"/></div>
+                <div class="col-7"><input type="text" name="venue_location[]" class="form-control" value="" placeholder="Add Venue Full"/></div>
+            </div>
+        </div>
 
-        <table>
-            <thead>
-                <tr>
-                    <th></th>
-                    <th>Venue</th>
-                    <th>Location</th>
-                    <th>Delete?</th>
-                <tr>
-            </thead>
-            <tbody>
+        <div class="wrap">
+            <h3>Edit Venues</h3>
 <?php
     if (isset($data['venues'])) {
         foreach ($data['venues'] as $i => $venue) {
             if (!empty($venue->id)) {
 ?>
-                <tr>
-                    <td><input type="hidden" name="venue_id[]" value="<?php echo (!empty($venue->id)) ? $venue->id : ''; ?>"/></td>
-                    <td><input type="text" name="venue[]" value="<?php echo (!empty($venue->venue)) ? $venue->venue : ''; ?>" placeholder="Add Venue"/></td>
-                    <td><input type="text" name="venue_location[]" value="<?php echo (!empty($venue->location)) ? $venue->location : ''; ?>" placeholder="Add Venue Location"/></td>
-                    <td><?php echo !empty($venue->id) ? 'Remove?' : ''; ?></td>
-                </tr>
+                <div class="form-group row">
+                    <input type="hidden" name="venue_id[]" value="<?php echo (!empty($venue->id)) ? $venue->id : ''; ?>"/>
+                    <div class="col-4"><input type="text" name="venue[]" class="form-control<?php if (!empty($data['venues_with_id_err'][$venue->id])) echo ' is-invalid'; ?>" value="<?php echo (!empty($venue->venue)) ? $venue->venue : ''; ?>" placeholder="Add Venue"/></div>
+                    <div class="col-7"><input type="text" name="venue_location[]" class="form-control" value="<?php echo (!empty($venue->location)) ? $venue->location : ''; ?>" placeholder="Add Venue Full"/></div>
+                    <div class="col-1"><button href="<?php echo ADMIN_URLROOT . $data['club_name'] . "/settings/venues/delete/" . $team->id; ?>" class="btn btn-small btn-danger" disabled><i class="fas fa-sm fa-trash-alt"></i></button></div>
+                    <div class="col-12"><?php if (isset($data['venues_with_id_err'][$venue->id])) display_invalid($data['venues_with_id_err'][$venue->id]); ?></div>
+            </div>
 <?php
-                if (isset($data['venues_with_id_err'][$venue->id])) {
-                    echo '<tr><td></td><td>' . $data['venues_with_id_err'][$venue->id] . '</td></tr>';
-                }
             }
         }
     }
 ?>
-            </tbody>
-        </table>
+        </div>
 
-        <h2>Save Changes?</h2>
-        <input type="submit" value="Save Changes"/>
+        <div class="wrap">
+            <div class="row">
+                <div class="col-6 mx-auto">
+                    <input type="submit" value="Save Changes" class="btn btn-block btn-brown"/>
+                </div>
+            </div> 
+        </div>
     </form>
 
 <?php

@@ -78,11 +78,11 @@
                         ];
                     }
                 } else {
-                    create_flash_message('reports', 'Invalid Outing ID.', 'warning');
+                    create_flash_message('reports', 'Invalid Outing ID.', 'warning', true);
                     redirect($this->club_name . '/reports', true);
                 }
             } else {
-                create_flash_message('reports', 'Please supply a valid Outing ID.', 'warning');
+                create_flash_message('reports', 'Please supply a valid Outing ID.', 'warning', true);
                 redirect($this->club_name . '/reports', true);
             }
              $this->view('reports/edit', $data);

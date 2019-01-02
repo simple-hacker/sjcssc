@@ -12,11 +12,12 @@
         session_start();
     }
 
-    function create_flash_message($name = '', $message = '', $alert = 'success') {
+    function create_flash_message($name = '', $message = '', $alert = 'success', $close = false) {
         // Create Flash Message
         $_SESSION['flash_messages'][$name][] = [
             "message" => $message,
-            "alert" => $alert
+            "alert" => $alert,
+            "close" => $close,
         ];
     }
 
@@ -25,13 +26,19 @@
         // If flash message exists then display, then unset so we can reuse $name.       
         if (isset($_SESSION['flash_messages'][$name])) {
             foreach ($_SESSION['flash_messages'][$name] as $i => $flash_message) {
-                echo "<div class=\"container pt-3 pb-3\">";
+                echo "<div class=\"wrap\">";
                 echo "<div class=\"alert alert-{$flash_message['alert']} alert-dismissible\" role=\"alert\">
-                        {$flash_message['message']}
-                    </div>";
+                        {$flash_message['message']}";
+                if ($flash_message['close']) echo "<button type=\"button\" class=\"close close_alert\" aria-label=\"Close\">&times;</button>";
+                echo "  </div>";
                 echo "</div>";
-                
             }
             unset($_SESSION['flash_messages'][$name]);
+        }
+    }
+
+    function display_invalid($error) {
+        if (!empty($error)) {
+            echo "<span class=\"invalid\">" . $error . "</span>";
         }
     }

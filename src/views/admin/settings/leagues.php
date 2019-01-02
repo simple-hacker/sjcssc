@@ -7,85 +7,63 @@
 
     display_flash_messages('leagues');
 ?>
-
-    <h1>Leagues</h1>
     <form action="<?php echo ADMIN_URLROOT . $data['club_name'] . '/settings/leagues'; ?>" method="POST">
-
-        <h2>Add League</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th></th>
-                    <th>League</th>
-                    <th>Location</th>
-                    <th>Website</th>
-                </tr>
-            </thead>
+        <div class="wrap">
+            <h3>Add League</h3>
 <?php
     if (isset($data['leagues'])) {
         foreach ($data['leagues'] as $i => $league) {
             if (empty($league->id)) {
 ?>
-                <tr>
-                    <td><input type="hidden" name="league_id[]" value="<?php echo (!empty($league->id)) ? $league->id : ''; ?>"/></td>
-                    <td><input type="text" name="league[]" value="<?php echo (!empty($league->league)) ? $league->league : ''; ?>" placeholder="Add League"/></td>
-                    <td><input type="text" name="league_full[]" value="<?php echo (!empty($league->league_full)) ? $league->league_full : ''; ?>" placeholder="Add League Full"/></td>
-                    <td><input type="text" name="league_website[]" value="<?php echo (!empty($league->league_website)) ? $league->league_website : ''; ?>" placeholder="Add League Website"/></td>
-                </tr>
+                <div class="form-group row">
+                    <input type="hidden" name="league_id[]" value="<?php echo (!empty($league->id)) ? $league->id : ''; ?>"/>
+                    <div class="col-3"><input type="text" name="league[]" class="form-control<?php if (!empty($data['leagues_err'][$i])) echo ' is-invalid'; ?>" value="<?php echo (!empty($league->league)) ? $league->league : ''; ?>" placeholder="Add League"/></div>
+                    <div class="col-4"><input type="text" name="league_full[]" class="form-control" value="<?php echo (!empty($league->league_full)) ? $league->league_full : ''; ?>" placeholder="Add League Full"/></div>
+                    <div class="col-4"><input type="text" name="league_website[]" class="form-control" value="<?php echo (!empty($league->league_website)) ? $league->league_website : ''; ?>" placeholder="Add League Website"/></div>
+                    <div class="col-12"><?php if (isset($data['leagues_err'][$i])) display_invalid($data['leagues_err'][$i]); ?></div>
+                </div>
 <?php
-                if (isset($data['leagues_err'][$i])) {
-                    echo '<tr><td></td><td>' . $data['leagues_err'][$i] . '</td></tr>';
-                }
             }
         }
     }
 ?>
-                <tr>
-                    <td><input type="hidden" name="league_id[]" value=""/></td>
-                    <td><input type="text" name="league[]" value="" placeholder="Add League"/></td>
-                    <td><input type="text" name="league_full[]" value="" placeholder="Add League Full"/></td>
-                    <td><input type="text" name="league_website[]" value="" placeholder="Add League Website"/></td>
-                </tr>
-            </tbody>
-        </table>
+            <div class="form-group row">
+                <input type="hidden" name="league_id[]" value=""/>
+                <div class="col-3"><input type="text" name="league[]" class="form-control" value="" placeholder="Add League"/></div>
+                <div class="col-4"><input type="text" name="league_full[]" class="form-control" value="" placeholder="Add League Full"/></div>
+                <div class="col-4"><input type="text" name="league_website[]" class="form-control" value="" placeholder="Add League Website"/></div>
+            </div>
+        </div>
 
-        <h2>Edit Leagues</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th></th>
-                    <th>League</th>
-                    <th>Location</th>
-                    <th>Website</th>
-                    <th>Delete?</th>
-                <tr>
-            </thead>
-            <tbody>
+        <div class="wrap">
+            <h3>Edit Leagues</h3>
 <?php
     if (isset($data['leagues'])) {
         foreach ($data['leagues'] as $i => $league) {
             if (!empty($league->id)) {
 ?>
-                <tr>
-                    <td><input type="hidden" name="league_id[]" value="<?php echo (!empty($league->id)) ? $league->id : ''; ?>"/></td>
-                    <td><input type="text" name="league[]" value="<?php echo (!empty($league->league)) ? $league->league : ''; ?>" placeholder="Add League"/></td>
-                    <td><input type="text" name="league_full[]" value="<?php echo (!empty($league->league_full)) ? $league->league_full : ''; ?>" placeholder="Add League Full"/></td>
-                    <td><input type="text" name="league_website[]" value="<?php echo (!empty($league->league_website)) ? $league->league_website : ''; ?>" placeholder="Add League Website"/></td>
-                    <td><?php echo !empty($league->id) ? 'Remove?' : ''; ?></td>
-                </tr>
+                <div class="form-group row">
+                    <input type="hidden" name="league_id[]" value="<?php echo (!empty($league->id)) ? $league->id : ''; ?>"/>
+                    <div class="col-3"><input type="text" name="league[]" class="form-control<?php if (!empty($data['leagues_with_id_err'][$league->id])) echo ' is-invalid'; ?>" value="<?php echo (!empty($league->league)) ? $league->league : ''; ?>" placeholder="Add League"/></div>
+                    <div class="col-4"><input type="text" name="league_full[]" class="form-control" value="<?php echo (!empty($league->league_full)) ? $league->league_full : ''; ?>" placeholder="Add League Full"/></div>
+                    <div class="col-4"><input type="text" name="league_website[]" class="form-control" value="<?php echo (!empty($league->league_website)) ? $league->league_website : ''; ?>" placeholder="Add League Website"/></div>
+                    <div class="col-1"><button href="<?php echo ADMIN_URLROOT . $data['club_name'] . "/settings/leagues/delete/" . $team->id; ?>" class="btn btn-small btn-danger" disabled><i class="fas fa-sm fa-trash-alt"></i></button></div>
+                    <div class="col-12"><?php if (isset($data['leagues_with_id_err'][$league->id])) display_invalid($data['leagues_with_id_err'][$league->id]); ?></div>
+            </div>
 <?php
-                if (isset($data['leagues_with_id_err'][$league->id])) {
-                    echo '<tr><td></td><td>' . $data['leagues_with_id_err'][$league->id] . '</td></tr>';
-                }
             }
         }
     }
 ?>
-            </tbody>
-        </table>
+        </div>
 
-        <h2>Save Changes?</h2>
-        <input type="submit" value="Save Changes"/>
+        <div class="wrap">
+            <div class="row">
+                <div class="col-6 mx-auto">
+                    <input type="submit" value="Save Changes" class="btn btn-block btn-brown"/>
+                </div>
+            </div> 
+        </div>
     </form>
 
 <?php

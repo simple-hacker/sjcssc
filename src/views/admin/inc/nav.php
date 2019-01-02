@@ -1,13 +1,15 @@
 <nav class="navbar navbar-expand-md navbar-light bg-light sticky-top">
-    <div class="container">
+    <div class="container-fluid">
 
-        <span class="mr-4">
-            <button type="button" id="sidebarCollapse" class="btn btn-brown pr-3 pl-3">
-                <i class="fas fa-bars"></i>
-            </button>
-        </span>
+        <?php  if (isset($_SESSION['user'])) { ?>
+            <span class="mr-4">
+                <button type="button" id="sidebarCollapse" class="btn btn-brown pr-3 pl-3">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </span>
+        <?php } ?>
 
-        <a href="<?php echo isset($data['club']->club) ? ADMIN_URLROOT . $data['club']->club : ADMIN_URLROOT; ?>" class="navbar-brand"><?php echo isset($data['club']->name) ? $data['club']->name : 'St Joseph\'s Catholic Sports and Social Club'; ?></a>
+        
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#menu_links" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -23,9 +25,9 @@
                 <li class="nav-item">
                     <a href="<?php echo URLROOT; ?>" target="_blank" class="nav-link"><i class="fas fa-globe-americas i-lg mr-1"></i> Back To Website</a>
                 </li> 
-                <li class="nav-item"> 
-                    <a href="<?php echo ADMIN_URLROOT; ?>user/settings" class="nav-link"><i class="fas fa-cog i-lg mr-1"></i> Settings</a>
-                </li> 
+                <!-- <li class="nav-item"> 
+                    <a href="<?php // echo ADMIN_URLROOT; ?>user/settings" class="nav-link"><i class="fas fa-cog i-lg mr-1"></i> Settings</a>
+                </li>  -->
                 <li class="nav-item">
                     <a href="<?php echo ADMIN_URLROOT; ?>user/logout" class="nav-link"><i class="fas fa-sign-out-alt i-lg mr-1"></i> Logout</a>
                 </li>

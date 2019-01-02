@@ -143,11 +143,11 @@
                         ];
                     }
                 } else {
-                    create_flash_message('events', 'Invalid Event ID', 'warning');
+                    create_flash_message('events', 'Invalid Event ID', 'warning', true);
                     redirect($this->club_name . '/events', true);
                 }
             } else {
-                create_flash_message('events', 'Please supply a valid Event ID.', 'warning');
+                create_flash_message('events', 'Please supply a valid Event ID.', 'warning', true);
                 redirect($this->club_name . '/events', true);
             }
              $this->view('events/edit', $data);
@@ -174,11 +174,11 @@
                     }
                 } else {
                     // Invalid event id so redirect.
-                    create_flash_message('events', 'Invalid event ID', 'warning');
+                    create_flash_message('events', 'Invalid event ID', 'warning', true);
                     redirect($this->club_name . '/events', true);
                 }
             } else {
-                create_flash_message('events', 'Please supply a valid event id.', 'warning');
+                create_flash_message('events', 'Please supply a valid event id.', 'warning', true);
                 redirect($this->club_name . '/events', true);
             }
             $this->view('events/delete', $data);

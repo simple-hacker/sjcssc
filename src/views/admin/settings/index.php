@@ -9,104 +9,117 @@
 ?>
 
 <form action="<?php echo ADMIN_URLROOT . $data['club']->club . '/settings'; ?>" method="POST">
-    <h1>Club Settings</h1>
-    <h2>Home Page Settings</h2>
-    <input type="hidden" value="<?php echo (isset($data['club']->id)) ? $data['club']->id : ''; ?>"?>
-    <input type="text" name="name" value="<?php echo (isset($data['club']->name)) ? $data['club']->name : ''; ?>" placeholder="Full Club Name"/>
-    <textarea name="message" cols="30" rows="10" placeholder="Enter front page message."><?php echo (isset($data['club']->message)) ? $data['club']->message : ''; ?></textarea>
 
-    
-    <h2>Addresses</h2>
+    <div class="wrap">
+        <h3>Home Page Settings</h3>
+        <input type="hidden" value="<?php echo (isset($data['club']->id)) ? $data['club']->id : ''; ?>"?>
+        <div class="form-group row">
+            <div class="col-12"><input type="text" name="name" class="form-control<?php if (!empty($data['name_err'])) echo ' is-invalid'; ?>" value="<?php echo (isset($data['club']->name)) ? $data['club']->name : ''; ?>" placeholder="Full Club Name"/></div>
+            <div class="col-12"><?php if (isset($data['name_err'])) display_invalid($data['name_err']); ?></div>
+        </div>
+        <div class="form-group row">
+            <div class="col-12"><textarea name="message" class="form-control<?php if (!empty($data['message_err'])) echo ' is-invalid'; ?>" rows="10" placeholder="Enter front page message."><?php echo (isset($data['club']->message)) ? $data['club']->message : ''; ?></textarea></div>
+            <div class="col-12"><?php if (isset($data['message_err'])) display_invalid($data['message_err']); ?></div>
+        </div>
+    </div>
+
+    <div class="wrap">
+        <h3>Addresses</h3>
 <?php
-    foreach ($data['club']->addresses as $i => $address) {
+    foreach ($data['addresses'] as $i => $address) {
 ?>
-        <input type="hidden" name="address_id[]" value="<?php echo (!empty($address->id)) ? $address->id : ''; ?>"/>
-        <input type="text" name="address_title[]" value="<?php echo (!empty($address->address_title)) ? $address->address_title : ''; ?>" placeholder="Address Title"/>
-        <input type="text" name="address[]" value="<?php echo (!empty($address->address)) ? $address->address : ''; ?>" placeholder="Address"/>
-        <br />
+        <div class="form-group row">
+            <input type="hidden" name="address_id[]" value="<?php echo (!empty($address->id)) ? $address->id : ''; ?>"/>
+            <div class="col-6"><input type="text" name="address_title[]" class="form-control<?php if (!empty($data['addresses_title_err'][$i])) echo ' is-invalid'; ?>" value="<?php echo (!empty($address->address_title)) ? $address->address_title : ''; ?>" placeholder="Address Title"/></div>
+            <div class="col-6"><input type="text" name="address[]" class="form-control<?php if (!empty($data['addresses_err'][$i])) echo ' is-invalid'; ?>" value="<?php echo (!empty($address->address)) ? $address->address : ''; ?>" placeholder="Address"/></div>
+            <div class="col-6"><?php if (isset($data['addresses_title_err'][$i])) display_invalid($data['addresses_title_err'][$i]); ?></div>
+            <div class="col-6"><?php if (isset($data['addresses_err'][$i])) display_invalid($data['addresses_err'][$i]); ?></div>
+        </div>
 <?php
-        if (isset($data['addresses_title_err'][$i])) {
-            print_var($data['addresses_title_err'][$i]);
-        }
-        if (isset($data['addresses_err'][$i])) {
-            print_var($data['addresses_err'][$i]);
-        }
     }
 ?>
-    <input type="hidden" name="address_id[]" value=""/>
-    <input type="text" name="address_title[]" value="" placeholder="Address Title"/>
-    <input type="text" name="address[]" value="" placeholder="Address"/>
+        <div class="form-group row">
+            <input type="hidden" name="address_id[]" value=""/>
+            <div class="col-6"><input type="text" name="address_title[]" class="form-control" value="" placeholder="Address Title"/></div>
+            <div class="col-6"><input type="text" name="address[]" class="form-control" value="" placeholder="Address"/></div>
+        </div>
+    </div>
 
-    <h2>Emails</h2>
+    <div class="wrap">
+        <h3>Emails</h3>
 <?php
-    foreach ($data['club']->emails as $i => $email) {
+    foreach ($data['emails'] as $i => $email) {
 ?>
-        <input type="hidden" name="email_id[]" value="<?php echo (!empty($email->id)) ? $email->id : ''; ?>"/>
-        <input type="text" name="email_title[]" value="<?php echo (!empty($email->email_title)) ? $email->email_title : ''; ?>" placeholder="Email Title"/>
-        <input type="email" name="email[]" value="<?php echo (!empty($email->email)) ? $email->email : ''; ?>" placeholder="Email Address"/>
-        <br />
+        <div class="form-group row">
+            <input type="hidden" name="email_id[]" value="<?php echo (!empty($email->id)) ? $email->id : ''; ?>"/>
+            <div class="col-6"><input type="text" name="email_title[]" class="form-control<?php if (!empty($data['emails_title_err'][$i])) echo ' is-invalid'; ?>" value="<?php echo (!empty($email->email_title)) ? $email->email_title : ''; ?>" placeholder="Email Title"/></div>
+            <div class="col-6"><input type="email" name="email[]" class="form-control<?php if (!empty($data['emails_err'][$i])) echo ' is-invalid'; ?>" value="<?php echo (!empty($email->email)) ? $email->email : ''; ?>" placeholder="Email Address"/></div>
+            <div class="col-6"><?php if (isset($data['emails_title_err'][$i])) display_invalid($data['emails_title_err'][$i]); ?></div>
+            <div class="col-6"><?php if (isset($data['emails_err'][$i])) display_invalid($data['emails_err'][$i]); ?></div>
+        </div>
 <?php
-        if (isset($data['emails_title_err'][$i])) {
-            print_var($data['emails_title_err'][$i]);
-        }
-        if (isset($data['emails_err'][$i])) {
-            print_var($data['emails_err'][$i]);
-        }
     }
 ?>
-    <input type="hidden" name="email_id[]" value=""/>
-    <input type="text" name="email_title[]" value="" placeholder="Email Title"/>
-    <input type="text" name="email[]" value="" placeholder="Email Address"/>
+        <div class="form-group row">
+            <input type="hidden" name="email_id[]" value=""/>
+            <div class="col-6"><input type="text" name="email_title[]" class="form-control" value="" placeholder="Email Title"/></div>
+            <div class="col-6"><input type="text" name="email[]" class="form-control" value="" placeholder="Email Address"/></div>
+        </div>
+    </div>
 
-    <h2>Phone Numbers</h2>
+    <div class="wrap">
+        <h3>Phone Numbers</h3>
 <?php
-    foreach ($data['club']->phone_numbers as $i => $phone_number) {
+    foreach ($data['phone_numbers'] as $i => $phone_number) {
 ?>
-        <input type="hidden" name="phone_number_id[]" value="<?php echo (!empty($phone_number->id)) ? $phone_number->id : ''; ?>"/>
-        <input type="text" name="phone_number_title[]" value="<?php echo (!empty($phone_number->phone_number_title)) ? $phone_number->phone_number_title : ''; ?>" placeholder="Phone Number Title"/>
-        <input type="tel" name="phone_number[]" value="<?php echo (!empty($phone_number->phone_number)) ? $phone_number->phone_number : ''; ?>" placeholder="Phone Number"/>
-        <br />
+        <div class="form-group row">
+            <input type="hidden" name="phone_number_id[]" value="<?php echo (!empty($phone_number->id)) ? $phone_number->id : ''; ?>"/>
+            <div class="col-6"><input type="text" name="phone_number_title[]" class="form-control<?php if (!empty($data['phone_number_title'][$i])) echo ' is-invalid'; ?>" value="<?php echo (!empty($phone_number->phone_number_title)) ? $phone_number->phone_number_title : ''; ?>" placeholder="Phone Number Title"/></div>
+            <div class="col-6"><input type="tel" name="phone_number[]" class="form-control<?php if (!empty($data['phone_number'][$i])) echo ' is-invalid'; ?>" value="<?php echo (!empty($phone_number->phone_number)) ? $phone_number->phone_number : ''; ?>" placeholder="Phone Number"/></div>
+            <div class="col-6"><?php if (isset($data['phone_number_title'][$i])) display_invalid($data['phone_number_title'][$i]); ?></div>
+            <div class="col-6"><?php if (isset($data['phone_number'][$i])) display_invalid($data['phone_number'][$i]); ?></div>
+        </div>
 <?php
-        if (isset($data['phone_numbers_title_err'][$i])) {
-            print_var($data['phone_numbers_title_err'][$i]);
-        }
-        if (isset($data['phone_numbers_err'][$i])) {
-            print_var($data['phone_numbers_err'][$i]);
-        }
     }
 ?>
-    <input type="hidden" name="phone_number_id[]" value=""/>
-    <input type="text" name="phone_number_title[]" value="" placeholder="Phone Number Title"/>
-    <input type="text" name="phone_number[]" value="" placeholder="Phone Number"/>
+        <div class="form-group row">
+            <input type="hidden" name="phone_number_id[]" value=""/>
+            <div class="col-6"><input type="text" name="phone_number_title[]" class="form-control" value="" placeholder="Phone Number Title"/></div>
+            <div class="col-6"><input type="text" name="phone_number[]" class="form-control" value="" placeholder="Phone Number"/></div>
+        </div>
+    </div>
 
-    <h2>Menu Links</h2>
-    <p>Can have up to five menu links</p>
+    <div class="wrap">
+        <h3>Menu Links</h3>
+        <p>Can have up to five menu links</p>
 <?php
     for ($i = 0; $i < 5; $i++) {
 ?>
-        <input type="hidden" name="menu_link_id[]" value="<?php echo (!empty($data['club']->menu_links[$i]->id)) ? $data['club']->menu_links[$i]->id : ''; ?>"/>
-        <input type="text" name="menu_link_title[]" value="<?php echo (!empty($data['club']->menu_links[$i]->menu_link_title)) ? $data['club']->menu_links[$i]->menu_link_title : ''; ?>" placeholder="Link Title"/>
-        <input type="url" name="menu_link[]" value="<?php echo (!empty($data['club']->menu_links[$i]->menu_link)) ? $data['club']->menu_links[$i]->menu_link : ''; ?>" placeholder="Link URL"/>
-        <br />
+        <div class="form-group row">
+            <input type="hidden" name="menu_link_id[]" value="<?php echo (!empty($data['menu_links'][$i]->id)) ? $data['menu_links'][$i]->id : ''; ?>"/>
+            <div class="col-6"><input type="text" name="menu_link_title[]" class="form-control<?php if (!empty($data['menu_links_title_err'][$i])) echo ' is-invalid'; ?>" value="<?php echo (!empty($data['menu_links'][$i]->menu_link_title)) ? $data['menu_links'][$i]->menu_link_title : ''; ?>" placeholder="Link Title"/></div>
+            <div class="col-6"><input type="url" name="menu_link[]" class="form-control<?php if (!empty($data['menu_links_err'][$i])) echo ' is-invalid'; ?>" value="<?php echo (!empty($data['menu_links'][$i]->menu_link)) ? $data['menu_links'][$i]->menu_link : ''; ?>" placeholder="Link URL"/></div>
+            <div class="col-6"><?php if (isset($data['menu_links_title_err'][$i])) display_invalid($data['menu_links_title_err'][$i]); ?></div>
+            <div class="col-6"><?php if (isset($data['menu_links_err'][$i])) display_invalid($data['menu_links_err'][$i]); ?></div>
+        </div>
 <?php
-        if (isset($data['menu_links_title_err'][$i])) {
-            print_var($data['menu_links_title_err'][$i]);
-        }
-        if (isset($data['menu_links_err'][$i])) {
-            print_var($data['menu_links_err'][$i]);
-        }
     }
 ?>
+    </div>
 
 <?php
     // Only show team name if the club has a results or outings section.  i.e. All but social should show this.
     if (!empty(array_intersect(['results', 'outings'], CLUBS[$data['club']->club]['sections']))) {
 ?>
-        <h1>Home Team</h1>
+        <div class="wrap">
+            <h3>Sport Settings</h3>
+            <div class="form-group row">
+                <label for="home_team" class="col-sm-2 col-form-label">Home Team</label>
+                <div class="col-10">
 <?php
-        if (!empty($data['teams'])) {
-?>
-            <select name="team_id">
+            if (!empty($data['teams'])) {
+?>  
+                <select name="team_id" class="form-control">
 <?php
                 foreach ($data['teams'] as $team) {
 ?>
@@ -114,33 +127,41 @@
 <?php
                 }
 ?>
-            </select>
+                </select>
 <?php
-        } else {
+            } else {
 ?>
-            <input type="text" name="home_team" value="No Teams Found.  Please enter teams in Settings." disabled><br/>
+            <div class="form-group row">
+                <input type="text" name="home_team" class="form-control disabled" value="No Teams Found.  Please enter teams in Settings." disabled><br/>
+            </div>
 <?php
-        }
+            }
 ?>
+                </div>
+            </div>
 
-        <h2>Teams</h2>
-        <a href="<?php echo ADMIN_URLROOT . $data['club']->club . '/settings/teams'; ?>">View All Teams</a>
-
-        <h2>Leagues</h2>
-        <a href="<?php echo ADMIN_URLROOT . $data['club']->club . '/settings/leagues'; ?>">View All Leagues</a>
-
-        <h2>Venues</h2>
-        <a href="<?php echo ADMIN_URLROOT . $data['club']->club . '/settings/venues'; ?>">View All Venues</a>
-
-        <h1>People</h1>
-        <a href="<?php echo ADMIN_URLROOT . $data['club']->club . '/settings/people'; ?>">View All People</a>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Teams</label>
+                <div class="col-4"><a href="<?php echo ADMIN_URLROOT . $data['club']->club . '/settings/teams'; ?>" class="btn btn-block btn-brown-secondary">View All Teams</a></div>
+                <label class="col-sm-2 col-form-label">Leagues</label>
+                <div class="col-4"><a href="<?php echo ADMIN_URLROOT . $data['club']->club . '/settings/leagues'; ?>" class="btn btn-block btn-brown-secondary">View All Leagues</a></div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Venues</label>
+                <div class="col-4"><a href="<?php echo ADMIN_URLROOT . $data['club']->club . '/settings/venues'; ?>" class="btn btn-block btn-brown-secondary">View All Venues</a></div>
+                <label class="col-sm-2 col-form-label">People</label>
+                <div class="col-4"><a href="<?php echo ADMIN_URLROOT . $data['club']->club . '/settings/people'; ?>" class="btn btn-block btn-brown-secondary">View All People</a></div>
+            </div>            
+        </div>
 <?php
     }
 ?>
-    <hr>
-    <h1>Save Changes</h1>
-    <input type="submit" value="Save Changes"/>
-</form>
+        <div class="wrap">
+            <div class="row">
+                <div class="col-6 mx-auto"><input type="submit" value="Save Changes" class="btn btn-block btn-brown ww-50"/></div>
+            </div>
+        </div>
+    </form>
 
 <?php
     if (file_exists(ADMIN_VIEWS . 'inc/footer.php')) {

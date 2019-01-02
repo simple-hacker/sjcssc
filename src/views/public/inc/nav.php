@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-md navbar-light bg-light sticky-top">
+<nav id="menu" class="navbar navbar-expand-md navbar-light bg-light sticky-top">
     <div class="container">
         <a href="<?php echo URLROOT . $data['club']->club; ?>" class="navbar-brand"><?php echo $data['club']->name; ?></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#menu_links" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">

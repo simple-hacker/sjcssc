@@ -177,7 +177,7 @@
                 // Call the function within controller, passing $id as the only parameter.
                 call_user_func([$controller, $page], $id);
             } else {
-                create_flash_message(strtolower(get_class($controller)), 'Invalid Page', 'danger');
+                create_flash_message(strtolower(get_class($controller)), 'Invalid Page', 'danger', true);
                 redirect($club_name . '/' . strtolower(get_class($controller)), true);
                 // die('<strong>Fatal Error:</strong> Method <em>' . $page . '</em> does not exist within <em>' . get_class($controller) . '</em>');
             }

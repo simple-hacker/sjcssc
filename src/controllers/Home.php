@@ -13,7 +13,7 @@
             $this->club_id = $club_id;
             $this->club_name = $this->clubModel->getClubName($this->club_id);
             
-            if ($this->admin === true) {
+            if ($this->admin) {
                 $this->userModel->permissionCheckRedirect($this->club_id);
             }
 

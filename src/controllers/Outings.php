@@ -155,11 +155,11 @@
                         ];
                     } 
                 } else {
-                    create_flash_message('outings', 'Invalid Outing ID', 'warning');
+                    create_flash_message('outings', 'Invalid Outing ID', 'warning', true);
                     redirect($this->club_name . '/outings', true);
                 }
             } else {
-                create_flash_message('outings', 'Please supply a valid Outing ID.', 'warning');
+                create_flash_message('outings', 'Please supply a valid Outing ID.', 'warning', true);
                 redirect($this->club_name . '/outings', true);
             }
             
@@ -186,11 +186,11 @@
                     }
                 } else {
                     // Invalid outing id so redirect.
-                    create_flash_message('outings', 'Invalid outing ID', 'warning');
+                    create_flash_message('outings', 'Invalid outing ID', 'warning', true);
                     redirect($this->club_name . '/outings', true);
                 }
             } else {
-                create_flash_message('outings', 'Please supply a valid outing id.', 'warning');
+                create_flash_message('outings', 'Please supply a valid outing id.', 'warning', true);
                 redirect($this->club_name . '/outings', true);
             }
             $this->view('outings/delete', $data);

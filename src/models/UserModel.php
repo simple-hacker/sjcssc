@@ -183,7 +183,7 @@
 
             // If user is not logged in, then redirect to login page.  Else do nothing.
             if (!isset($_SESSION['user'])) {
-                create_flash_message('user', 'You need to log in before you view this page.', 'warning');
+                create_flash_message('user', 'You need to log in before you view this page.', 'warning', true);
                 redirect('user/login', true);
             }
         }

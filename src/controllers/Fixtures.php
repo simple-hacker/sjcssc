@@ -218,11 +218,11 @@
                         ];
                     }
                 } else {
-                    create_flash_message('fixtures', 'Invalid Fixture ID', 'warning');
+                    create_flash_message('fixtures', 'Invalid Fixture ID', 'warning', true);
                     redirect($this->club_name . '/fixtures', true);
                 }
             } else {
-                create_flash_message('fixtures', 'Please supply a valid Fixture ID.', 'warning');
+                create_flash_message('fixtures', 'Please supply a valid Fixture ID.', 'warning', true);
                 redirect($this->club_name . '/fixtures', true);
             }
             $this->view('fixtures/edit', $data);
@@ -248,11 +248,11 @@
                     }
                 } else {
                     // Invalid fixture id so redirect.
-                    create_flash_message('fixtures', 'Invalid fixture ID', 'warning');
+                    create_flash_message('fixtures', 'Invalid fixture ID', 'warning', true);
                     redirect($this->club_name . '/fixtures', true);
                 }
             } else {
-                create_flash_message('fixtures', 'Please supply a valid fixture id.', 'warning');
+                create_flash_message('fixtures', 'Please supply a valid fixture id.', 'warning', true);
                 redirect($this->club_name . '/fixtures', true);
             }
             $this->view('fixtures/delete', $data);

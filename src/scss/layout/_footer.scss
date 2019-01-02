@@ -2,5 +2,6 @@ footer {
     padding-bottom: 5px;
     border-top: 3px solid $gold;
     width: 100%;
-    background-color: $grey;
+    background-color: $white;
+    min-height: $footer-height;
 }

@@ -150,11 +150,11 @@
                         ];
                     }
                 } else {
-                    create_flash_message('notices', 'Invalid Notice ID', 'warning');
+                    create_flash_message('notices', 'Invalid Notice ID', 'warning', true);
                     redirect($this->club_name . '/notices', true);
                 }
             } else {
-                create_flash_message('notices', 'Please supply a valid notice id.', 'warning');
+                create_flash_message('notices', 'Please supply a valid notice id.', 'warning', true);
                 redirect($this->club_name . '/notices', true);
             }
 
@@ -182,11 +182,11 @@
                     }
                 } else {
                     // Invalid notice id so redirect.
-                    create_flash_message('notices', 'Invalid Notice ID', 'warning');
+                    create_flash_message('notices', 'Invalid Notice ID', 'warning', true);
                     redirect($this->club_name . '/notices', true);
                 }
             } else {
-                create_flash_message('notices', 'Please supply a valid notice id.', 'warning');
+                create_flash_message('notices', 'Please supply a valid notice id.', 'warning', true);
                 redirect($this->club_name . '/notices', true);
             }
             $this->view('notices/delete', $data);

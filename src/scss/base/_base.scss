@@ -1,5 +1,39 @@
+body, html {
+  height: 100%;
+}
+
+nav#menu {
+  min-height: 65px;
+}
+
 .wrapper {
   display: flex;
   width: 100%;
   align-items: stretch;
+}
+
+#content {
+  width: 100%;
+  min-height: 100vh;
+  transition: all 0.3s;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+#content.active {
+  width: calc(100% - #{$sidebar-width});
+}
+
+#main {
+  background-color: $grey;
+  padding: 5px;
+}
+
+.wrap {
+  background: $white;
+  margin: 20px;
+  padding: 20px;
+  border: 1px solid $dark-grey;
+  border-radius: 5px;
 }

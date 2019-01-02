@@ -81,7 +81,7 @@
                         // If no errors exist then change user's password.
                         if ($this->userModel->changePassword($user->id, $_POST['new_password'])) {
                             // If successful password change, then redirect back to users/index with success message.
-                            create_flash_message('user', "Password for user <strong>{$data['username']}</strong> has been changed.");
+                            create_flash_message('user', "Password for user <strong>{$data['username']}</strong> has been changed.", 'success', true);
                             redirect('user', true);
                         } else {
                             die('<strong>Fatal Error: </strong>Something went wrong when saving changes to user.');
@@ -132,7 +132,7 @@
                 if (!isset($username_err) && !isset($password_err)) {
                     // Send username and password to userModel login function.  If return true then create successful log in message and redirect to either CLUB/dashboard or user/index page.
                     if ($this->userModel->login($data['username'], $data['password'])) {
-                        create_flash_message('user', 'Welcome ' . $data['username'] . '. You have successfully logged in.');
+                        create_flash_message('user', 'Welcome ' . $data['username'] . '. You have successfully logged in.', 'success', true);
                         $this->userModel->permissionRedirect();
                     } else {
                         // Else there was an error logging in.  Create error message because we want to reload this same page with previous username.
@@ -157,7 +157,7 @@
             // Destroy all session[user] data.
             $this->userModel->logout();
             // TODO:  This flash message won't work because we session_destroy on logout.
-            // If we want successful logout message then remove session_destory and just double check we remove all user-data.
+            // If we want successful logout message then remove session_destroy and just double check we remove all user-data.
             // create_flash_message('user', 'You have have been logged out.', 'danger');
             redirect('user/login', true);
         }

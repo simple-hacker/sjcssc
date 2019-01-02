@@ -1,12 +1,24 @@
 #sidebar {
-    min-width: 250px;
-    max-width: 250px;
-    min-height: 80vh;
+    width: $sidebar-width;
     background: $grey;
+    min-height: 100vh;
     transition: all 0.3s;
+    position: fixed;
+    top: 0;
+    left: 0;
+    border-right: 1px solid $gold;
+    margin-left: -#{$sidebar-width};
+    z-index: 999;
 
     &.active {
-        margin-left: -250px;
+        margin-left: 0;
+    }
+
+    .sidebar-header {
+        padding: 20px;
+        overflow-wrap: break-word;
+        word-wrap: break-word;
+        background: $white;
     }
 
     ul li a {
@@ -55,9 +67,20 @@ a[data-toggle="collapse"] {
 
 @media (max-width: 768px) {
     #sidebar {
-        margin-left: -250px;
+        margin-left: 0;
+        width: 80vw;
     }
     #sidebar.active {
-        margin-left: 0;
+        margin-left: -80vw;
+    }
+    #content {
+        // width: calc(100% - #{$sidebar-width});
+        width: 100%;
+    }
+    #content.active {
+        width: 100%;
+    }
+    #sidebarCollapse span {
+        display: none;
     }
 }
