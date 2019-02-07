@@ -11,10 +11,10 @@
                         <?php echo $fixture->league; ?>
                     </div>
                     <div class="card-body">
-                        <div class="container">
-                            <div class="row mt-1">
-                                <div class="col-2"><i class="fa fa-star border"></i></div>
-                                <div class="col-10">
+                        <div class="container-fluid">
+                            <div class="row align-items-center mt-1">
+                                <div class="col-3"><i class="fa fa-star border"></i></div>
+                                <div class="col-9">
                                     <?php
                                         echo ($fixture->home_team_id === $data['club']->team_id) ? '<strong>' . $fixture->home_team . '</strong>' : $fixture->home_team;
                                         echo ' v ';
@@ -22,20 +22,20 @@
                                     ?>
                                 </div>
                             </div>
-                            <div class="row mt-1">
-                                <div class="col-2"><i class="fa fa-calendar-alt border"></i></div>
-                                <div class="col-10"><?php echo date("l jS F, Y", strtotime($fixture->date)); ?></div>
+                            <div class="row align-items-center mt-1">
+                                <div class="col-3"><i class="fa fa-calendar-alt border"></i></div>
+                                <div class="col-9"><?php echo date("l jS F, Y", strtotime($fixture->date)); ?></div>
                             </div>
-                            <div class="row mt-1">
-                                <div class="col-2"><i class="fa fa-clock border"></i></div>
-                                <div class="col-10"><?php echo date("H:i", strtotime($fixture->time)); ?></div>
+                            <div class="row align-items-center mt-1">
+                                <div class="col-3"><i class="fa fa-clock border"></i></div>
+                                <div class="col-9"><?php echo date("H:i", strtotime($fixture->time)); ?></div>
                             </div>
                     <?php
                             if (!empty($fixture->venue)) {
                     ?>
-                            <div class="row mt-1">
-                                <div class="col-2"><i class="fa fa-map-marker-alt border"></i></div>
-                                <div class="col-10"><?php echo $fixture->venue; ?></div>
+                            <div class="row align-items-center mt-1">
+                                <div class="col-3"><i class="fa fa-map-marker-alt border"></i></div>
+                                <div class="col-9"><?php echo $fixture->venue; ?></div>
                             </div>
                     <?php
                             }

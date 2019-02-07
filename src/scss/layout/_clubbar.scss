@@ -2,7 +2,10 @@ nav {
     &.clubbar {
         background-color: $brown;
         border-bottom: 5px solid $gold;
-        padding-top: 5px;
+        // padding-top: 5px;
+        padding: 0;
+        margin: 0;
+        line-height: 1;
 
         a {
             display: inline-block;

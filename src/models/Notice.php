@@ -91,4 +91,12 @@
             // Add expiry_date_option on to created_date and return it
             return date("Y-m-d", strtotime($expiry_date_option, strtotime($created_date) + 86400));
         }
+
+        public function toggleImportant($club_id, $notice_id) {
+            $sql = "UPDATE `notices` SET `important`= NOT `important` WHERE `club_id`=:club_id AND `notice_id`=:notice_id";
+            $this->db->query($sql);
+            $this->db->bind(':club_id', $club_id);
+            $this->db->bind(':notice_id', $notice_id);
+            return $this->db->execute();
+        }
     }

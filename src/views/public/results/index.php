@@ -41,7 +41,7 @@
                             <div class="jumbotron text-center <?php echo isset($bg_color) ? $bg_color : ''; ?>">
                                 <h1 class="display-4"><?php echo scoreline($data['club']->club, $data['result'], $data['club']->team_id); ?></h1>
                             </div>
-                            <div class="row mt-1">
+                            <div class="row align-items-center mt-1">
                                 <div class="col-4 text-right"><i class="fa fa-star border"></i></div>
                                 <div class="col-8">
                                     <?php
@@ -51,22 +51,22 @@
                                     ?>
                                 </div>
                             </div>
-                            <div class="row mt-1">
+                            <div class="row align-items-center mt-1">
                                 <div class="col-4 text-right"><span class="mr-3">League</span><i class="fas fa-asterisk border"></i></div>
                                 <div class="col-8"><?php echo $data['result']->league; ?></div>
                             </div>
-                            <div class="row mt-1">
+                            <div class="row align-items-center mt-1">
                                 <div class="col-4 text-right"><span class="mr-3">Date</span><i class="fa fa-calendar-alt border"></i></div>
                                 <div class="col-8"><?php echo date("l jS F, Y", strtotime($data['result']->date)); ?></div>
                             </div>
-                            <div class="row mt-1">
+                            <div class="row align-items-center mt-1">
                                 <div class="col-4 text-right"><span class="mr-3">Time</span><i class="fa fa-clock border"></i></div>
                                 <div class="col-8"><?php echo date("H:i", strtotime($data['result']->time)); ?></div>
                             </div>
                     <?php
                             if (!empty($data['result']->venue)) {
                     ?>
-                            <div class="row mt-1">
+                            <div class="row align-items-center mt-1">
                                 <div class="col-4 text-right"><span class="mr-3">Venue</span><i class="fa fa-map-marker-alt border"></i></div>
                                 <div class="col-8"><?php echo $data['result']->venue; ?></div>
                             </div>
@@ -76,7 +76,7 @@
                     <?php
                             if (!empty($data['result']->meet_at)) {
                     ?>
-                            <div class="row mt-1">
+                            <div class="row align-items-center mt-1">
                                 <div class="col-4 text-right"><span class="mr-3">Meet At</span><i class="fas fa-map-marked-alt border"></i></div>
                                 <div class="col-8"><?php echo $data['result']->meet_at; ?></div>
                             </div>
@@ -86,7 +86,7 @@
                     <?php
                             if (!empty($data['result']->contact)) {
                     ?>
-                            <div class="row mt-1">
+                            <div class="row align-items-center mt-1">
                                 <div class="col-4 text-right"><span class="mr-3">Contact</span><i class="fas fa-phone border"></i></div>
                                 <div class="col-8"><?php echo $data['result']->contact; ?></div>
                             </div>
@@ -97,8 +97,8 @@
                             if (!empty($data['result']->squad)) {
                                 foreach ($data['result']->squad as $position => $names) {
                     ?>
-                                <div class="row mt-1">
-                                    <div class="col-4 text-right"><span class="mr-3"><?php echo isset(CLUBS[$data['club']->club]['fixtures']['squad_title']) ? CLUBS[$data['club']->club]['fixtures']['squad_title'] . ' ' . $position : 'Player ' . $position; ?></span><i class="fas fa-user border"></i></div>
+                                <div class="row align-items-center mt-1">
+                                    <div class="col-4 text-right"><span class="mr-3"><?php echo isset(CLUBS[$data['club']->club]['fixtures']['position_title']) ? CLUBS[$data['club']->club]['fixtures']['position_title'] . ' ' . $position : 'Player ' . $position; ?></span><i class="fas fa-user border"></i></div>
                                     <div class="col-8"><?php echo implode(", ", $names); ?></div>
                                 </div>
                     <?php
@@ -108,7 +108,7 @@
                     <?php
                             if (!empty($data['result']->substitutes)) {
                     ?>
-                            <div class="row mt-1">
+                            <div class="row align-items-center mt-1">
                                 <div class="col-4 text-right"><span class="mr-3"><?php echo isset(CLUBS[$data['club']->club]['fixtures']['substitutes_title']) ? CLUBS[$data['club']->club]['fixtures']['substitutes_title'] : 'Substitutes'; ?></span><i class="fas fa-users border"></i></div>
                                 <div class="col-8"><?php echo $data['result']->substitutes; ?></div>
                             </div>
@@ -118,7 +118,7 @@
                     <?php
                             if (!empty($data['result']->other_information)) {
                     ?>
-                            <div class="row mt-1">
+                            <div class="row align-items-center mt-1">
                                 <div class="col-4 text-right"><span class="mr-3">Other Information</span><i class="fas fa-comment-alt border"></i></div>
                                 <div class="col-8"><?php echo $data['result']->other_information; ?></div>
                             </div>
@@ -131,16 +131,17 @@
 <?php
             } elseif (!empty($data['results'])) {
 ?>
-            <table class="table table-sm table-bordered text-center">
-                <thead>
-                    <th>Date</th>
-                    <th>League</th>
-                    <th>Home Team</th>
-                    <th>Score</th>
-                    <th>Away Team</th>
-                    <th>View Fixture</th>
-                </thead>
-                <tbody>
+            <div class="table-responsive">
+                <table class="table table-sm table-bordered text-center">
+                    <thead>
+                        <th>Date</th>
+                        <th class="d-none d-md-table-cell">League</th>
+                        <th>Home Team</th>
+                        <th>Score</th>
+                        <th>Away Team</th>
+                        <th>View Fixture</th>
+                    </thead>
+                    <tbody>
 <?php
                 foreach ($data['results'] as $result) {
 
@@ -154,18 +155,19 @@
                     }
 ?>
                     <tr class="<?php echo isset($bg_color) ? $bg_color : ''; ?>">
-                        <td><?php echo $result->date; ?></td>
-                        <td><?php echo $result->league; ?></td>
-                        <td><?php echo ($result->home_team_id === $data['club']->team_id) ? '<strong>' . $result->home_team . '</strong>' : $result->home_team; ?></td>
-                        <td><?php echo scoreline($data['club']->club, $result, $data['club']->team_id) ?></td> <!-- Scoreline function is in helpers folder. -->
-                        <td><?php echo ($result->away_team_id === $data['club']->team_id) ? '<strong>' . $result->away_team . '</strong>' : $result->away_team; ?></td>
+                        <td><?php echo date("d/m/y", strtotime($result->date)); ?></td>
+                        <td class="d-none d-md-table-cell"><?php echo $result->league; ?></td>
+                        <td><?php echo ($result->home_team_score > $result->away_team_score) ? '<strong>' . $result->home_team . '</strong>' : $result->home_team; ?></td>
+                            <td><?php echo scoreline($data['club']->club, $result, $data['club']->team_id) ?></td> <!-- Scoreline function is in helpers folder. -->
+                            <td><?php echo ($result->away_team_score > $result->home_team_score) ? '<strong>' . $result->away_team . '</strong>' : $result->away_team; ?></td>
                         <td><a href="<?php echo URLROOT . $data['club']->club . '/results/' . $result->id; ?>" class="btn btn-brown">View Fixture</a></td>
                     </tr>
 <?php
                 }
 ?>
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
+            </div>
 <?php
             }
 ?>

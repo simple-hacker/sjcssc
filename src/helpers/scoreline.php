@@ -12,8 +12,10 @@
                 // Explode scoreline in to home_team and away_team scores.
                 $scoreline = explode(" - ", $scoreline);
                 // Add strong tags to team_id score only.
-                $scoreline[0] = ($team_id === $result->home_team_id) ? '<strong>' . $scoreline[0] . '</strong>' : $scoreline[0];
-                $scoreline[1] = ($team_id === $result->away_team_id) ? '<strong>' . $scoreline[1] . '</strong>' : $scoreline[1];
+                // $scoreline[0] = ($team_id === $result->home_team_id) ? '<strong>' . $scoreline[0] . '</strong>' : $scoreline[0];
+                // $scoreline[1] = ($team_id === $result->away_team_id) ? '<strong>' . $scoreline[1] . '</strong>' : $scoreline[1];
+                $scoreline[0] = ($result->home_team_score > $result->away_team_score) ? '<strong>' . $scoreline[0] . '</strong>' : $scoreline[0];
+                $scoreline[1] = ($result->away_team_score > $result->home_team_score) ? '<strong>' . $scoreline[1] . '</strong>' : $scoreline[1];
                 // Put scoreline back together.
                 $scoreline = implode(" - ", $scoreline);
 

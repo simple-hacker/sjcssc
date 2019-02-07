@@ -8,36 +8,42 @@
     display_flash_messages('notices');
 ?>
     <div class="wrap">
-        <h1>Edit Notice</h1>
+        <h3>Edit Notice</h3>
         <form action="<?php echo ADMIN_URLROOT . $data['club']->club . '/notices/edit/' . $data['notice']->notice_id; ?>" method="POST">
                 <input type="hidden" name="notice_id" value="<?php echo (isset($data['notice']->notice_id)) ? $data['notice']->notice_id : ''; ?>"/>
                 <div class="form-group row">
-                <label for="title" class="col-sm-2 col-form-label">Title</label>
-                <div class="col-sm-10">
+                <label for="title" class="col-sm-2 col-form-label d-none d-md-flex">Title</label>
+                <div class="col-12 col-md-10">
                     <input type="text" name="title" class="form-control<?php if (!empty($data['title_err'])) echo ' is-invalid'; ?>" placeholder="Enter Notice Title" value="<?php echo (isset($data['notice']->title)) ? $data['notice']->title : ''; ?>"/>
                     <?php if (isset($data['title_err'])) display_invalid($data['title_err']); ?>
                 </div>
             </div>
             <div class="form-group row">
-                <label for="notice" class="col-sm-2 col-form-label">Notice</label>
-                <div class="col-sm-10">
+                <label for="notice" class="col-sm-2 col-form-label d-none d-md-flex">Notice</label>
+                <div class="col-12 col-md-10">
                     <textarea name="notice" class="form-control<?php if (!empty($data['notice_err'])) echo ' is-invalid'; ?>" rows="5" placeholder="Enter Notice Body"><?php echo (isset($data['notice']->notice)) ? $data['notice']->notice : ''; ?></textarea>
                     <?php if (isset($data['notice_err'])) display_invalid($data['notice_err']); ?>
                 </div>
             </div>
             <div class="form-group row">
                 <label for="important" class="col-sm-2 col-form-label">Important</label>
-                <div class="col-sm-10">
-                    <input type="checkbox" class="form-control form-control-sm" name="important" <?php echo (isset($data['notice']->important) && $data['notice']->important == 1) ? 'checked' : ''; ?>/>
+                <div class="col-md-10">
+                    <div class="pretty p-icon p-curve p-jelly">
+                        <input type="checkbox" name="important" <?php echo (isset($data['notice']->important) && $data['notice']->important == 1) ? 'checked' : ''; ?>/>
+                        <div class="state p-warning">
+                            <i class="icon fas fa-check"></i>
+                            <label></label>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="form-group row">
-                <label for="expiry_date_select" class="col-sm-2 col-form-label">Expiry Date</label>
-                <div class="col-sm-10">
+                <label for="expiry_date_select" class="col-sm-2 col-form-label d-none d-md-flex">Expiry Date</label>
+                <div class="col-12 col-md-10">
                     <select name="expiry_date_select" class="form-control">
                         <?php
                             if (!isset($data['notice']->expiry_date_option)) {
-                                $data['notice']->expiry_date_option = '+1 Month'; // If we're in add mode, we want +1 Month to be default.
+                                $data['notice']->expiry_date_option = '+3 Months'; // If we're in add mode, we want +1 Month to be default.
                             }
                         ?>
                         <option value="NULL" <?php echo (isset($data['notice']->expiry_date_option) && $data['notice']->expiry_date_option === 'NULL') ? 'selected' : ''; ?>>Doesn't Expire</option>
@@ -46,6 +52,7 @@
                         <option value="+1 Month" <?php echo (isset($data['notice']->expiry_date_option) && $data['notice']->expiry_date_option === '+1 Month') ? 'selected' : ''; ?>>1 Month</option>
                         <option value="+3 Months" <?php echo (isset($data['notice']->expiry_date_option) && $data['notice']->expiry_date_option === '+3 Months') ? 'selected' : ''; ?>>3 Months</option>
                         <option value="+6 Months" <?php echo (isset($data['notice']->expiry_date_option) && $data['notice']->expiry_date_option === '+6 Months') ? 'selected' : ''; ?>>6 Months</option>
+                        <option value="+1 Year" <?php echo (isset($data['notice']->expiry_date_option) && $data['notice']->expiry_date_option === '+1 Year') ? 'selected' : ''; ?>>1 Year</option>
                     </select>
                 </div>
             </div>
@@ -66,9 +73,9 @@
     <div class="wrap">
         <h3>Notices</h3>
         <div class="table-responsive">
-            <table class="table table-bordered">
+            <table class="table table-bordered table-sm">
                 <thead>
-                    <tr class="thead-light">
+                    <tr class="thead-light text-center">
                         <th>Date</th>
                         <th>Important</th>
                         <th>Title</th>
@@ -83,11 +90,19 @@
     ?>
                     <tr>
                         <td><?php echo date("d/m/y", strtotime($notice->created_date)); ?></td>
-                        <td><input type="checkbox" class="form-control form-control-sm" name="important_<?php echo $i; ?>" <?php echo (isset($data['notice']->important) && $data['notice']->important == 1) ? 'checked' : ''; ?>/></td>
+                        <td class="text-center">
+                            <div class="pretty p-icon p-curve p-jelly">
+                                <input type="checkbox" onclick="toggleImportant(<?php echo $data['club']->id; ?>, <?php echo $notice->notice_id; ?>);" name="important_<?php echo $i; ?>" <?php echo (isset($notice->important) && $notice->important == 1) ? 'checked' : ''; ?>/>
+                                <div class="state p-warning">
+                                    <i class="icon fas fa-check"></i>
+                                    <label></label>
+                                </div>
+                            </div> 
+                        </td>
                         <td><?php echo $notice->title; ?></td>
                         <td><?php echo strlen($notice->notice) > 50 ? substr($notice->notice,0,50)."..." : $notice->notice; ?></td>
-                        <td><a href="<?php echo ADMIN_URLROOT . $data['club']->club . "/notices/edit/" . $notice->notice_id; ?>" class="btn btn-small btn-primary"><i class="fas fa-sm fa-edit"></i></a></td>
-                        <td><a href="<?php echo ADMIN_URLROOT . $data['club']->club . "/notices/delete/" . $notice->notice_id; ?>" class="btn btn-small btn-danger"><i class="fas fa-sm fa-trash-alt"></i></a></td>
+                        <td class="text-center"><a href="<?php echo ADMIN_URLROOT . $data['club']->club . "/notices/edit/" . $notice->notice_id; ?>" class="btn btn-small btn-primary"><i class="fas fa-sm fa-edit"></i></a></td>
+                        <td class="text-center"><a href="<?php echo ADMIN_URLROOT . $data['club']->club . "/notices/delete/" . $notice->notice_id; ?>" class="btn btn-small btn-danger"><i class="fas fa-sm fa-trash-alt"></i></a></td>
                     </tr>
     <?php
         }

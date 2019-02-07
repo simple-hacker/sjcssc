@@ -18,7 +18,6 @@ nav#menu {
 
 #content {
   width: 100%;
-  min-height: 100vh;
   -webkit-transition: all 0.3s;
   transition: all 0.3s;
   position: absolute;
@@ -41,6 +40,13 @@ nav#menu {
   padding: 20px;
   border: 1px solid silver;
   border-radius: 5px;
+}
+
+@media only screen and (max-width: 768px) {
+  .wrap {
+    margin-left: 5px;
+    margin-right: 5px;
+  }
 }
 
 .sj-heading, .sj-heading-small, .sj-heading-large {
@@ -87,6 +93,21 @@ span.invalid {
   color: #dc3545;
   padding: 5px;
   margin-top: 15px;
+}
+
+.pretty {
+  font-size: 2em;
+  margin-top: 5px;
+}
+
+.pretty.small {
+  font-size: 1.3em;
+}
+
+.breadcrumb {
+  background-color: #FFFFFF;
+  font-size: 1.2em;
+  margin: 0;
 }
 
 .btn-brown {
@@ -246,7 +267,9 @@ tr.lose {
 nav.clubbar {
   background-color: #925818;
   border-bottom: 5px solid #f0d64e;
-  padding-top: 5px;
+  padding: 0;
+  margin: 0;
+  line-height: 1;
 }
 
 nav.clubbar a {
@@ -285,16 +308,57 @@ nav.clubbar a.active {
 
 #sidebar {
   width: 250px;
-  background: #f3f3f3;
-  min-height: 100vh;
+  background: #e6e6e6;
   -webkit-transition: all 0.3s;
   transition: all 0.3s;
   position: fixed;
   top: 0;
-  left: 0;
-  border-right: 1px solid #f0d64e;
+  bottom: 0;
+  border-right: 2px solid #dadada;
   margin-left: -250px;
   z-index: 999;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+#sidebar::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+#sidebar::-webkit-scrollbar-button {
+  width: 0px;
+  height: 0px;
+}
+
+#sidebar::-webkit-scrollbar-thumb {
+  background: #c7aa11;
+  border-radius: 50px;
+}
+
+#sidebar::-webkit-scrollbar-thumb:hover {
+  background: #f0d64e;
+}
+
+#sidebar::-webkit-scrollbar-thumb:active {
+  background: #c7aa11;
+}
+
+#sidebar::-webkit-scrollbar-track {
+  background: #f3f3f3;
+  border-radius: 50px;
+}
+
+#sidebar::-webkit-scrollbar-track:hover {
+  background: #f3f3f3;
+}
+
+#sidebar::-webkit-scrollbar-track:active {
+  background: #f3f3f3;
+}
+
+#sidebar::-webkit-scrollbar-corner {
+  background: transparent;
 }
 
 #sidebar.active {
@@ -303,43 +367,82 @@ nav.clubbar a.active {
 
 #sidebar .sidebar-header {
   padding: 20px;
-  overflow-wrap: break-word;
-  word-wrap: break-word;
-  background: #FFFFFF;
+  border-bottom: 2px solid #c7aa11;
+  background-color: #eccb1f;
+  min-height: 75px;
+  text-align: center;
+  font-size: 1.4em;
+  font-weight: 750;
+  font-family: 'Roboto', sans-serif;
 }
 
-#sidebar ul li a {
+#sidebar .sidebar-header a {
+  color: #f3f3f3;
+}
+
+#sidebar .sidebar-header a:hover {
+  text-decoration: none;
+}
+
+#sidebar .sidebar-header img {
+  display: block;
+  margin: 10px auto;
+  height: 80px;
+}
+
+#sidebar ul {
+  padding-bottom: 10px;
+}
+
+#sidebar ul li a:not([data-toggle="collapse"]) {
   font-size: 1.1em;
   display: block;
   padding: 10px;
+  background-color: #f6f6f6;
+  color: #c7aa11;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+  border-bottom: 1px solid #ebebeb;
 }
 
-#sidebar ul li a.active {
+#sidebar ul li a:not([data-toggle="collapse"]).active {
   background: #FFF;
+  color: #f0d64e;
+  padding-left: 20px;
 }
 
-#sidebar ul li a i {
+#sidebar ul li a:not([data-toggle="collapse"]) i {
   min-width: 30px;
   margin-right: 10px;
+  margin-left: 5px;
 }
 
-#sidebar ul li a:hover {
+#sidebar ul li a:not([data-toggle="collapse"]):hover {
   color: #f0d64e;
   background: #FFF;
+  text-decoration: none;
+  padding-left: 20px;
+}
+
+#sidebar ul li a[data-toggle="collapse"] {
+  position: relative;
+  font-size: 1.1em;
+  display: block;
+  padding: 10px;
+  background-color: #dfbe13;
+  color: #FFF;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+  border-bottom: 1px solid #ebebeb;
+}
+
+#sidebar ul li a[data-toggle="collapse"]:hover {
+  background: #c7aa11;
   text-decoration: none;
 }
 
 #sidebar ul li.active > a, #sidebar a[aria-expanded="true"] {
-  color: #FFF;
-  background: #f0d64e;
-}
-
-#sidebar ul li ul {
-  padding-left: 20px;
-}
-
-a[data-toggle="collapse"] {
-  position: relative;
+  background: #c7aa11;
 }
 
 .dropdown-toggle::after {
@@ -354,10 +457,16 @@ a[data-toggle="collapse"] {
 @media (max-width: 768px) {
   #sidebar {
     margin-left: 0;
-    width: 80vw;
+    width: 90vw;
+  }
+  #sidebar .sidebar-header {
+    padding-top: 85px;
+  }
+  #sidebar .sidebar-header img {
+    display: none;
   }
   #sidebar.active {
-    margin-left: -80vw;
+    margin-left: -90vw;
   }
   #content {
     width: 100%;
@@ -414,6 +523,7 @@ footer {
 
 .navbar {
   border-bottom: 3px solid #f0d64e;
+  min-height: 75px;
 }
 
 a {

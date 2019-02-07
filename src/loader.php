@@ -1,5 +1,7 @@
 <?php   
 
+    error_reporting(E_ALL|E_STRICT);
+
     // Load Configs
     require_once 'config/setup.php';
     require_once 'config/config.php';

@@ -25,11 +25,12 @@
                     ['name' => 'venue_id', 'type' => 'select', 'size' => 12, 'label' => 'Venue', 'placeholder' => 'Select a Venue', 'select_item_model' => 'venues', 'select_item' => 'venue'],
                     ['name' => 'meet_at', 'type' => 'text', 'size' => 12, 'label' => 'Meet At', 'placeholder' => 'Enter Meet At Location'],
                     ['name' => 'contact', 'type' => 'text', 'size' => 12, 'label' => 'Contact', 'placeholder' => 'Contact Information'],
+                    ['name' => 'other_information', 'type' => 'textarea', 'size' => 12, 'label' => 'Other Information', 'placeholder' => 'Other Information'],
                     ['name' => 'squad', 'type' => 'text', 'size' => 6, 'label' => 'Rink', 'placeholder' => 'Rink', 'count' => 6],
                     ['name' => 'substitutes', 'type' => 'text', 'size' => 12, 'label' => 'Reserves', 'placeholder' => 'Reserves'],
-                    ['name' => 'other_information', 'type' => 'textarea', 'size' => 12, 'label' => 'Other Information', 'placeholder' => 'Other Information']
                 ],
-                'squad_title' => 'Rink',
+                'squad_title' => 'Team',
+                'position_title' => 'Rink',
                 'substitutes_title' => 'Reserves',
             ],
             'results' => [
@@ -62,11 +63,12 @@
                     ['name' => 'venue_id', 'type' => 'select', 'size' => 12, 'label' => 'Venue', 'placeholder' => 'Select a Venue', 'select_item_model' => 'venues', 'select_item' => 'venue'],
                     ['name' => 'meet_at', 'type' => 'text', 'size' => 12, 'label' => 'Meet At', 'placeholder' => 'Enter Meet At Location'],
                     ['name' => 'contact', 'type' => 'text', 'size' => 12, 'label' => 'Contact', 'placeholder' => 'Contact Information'],
+                    ['name' => 'other_information', 'type' => 'textarea', 'size' => 12, 'label' => 'Other Information', 'placeholder' => 'Other Information'],
                     ['name' => 'squad', 'type' => 'text', 'size' => 6, 'label' => 'Player', 'placeholder' => 'Player', 'count' => 15],
                     ['name' => 'substitutes', 'type' => 'text', 'size' => 12, 'label' => 'Substitutes', 'placeholder' => 'Substitutes'],
-                    ['name' => 'other_information', 'type' => 'textarea', 'size' => 12, 'label' => 'Other Information', 'placeholder' => 'Other Information']
                 ],
-                'squad_title' => 'Player',
+                'squad_title' => 'Squad',
+                'position_title' => 'Player',
                 'substitutes_title' => 'Substitutes',
             ],
             'results' => [
@@ -95,11 +97,12 @@
                     ['name' => 'venue_id', 'type' => 'select', 'size' => 12, 'label' => 'Venue', 'placeholder' => 'Select a Venue', 'select_item_model' => 'venues', 'select_item' => 'venue'],
                     ['name' => 'meet_at', 'type' => 'text', 'size' => 12, 'label' => 'Meet At', 'placeholder' => 'Enter Meet At Location'],
                     ['name' => 'contact', 'type' => 'text', 'size' => 12, 'label' => 'Contact', 'placeholder' => 'Contact Information'],
+                    ['name' => 'other_information', 'type' => 'textarea', 'size' => 12, 'label' => 'Other Information', 'placeholder' => 'Other Information'],
                     ['name' => 'squad', 'type' => 'text', 'size' => 6, 'label' => 'Player', 'placeholder' => 'Player', 'count' => 11],
                     ['name' => 'substitutes', 'type' => 'text', 'size' => 12, 'label' => 'Substitutes', 'placeholder' => 'Substitutes'],
-                    ['name' => 'other_information', 'type' => 'textarea', 'size' => 12, 'label' => 'Other Information', 'placeholder' => 'Other Information']
                 ],
-                'squad_title' => 'Player',
+                'squad_title' => 'Squad',
+                'position_title' => 'Player',
                 'substitutes_title' => 'Substitutes',
             ],
             'results' => [
@@ -139,7 +142,7 @@
 
     // These define the other controllers we can use, mainly for the admin area.
     // Other controllers are defined from 'sections' for each club, such as Notices, Fixtures etc.
-    define('CONTROLLERS', ['user', 'users', 'settings']); // Need to include these variables in .htaccess
+    define('CONTROLLERS', ['user', 'users', 'settings', 'ajax']); // Need to include these variables in .htaccess
     // Array of all possible pages, each controller could have.
     // define('PAGES', ['index', 'add', 'edit', 'delete', 'view', 'show', 'login', 'settings']);
 

@@ -9,7 +9,7 @@ class Venue {
     }
 
     public function getVenues($club_id) {
-        $sql = "SELECT * FROM `venues` WHERE `club_id`=:club_id ORDER BY `venue` ASC";
+        $sql = "SELECT * FROM `venues` WHERE `club_id`=:club_id AND `isDeleted`=0 ORDER BY `venue` ASC";
         $this->db->query($sql);
         $this->db->bind(':club_id', $club_id);
         return $this->db->results();
@@ -44,6 +44,17 @@ class Venue {
             }
         }
         return true; // Else no errors with db, return true
+    }
+
+    public function deleteVenue($venue_id) {
+        if (isset($venue_id)) {
+            $sql = "UPDATE `venues` SET `isDeleted`=1 WHERE `id`=:venue_id";
+            $this->db->query($sql);
+            $this->db->bind(':venue_id', $venue_id);
+            return $this->db->execute();
+        } else {
+            return false;
+        }
     }
 
 }

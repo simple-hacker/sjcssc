@@ -54,3 +54,12 @@ span.invalid {
     padding: 5px;
     margin-top: 15px;
 }
+
+.pretty {
+    font-size: 2em;
+    margin-top: 5px;
+
+    &.small {
+        font-size: 1.3em;
+    }
+}

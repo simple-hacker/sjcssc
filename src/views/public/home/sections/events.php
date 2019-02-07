@@ -12,18 +12,18 @@
                     </div>
                     <div class="card-body">
                         <div class="container">
-                            <div class="row mt-1">
+                            <div class="row align-items-center mt-1">
                                 <div class="col-2"><i class="fa fa-calendar-alt border"></i></div>
                                 <div class="col-10"><?php echo date("l jS F, Y", strtotime($event->date)); ?></div>
                             </div>
-                            <div class="row mt-1">
+                            <div class="row align-items-center mt-1">
                                 <div class="col-2"><i class="fa fa-clock border"></i></div>
                                 <div class="col-10"><?php echo date("H:i", strtotime($event->time)); ?></div>
                             </div>
                     <?php
                             if (!empty($event->venue)) {
                     ?>
-                            <div class="row mt-1">
+                            <div class="row align-items-center mt-1">
                                 <div class="col-2"><i class="fa fa-map-marker-alt border"></i></div>
                                 <div class="col-10"><?php echo $event->venue; ?></div>
                             </div>

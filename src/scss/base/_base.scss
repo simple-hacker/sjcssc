@@ -14,7 +14,6 @@ nav#menu {
 
 #content {
   width: 100%;
-  min-height: 100vh;
   transition: all 0.3s;
   position: absolute;
   top: 0;
@@ -36,4 +35,11 @@ nav#menu {
   padding: 20px;
   border: 1px solid $dark-grey;
   border-radius: 5px;
+}
+
+@media only screen and (max-width: 768px) {
+  .wrap {
+    margin-left: 5px;
+    margin-right: 5px;
+  }
 }

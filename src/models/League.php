@@ -9,7 +9,7 @@ class League {
     }
 
     public function getLeagues($club_id) {
-        $sql = "SELECT * FROM `leagues` WHERE `club_id`=:club_id ORDER BY `league` ASC";
+        $sql = "SELECT * FROM `leagues` WHERE `club_id`=:club_id AND `isDeleted`=0 ORDER BY `league` ASC";
         $this->db->query($sql);
         $this->db->bind(':club_id', $club_id);
         return $this->db->results();
@@ -46,6 +46,17 @@ class League {
             }
         }
         return true; // Else no errors with db, return true
+    }
+
+    public function deleteLeague($league_id) {
+        if (isset($league_id)) {
+            $sql = "UPDATE `leagues` SET `isDeleted`=1 WHERE `id`=:league_id";
+            $this->db->query($sql);
+            $this->db->bind(':league_id', $league_id);
+            return $this->db->execute();
+        } else {
+            return false;
+        }
     }
 
 }

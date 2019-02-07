@@ -29,7 +29,7 @@
                     </div>
                     <div class="card-body">
                         <div class="container">
-                            <div class="row mt-1">
+                            <div class="row align-items-center mt-1">
                                 <div class="col-4 text-right"><i class="fa fa-star border"></i></div>
                                 <div class="col-8">
                                     <?php
@@ -39,22 +39,22 @@
                                     ?>
                                 </div>
                             </div>
-                            <div class="row mt-1">
+                            <div class="row align-items-center mt-1">
                                 <div class="col-4 text-right"><span class="mr-3">League</span><i class="fas fa-asterisk border"></i></div>
                                 <div class="col-8"><?php echo $data['fixture']->league; ?></div>
                             </div>
-                            <div class="row mt-1">
+                            <div class="row align-items-center mt-1">
                                 <div class="col-4 text-right"><span class="mr-3">Date</span><i class="fa fa-calendar-alt border"></i></div>
                                 <div class="col-8"><?php echo date("l jS F, Y", strtotime($data['fixture']->date)); ?></div>
                             </div>
-                            <div class="row mt-1">
+                            <div class="row align-items-center mt-1">
                                 <div class="col-4 text-right"><span class="mr-3">Time</span><i class="fa fa-clock border"></i></div>
                                 <div class="col-8"><?php echo date("H:i", strtotime($data['fixture']->time)); ?></div>
                             </div>
                     <?php
                             if (!empty($data['fixture']->venue)) {
                     ?>
-                            <div class="row mt-1">
+                            <div class="row align-items-center mt-1">
                                 <div class="col-4 text-right"><span class="mr-3">Venue</span><i class="fa fa-map-marker-alt border"></i></div>
                                 <div class="col-8"><?php echo $data['fixture']->venue; ?></div>
                             </div>
@@ -64,7 +64,7 @@
                     <?php
                             if (!empty($data['fixture']->meet_at)) {
                     ?>
-                            <div class="row mt-1">
+                            <div class="row align-items-center mt-1">
                                 <div class="col-4 text-right"><span class="mr-3">Meet At</span><i class="fas fa-map-marked-alt border"></i></div>
                                 <div class="col-8"><?php echo $data['fixture']->meet_at; ?></div>
                             </div>
@@ -74,7 +74,7 @@
                     <?php
                             if (!empty($data['fixture']->contact)) {
                     ?>
-                            <div class="row mt-1">
+                            <div class="row align-items-center mt-1">
                                 <div class="col-4 text-right"><span class="mr-3">Contact</span><i class="fas fa-phone border"></i></div>
                                 <div class="col-8"><?php echo $data['fixture']->contact; ?></div>
                             </div>
@@ -85,9 +85,9 @@
                             if (!empty($data['fixture']->squad)) {
                                 foreach ($data['fixture']->squad as $position => $names) {
                     ?>
-                                <div class="row mt-1">
-                                    <div class="col-4 text-right"><span class="mr-3"><?php echo isset(CLUBS[$data['club']->club]['fixtures']['squad_title']) ? CLUBS[$data['club']->club]['fixtures']['squad_title'] . ' ' . $position : 'Player ' . $position; ?></span><i class="fas fa-user border"></i></div>
-                                    <div class="col-8"><?php echo implode(", ", $names); ?></div>
+                                <div class="row align-items-center mt-1">
+                                    <div class="col-4 text-right"><span class="mr-3"><?php echo isset(CLUBS[$data['club']->club]['fixtures']['position_title']) ? CLUBS[$data['club']->club]['fixtures']['position_title'] . ' ' . $position : 'Player ' . $position; ?></span><i class="fas fa-user border"></i></div>
+                                    <div class="col-8"><?php echo $names; ?></div>
                                 </div>
                     <?php
                                 }
@@ -96,7 +96,7 @@
                     <?php
                             if (!empty($data['fixture']->substitutes)) {
                     ?>
-                            <div class="row mt-1">
+                            <div class="row align-items-center mt-1">
                                 <div class="col-4 text-right"><span class="mr-3"><?php echo isset(CLUBS[$data['club']->club]['fixtures']['substitutes_title']) ? CLUBS[$data['club']->club]['fixtures']['substitutes_title'] : 'Substitutes'; ?></span><i class="fas fa-users border"></i></div>
                                 <div class="col-8"><?php echo $data['fixture']->substitutes; ?></div>
                             </div>
@@ -106,7 +106,7 @@
                     <?php
                             if (!empty($data['fixture']->other_information)) {
                     ?>
-                            <div class="row mt-1">
+                            <div class="row align-items-center mt-1">
                                 <div class="col-4 text-right"><span class="mr-3">Other Information</span><i class="fas fa-comment-alt border"></i></div>
                                 <div class="col-8"><?php echo $data['fixture']->other_information; ?></div>
                             </div>
@@ -119,6 +119,7 @@
 <?php
             } elseif (!empty($data['fixtures'])) {              
 ?>
+            <div class="table-responsive">
                 <table class="table table-sm table-striped table-bordered text-center">
                     <thead>
                         <tr>
@@ -134,7 +135,7 @@
                 foreach ($data['fixtures'] as $fixture) {
 ?>
                     <tr>
-                        <td><?php echo $fixture->date; ?></td>
+                        <td><?php echo date("d/m/y", strtotime($fixture->date)); ?></td>
                         <td><?php echo $fixture->league; ?></td>
                         <td>
                             <?php echo ($fixture->home_team_id === $data['club']->team_id) ? '<strong>' . $fixture->home_team . '</strong>' : $fixture->home_team; ?>
@@ -149,6 +150,7 @@
 ?>
                     </tbody>
                 </table>
+            </div>
 <?php
             } else {
 ?>

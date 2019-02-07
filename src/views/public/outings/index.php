@@ -86,28 +86,30 @@
 <?php
     } elseif (!empty($data['outings'])) {
 ?>
-        <table class="table table-sm table-striped table-bordered text-center">
-            <thead>
-                <th>Date</th>
-                <th>Title</th>
-                <th>Venue</th>
-                <th>View Outing</th>
-            </thead>
-            <tbody>
+        <div class="table-responsive">
+            <table class="table table-sm table-striped table-bordered text-center">
+                <thead>
+                    <th>Date</th>
+                    <th>Title</th>
+                    <th>Venue</th>
+                    <th>View Outing</th>
+                </thead>
+                <tbody>
 <?php
             foreach ($data['outings'] as $outing) {
 ?>
-            <tr>
-                <td><?php echo $outing->date; ?></td>
-                <td><?php echo $outing->title; ?></td>
-                <td><?php echo $outing->venue; ?></td>
-                <td><a href="<?php echo URLROOT . $data['club']->club . '/outings/' . $outing->id; ?>" class="btn btn-brown">View Outing</a></td>
-            </tr>
+                <tr>
+                    <td><?php echo date("d/m/y", strtotime($outing->date)); ?></td>
+                    <td><?php echo $outing->title; ?></td>
+                    <td><?php echo $outing->venue; ?></td>
+                    <td><a href="<?php echo URLROOT . $data['club']->club . '/outings/' . $outing->id; ?>" class="btn btn-brown">View Outing</a></td>
+                </tr>
 <?php
         }
 ?>
-        </tbody>
-    </table>
+            </tbody>
+        </table>
+    </div>
 <?php
     } else {
 ?>

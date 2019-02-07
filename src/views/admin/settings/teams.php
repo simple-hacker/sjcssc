@@ -8,7 +8,7 @@
     display_flash_messages('teams');
 ?>
 
-<form action="<?php echo ADMIN_URLROOT . $data['club_name'] . '/settings/teams'; ?>" method="POST">
+<form action="<?php echo ADMIN_URLROOT . $data['club']->club . '/settings/teams'; ?>" method="POST">
     <div class="wrap">
         <h3>Add Team</h3>
 <?php                           
@@ -20,7 +20,6 @@ if (isset($data['teams'])) {
             <input type="hidden" name="team_id[]" value="<?php echo (!empty($team->id)) ? $team->id : ''; ?>"/>
             <div class="col-4"><input type="text" name="team[]" class="form-control<?php if (!empty($data['teams_err'][$i])) echo ' is-invalid'; ?>" value="<?php echo (!empty($team->team)) ? $team->team : ''; ?>" placeholder="Add Team"/></div>
             <div class="col-"></div><input type="text" name="team_location[]" class="form-control" value="<?php echo (!empty($team->location)) ? $team->location : ''; ?>" placeholder="Add Team Location"/></div>
-            <div class="col-1"><button href="<?php echo ADMIN_URLROOT . $data['club_name'] . "/settings/teams/delete/" . $team->id; ?>" class="btn btn-small btn-danger" disabled><i class="fas fa-sm fa-trash-alt"></i></button></div>
             <div class="col-12"><?php if (isset($data['teams_err'][$i])) display_invalid($data['teams_err'][$i]); ?></div>
         </div>
 <?php
@@ -32,6 +31,11 @@ if (isset($data['teams'])) {
             <input type="hidden" name="team_id[]" value=""/>
             <div class="col-4"><input type="text" name="team[]" class="form-control" value="" placeholder="Add Team"/></div>
             <div class="col-7"><input type="text" name="team_location[]" class="form-control" value="" placeholder="Add Team Location"/></div>
+        </div>
+        <div class="form-group row">
+            <div class="col-6 ml-auto text-right">
+                <button type="button" class="addRow btn btn-dark" data-item="address"><i class="fas fa-plus-square mr-2"></i> Another Row</button>
+            </div>
         </div>
     </div>
 
@@ -46,7 +50,7 @@ if (isset($data['teams'])) {
                     <input type="hidden" name="team_id[]" value="<?php echo (!empty($team->id)) ? $team->id : ''; ?>"/>
                     <div class="col-4"><input type="text" name="team[]" class="form-control<?php if (!empty($data['teams_with_id_err'][$team->id])) echo ' is-invalid'; ?>" value="<?php echo (!empty($team->team)) ? $team->team : ''; ?>" placeholder="Add Team"/></div>
                     <div class="col-7"><input type="text" name="team_location[]" class="form-control" value="<?php echo (!empty($team->location)) ? $team->location : ''; ?>" placeholder="Add Team Location"/></div>
-                    <div class="col-1"><button href="<?php echo ADMIN_URLROOT . $data['club_name'] . "/settings/teams/delete/" . $team->id; ?>" class="btn btn-small btn-danger" disabled><i class="fas fa-sm fa-trash-alt"></i></button></div>
+                    <div class="col-1"><button type="button" class="btn btn-small btn-danger deleteRow" data-item="team" data-id="<?php echo $team->id; ?>"><i class="fas fa-sm fa-trash-alt"></i></button></div>
                     <div class="col-12"><?php if (isset($data['teams_with_id_err'][$team->id])) display_invalid($data['teams_with_id_err'][$team->id]); ?></div>
                 </div>
 <?php

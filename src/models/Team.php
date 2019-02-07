@@ -9,7 +9,7 @@ class Team {
     }
 
     public function getTeams($club_id) {
-        $sql = "SELECT * FROM `teams` WHERE `club_id`=:club_id ORDER BY `home_team` DESC, `team` ASC";
+        $sql = "SELECT * FROM `teams` WHERE `club_id`=:club_id AND `isDeleted`=0 ORDER BY `home_team` DESC, `team` ASC";
         $this->db->query($sql);
         $this->db->bind(':club_id', $club_id);
         return $this->db->results();
@@ -51,6 +51,17 @@ class Team {
         $this->db->query($sql);
         $this->db->bind(':team_id', $team_id);
         return $this->db->result()->team;
+    }
+
+    public function deleteTeam($team_id) {
+        if (isset($team_id)) {
+            $sql = "UPDATE `teams` SET `isDeleted`=1 WHERE `id`=:team_id";
+            $this->db->query($sql);
+            $this->db->bind(':team_id', $team_id);
+            return $this->db->execute();
+        } else {
+            return false;
+        }
     }
 
 }

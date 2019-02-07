@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 02, 2018 at 06:38 PM
+-- Generation Time: Feb 03, 2019 at 08:42 PM
 -- Server version: 10.1.36-MariaDB
 -- PHP Version: 7.2.10
 
@@ -42,7 +42,7 @@ CREATE TABLE `addresses` (
 INSERT INTO `addresses` (`id`, `club_id`, `address_title`, `address`) VALUES
 (2, 2, 'St Joseph&#39;s Bowls Club', 'Llwynfedw Gardens, Birchgrove, Cardiff CF14 4NW'),
 (3, 3, 'Club House', 'St Joseph&#39;s Catholic Sports & Social Club, 29 Whitchurch Road, Cardiff CF14 3JN'),
-(6, 1, 'Club House', 'St Joseph\'s Catholic Sports & Social Club, 29 Whitchurch Road, Cardiff CF14 3JN');
+(6, 1, 'Club House 2', 'St Joseph&#39;s Catholic Sports & Social Club, 29 Whitchurch Road, Cardiff CF14 3JN');
 
 -- --------------------------------------------------------
 
@@ -63,7 +63,7 @@ CREATE TABLE `clubs` (
 --
 
 INSERT INTO `clubs` (`id`, `club`, `name`, `message`, `team_id`) VALUES
-(1, 'social', 'St Joseph\'s Catholic Sports and Social Club', 'This is a new welcome message for the St Joseph\'s Catholic Sports and Social Club.', 0),
+(1, 'social', 'St Joseph&#39;s Catholic Sports and Social Club', 'Welcome to St Joseph&#39;s Catholic Sports and Social Club homepage.', 0),
 (2, 'bowls', 'St Joseph&#39;s Bowls Club', 'A warm welcome to St Joseph&#39;s Bowls Club, Cardiff which was founded in 1976 as a sports section within St Joseph&#39;s Catholic Sports and Social Club, Cardiff.\r\n\r\nWe are affiliated to the Wales Bowling Association (WBA), East Wales Private Greens Bowling Association (EWPGBA), and South Glamorgan County Bowling Association (SGCBA).\r\n\r\nWe have two competitive teams who usually play on a Saturday afternoon:\r\nFirst Team play in PG1 Division 3\r\n&#39;A&#39; Team play in PG2 Division 1\r\n\r\nA competitive team comprising of players from both teams also play midweek (Wednesday evening) in the Cardiff Municipal League (CML).\r\n\r\nOn a less competitive note, we have a team which is open to all members of the bowls club, who play local friendly Alliance matches on a Tuesday and Thursday afternoon.\r\n\r\nAll new players, experienced or novice, are welcome.', 1),
 (3, 'rugby', 'St Joseph&#39;s Rugby Club', 'A warm welcome to St Joseph\'s Rugby Football Club, Cardiff which was founded in 1959 as a sports section within St Joseph\'s Catholic Sports and Social Club, Cardiff.\r\n\r\nWe are affiliated to the Welsh Rugby Union (WRU). and Cardiff and District Rugby Union (CDRU).\r\n\r\nWe have two competitive senior teams and one youth team who usually play on a Saturday afternoon:\r\n1st XV play in the WRU National League Division 1 East\r\n2nd XV play in the CDRU\r\nYouth U19\r\n\r\nAll new players, experienced or novice, are welcome.\r\n\r\nTraining Night(s)/Time(s):\r\nMonday, Wednesday and Friday 18:00 till 19:00\r\n\r\nWe also have an established Tag Rugby mini/junior section with WRU qualified and CRB checked coaches for every team.\r\nIt is a great game that allows younger players to concentrate on their ball skills and teamwork first. \r\nWe currently have space for new players in all our age groups!\r\nExperience is not needed; the only requirement is to have fun whilst learning to play the game of Rugby!\r\nBoys and girls can join us from the age of six so why not come along on a Sunday morning and let your child try out a few sessions before making a decision.\r\nPlease make sure they are wearing old clothes to train as getting dirty is part of the game.\r\nOur aim is to encourage young players to develop and enjoy the game of rugby.\r\nMany of our current senior players have come through the mini/junior section, and it\'s importance is evident to the survival and success of the rugby club.\r\n\r\nOur playing pitch is located at Blackweir Fields, Cardiff CF10 3EA', 7),
 (4, 'football', 'St Joseph&#39;s Football Club SJAFC', 'A warm welcome to St Joseph\'s Athletic Football Club, Cardiff which was founded in 1968 as a sports section within St Joseph\'s Catholic Sports and Social Club, Cardiff.\r\n\r\nWe are affiliated to South Wales Alliance League (SWAL) and Cardiff and District Football League (CDFL).\r\n\r\nWe have two competitive senior teams who usually play on a Saturday afternoon:\r\n1st XI play in the SWAL Division 2\r\n2nd XI play in the CDFL\r\n\r\nAll new players, experienced or novice, are welcome.\r\n\r\nTraining Night(s)/Time(s):\r\nMonday, Wednesday and Friday 18:00 till 19:00\r\n\r\nOur playing pitch is located at Maes-y-Coed Road Playing Fields, St Cenydd Road, Heath, CARDIFF.', 14),
@@ -228,6 +228,7 @@ INSERT INTO `fixtures_rugby` (`id`, `created_date`, `home_team_id`, `away_team_i
 CREATE TABLE `leagues` (
   `id` int(11) NOT NULL,
   `club_id` int(11) NOT NULL,
+  `isDeleted` tinyint(1) NOT NULL DEFAULT '0',
   `league` varchar(255) NOT NULL,
   `league_full` varchar(255) NOT NULL,
   `league_website` text NOT NULL
@@ -237,20 +238,19 @@ CREATE TABLE `leagues` (
 -- Dumping data for table `leagues`
 --
 
-INSERT INTO `leagues` (`id`, `club_id`, `league`, `league_full`, `league_website`) VALUES
-(1, 2, 'PG1', 'East Wales Private Greens 1', ''),
-(2, 2, 'PG2', 'East Wales Private Greens 2', ''),
-(3, 2, 'CML', 'Cardiff Municipal League', ''),
-(6, 3, 'Gallagher Premiership', '', ''),
-(7, 3, 'RFU Championship', '', ''),
-(8, 3, 'Friendly', '', ''),
-(9, 4, 'Premier League', '', ''),
-(10, 4, 'Bundesliga', '', ''),
-(11, 4, 'Serie A', '', ''),
-(12, 4, 'La Liga', '', ''),
-(15, 2, 'Alliance', 'Alliance', ''),
-(16, 2, 'Friendly', 'Friendly', ''),
-(17, 2, 'BL', 'Bowls League', '');
+INSERT INTO `leagues` (`id`, `club_id`, `isDeleted`, `league`, `league_full`, `league_website`) VALUES
+(1, 2, 0, 'PG1', 'East Wales Private Greens 1', ''),
+(2, 2, 0, 'PG2', 'East Wales Private Greens 2', ''),
+(3, 2, 0, 'CML', 'Cardiff Municipal League', ''),
+(6, 3, 0, 'Gallagher Premiership', '', ''),
+(7, 3, 0, 'RFU Championship', '', ''),
+(8, 3, 0, 'Friendly', '', ''),
+(9, 4, 0, 'Premier League', '', ''),
+(10, 4, 0, 'Bundesliga', '', ''),
+(11, 4, 0, 'Serie A', '', ''),
+(12, 4, 0, 'La Liga', '', ''),
+(15, 2, 0, 'Alliance', 'Alliance', ''),
+(16, 2, 0, 'Friendly', 'Friendly', '');
 
 -- --------------------------------------------------------
 
@@ -328,7 +328,8 @@ CREATE TABLE `outings` (
 --
 
 INSERT INTO `outings` (`id`, `created_date`, `title`, `date`, `time`, `venue_id`, `meet_at`, `contact`, `other_information`, `report`, `publish_report`) VALUES
-(1, '2018-10-29 17:15:57', 'RTF', '2018-10-08', '09:00:00', 21, 'LH', 'JJ', 'Loads of information here.', 'WASSSSSSSSSSSSSSSSUP', 1);
+(1, '2018-10-29 17:15:57', 'RTF', '2018-10-08', '09:00:00', 21, 'LH', 'JJ', 'Loads of information here.', 'WASSSSSSSSSSSSSSSSUP', 1),
+(4, '2018-11-04 10:45:44', 'Wicked Outing', '2018-11-14', '09:00:00', 21, '', '', 'Please bring all your equipment.', '', 0);
 
 -- --------------------------------------------------------
 
@@ -339,64 +340,65 @@ INSERT INTO `outings` (`id`, `created_date`, `title`, `date`, `time`, `venue_id`
 CREATE TABLE `people` (
   `id` int(11) NOT NULL,
   `club_id` int(11) NOT NULL,
+  `isDeleted` tinyint(1) NOT NULL DEFAULT '0',
   `name` varchar(255) NOT NULL,
   `email` varchar(1024) NOT NULL,
-  `active` tinyint(1) NOT NULL DEFAULT '1',
-  `remove` tinyint(1) NOT NULL DEFAULT '0'
+  `active` tinyint(1) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `people`
 --
 
-INSERT INTO `people` (`id`, `club_id`, `name`, `email`, `active`, `remove`) VALUES
-(8, 3, 'Steve Rogers', '', 1, 0),
-(9, 3, 'Tony Stark', '', 1, 0),
-(10, 3, 'Peter Parker', '', 1, 0),
-(11, 3, 'Thor', '', 1, 0),
-(12, 3, 'Doctor Strange', '', 1, 0),
-(13, 3, 'Bruce Banner', '', 1, 0),
-(14, 4, 'Clark Kent', '', 1, 0),
-(15, 4, 'Bruce Wayne', '', 1, 0),
-(16, 4, 'Barry Allen', '', 1, 0),
-(17, 4, 'Arthur Curry', '', 1, 0),
-(18, 4, 'Diana Prince', '', 1, 0),
-(19, 4, 'Wally West', '', 1, 0),
-(20, 4, 'Lois Lane', '', 1, 0),
-(31, 2, 'Michael Perks', 'michael@live.co.uk', 0, 0),
-(32, 2, 'Philip Perks', 'philip@viringmedia.com', 0, 0),
-(33, 2, 'Matthew Perks', 'matthew@ntlworld.com', 0, 0),
-(34, 2, 'Susan Perks', 'susan@virginmedia.com', 0, 0),
-(35, 2, 'Niall Perks', 'niall@perks.cymru', 1, 0),
-(36, 2, 'Brenna', 'brennax@gmail.com', 0, 0),
-(37, 2, 'Ninja', '', 1, 0),
-(38, 2, 'Dr Lupo', '', 1, 0),
-(39, 2, 'Myth', '', 1, 0),
-(40, 2, 'Dakotaz', '', 1, 0),
-(42, 2, 'Steve Rodgers', '', 1, 0),
-(43, 2, 'Tony Stark', '', 1, 0),
-(44, 2, 'Spiderman', '', 1, 0),
-(45, 2, 'Superman', '', 1, 0),
-(46, 2, 'Sean', '', 1, 0),
-(47, 2, 'Tom', '', 1, 0),
-(48, 2, 'Shane', '', 1, 0),
-(49, 2, 'Sheldon', '', 1, 0),
-(50, 2, 'Raj', '', 1, 0),
-(51, 2, 'Leonard', '', 1, 0),
-(52, 2, 'Howard', '', 1, 0),
-(53, 2, 'Mitch', '', 1, 0),
-(54, 2, 'Will', '', 1, 0),
-(55, 2, 'Blake', '', 1, 0),
-(56, 2, 'Anthony', '', 1, 0),
-(57, 2, 'Sophie', '', 1, 0),
-(58, 2, 'Jordan', '', 1, 0),
-(59, 2, 'Edyta', '', 1, 0),
-(60, 2, 'Ed', '', 1, 0),
-(61, 2, 'Ben', '', 1, 0),
-(62, 3, 'R1', '', 1, 0),
-(63, 3, 'R2', '', 1, 0),
-(64, 3, 'R3', '', 1, 0),
-(65, 3, 'R4', '', 1, 0);
+INSERT INTO `people` (`id`, `club_id`, `isDeleted`, `name`, `email`, `active`) VALUES
+(8, 3, 0, 'Steve Rogers', '', 1),
+(9, 3, 0, 'Tony Stark', '', 1),
+(10, 3, 0, 'Peter Parker', '', 1),
+(11, 3, 0, 'Thor', '', 1),
+(12, 3, 0, 'Doctor Strange', '', 1),
+(13, 3, 0, 'Bruce Banner', '', 1),
+(14, 4, 0, 'Clark Kent', '', 1),
+(15, 4, 0, 'Bruce Wayne', '', 1),
+(16, 4, 0, 'Barry Allen', '', 1),
+(17, 4, 0, 'Arthur Curry', '', 1),
+(18, 4, 0, 'Diana Prince', '', 1),
+(19, 4, 0, 'Wally West', '', 1),
+(20, 4, 0, 'Lois Lane', '', 1),
+(31, 2, 1, 'Michael Perks', 'michael@live.co.uk', 0),
+(32, 2, 0, 'Philip Perks', 'philip@viringmedia.com', 1),
+(33, 2, 0, 'Matthew Perks', 'matthew@ntlworld.com', 1),
+(34, 2, 0, 'Susan Perks', 'susan@virginmedia.com', 1),
+(35, 2, 0, 'Niall Perks', 'niall@perks.cymru', 1),
+(36, 2, 1, 'Brenna', 'brennax@gmail.com', 0),
+(37, 2, 0, 'Ninja', '', 1),
+(38, 2, 1, 'Dr Lupo', '', 1),
+(39, 2, 1, 'Myth', '', 1),
+(40, 2, 1, 'Dakotaz', '', 1),
+(42, 2, 0, 'Steve Rodgers', '', 1),
+(43, 2, 0, 'Tony Stark', '', 1),
+(44, 2, 0, 'Spiderman', '', 1),
+(45, 2, 0, 'Superman', '', 1),
+(46, 2, 0, 'Sean', '', 1),
+(47, 2, 0, 'Tom', '', 1),
+(48, 2, 0, 'Shane', '', 1),
+(49, 2, 0, 'Sheldon', '', 1),
+(50, 2, 0, 'Raj', '', 1),
+(51, 2, 0, 'Leonard', '', 1),
+(52, 2, 0, 'Howard', '', 1),
+(53, 2, 0, 'Mitch', '', 1),
+(54, 2, 0, 'Will', '', 1),
+(55, 2, 0, 'Blake', '', 1),
+(56, 2, 0, 'Anthony', '', 1),
+(57, 2, 0, 'Sophie', '', 1),
+(58, 2, 0, 'Jordan', '', 1),
+(59, 2, 1, 'Edyta', '', 1),
+(60, 2, 0, 'Ed', '', 1),
+(61, 2, 0, 'Ben', '', 1),
+(62, 3, 0, 'R1', '', 1),
+(63, 3, 0, 'R2', '', 1),
+(64, 3, 0, 'R3', '', 1),
+(65, 3, 0, 'R4', '', 1),
+(66, 2, 0, 'Batman', '', 1);
 
 -- --------------------------------------------------------
 
@@ -473,17 +475,6 @@ INSERT INTO `squads` (`id`, `club_id`, `fixture_id`, `position_id`, `name_id`) V
 (47, 4, 3, 7, 19),
 (60, 2, 1, 0, 39),
 (61, 2, 1, 0, 40),
-(70, 2, 19, 0, 53),
-(71, 2, 19, 0, 54),
-(72, 2, 19, 0, 55),
-(73, 2, 19, 1, 56),
-(74, 2, 19, 1, 57),
-(75, 2, 19, 2, 58),
-(76, 2, 19, 2, 59),
-(77, 2, 19, 3, 60),
-(78, 2, 19, 3, 61),
-(79, 2, 19, 4, 31),
-(80, 2, 19, 4, 32),
 (81, 3, 1, 0, 62),
 (82, 3, 1, 0, 63),
 (83, 3, 1, 0, 64),
@@ -493,7 +484,20 @@ INSERT INTO `squads` (`id`, `club_id`, `fixture_id`, `position_id`, `name_id`) V
 (87, 3, 1, 3, 10),
 (88, 3, 1, 4, 11),
 (89, 3, 1, 5, 12),
-(90, 3, 1, 6, 13);
+(90, 3, 1, 6, 13),
+(102, 2, 19, 0, 55),
+(103, 2, 19, 0, 53),
+(104, 2, 19, 0, 54),
+(105, 2, 19, 1, 56),
+(106, 2, 19, 1, 57),
+(107, 2, 19, 2, 59),
+(108, 2, 19, 2, 58),
+(109, 2, 19, 3, 61),
+(110, 2, 19, 3, 60),
+(111, 2, 19, 4, 31),
+(112, 2, 19, 4, 32),
+(113, 2, 19, 5, 66),
+(114, 2, 19, 6, 45);
 
 -- --------------------------------------------------------
 
@@ -504,6 +508,7 @@ INSERT INTO `squads` (`id`, `club_id`, `fixture_id`, `position_id`, `name_id`) V
 CREATE TABLE `teams` (
   `id` int(11) NOT NULL,
   `club_id` int(11) NOT NULL,
+  `isDeleted` tinyint(1) NOT NULL DEFAULT '0',
   `home_team` tinyint(1) NOT NULL DEFAULT '0',
   `team` varchar(255) NOT NULL,
   `location` varchar(255) NOT NULL
@@ -513,29 +518,29 @@ CREATE TABLE `teams` (
 -- Dumping data for table `teams`
 --
 
-INSERT INTO `teams` (`id`, `club_id`, `home_team`, `team`, `location`) VALUES
-(1, 2, 1, 'St Joseph\'s', 'St Joseph\'s Bowls Club, Llwynfedw Gardens, Birchgrove, Cardiff CF14 4NW'),
-(2, 2, 0, 'Barry Athletic', 'Barry Romilly Bowling Club, Romilly Rd, Barry CF62 6LF'),
-(3, 2, 0, 'Penarth', 'Penarth Bowling Club, Rectory Road, Penarth CF64 3AN'),
-(4, 2, 0, 'Rumney', 'Rumney Hill Gardens, Newport Road, Cardiff CF3 4FD'),
-(5, 2, 0, 'Splott', 'Splott Park, Muirton Road, Splott, Cardiff CF24 2SJ'),
-(6, 2, 0, 'Whitchurch', 'Whitchurch Bowls Club, Penlline Rd, Cardiff CF14 2AD'),
-(7, 3, 1, 'St Joseph\'s', 'St Josephs RFC Clubhouse, 29 Whitchurch Road, Cardiff, CF14 3JN'),
-(8, 3, 0, 'Harlequins', 'Twickenham Stoop, Langhorn Dr, Twickenham, TW2 7SX'),
-(9, 3, 0, 'Saracens', 'Allianz Park, Greenlands Ln, London, NW4 1RL'),
-(10, 3, 0, 'Munster', 'Thomond Park, Cratloe Rd, Limerick, Ireland, IRE YSX'),
-(11, 3, 0, 'Cardiff Blues', 'Cardiff Arms Park, Westgate St, Cardiff, CF10 1JA'),
-(12, 3, 0, 'Scarlets', 'Parc y Scarlets, Pemberton Park, Llanelli, SA14 9UZ'),
-(13, 3, 0, 'Ospreys', 'Liberty Stadium, Plasmarl, Swansea, SA1 2FA'),
-(14, 4, 1, 'St Joseph\'s', 'St Joseph\'s AFC, Maes-y-Coed Road Playing Fields, St Cenydd Road, Cardiff, CF14 4AN'),
-(15, 4, 0, 'Chelsea', 'Stamford Bridge, Fulham Rd, Fulham, London, SW6 1HS'),
-(16, 4, 0, 'Liverpool', 'Anfield, Anfield Rd, Liverpool, L4 0TH'),
-(17, 4, 0, 'Arsenal', 'Emirates Stadium, Hornsey Rd, London, N7 7AJ'),
-(18, 4, 0, 'Tottenham', 'White Hart Lane, 748 High Rd, Tottenham, London, N17 0AP'),
-(19, 4, 0, 'Manchester United', 'Old Trafford, Sir Matt Busby Way, Stretford, Manchester, M16 0RA'),
-(20, 4, 0, 'Newcastle', 'St. James\' Park, Barrack Rd, Newcastle upon Tyne, NE1 4ST'),
-(24, 1, 0, 'Dark Army', 'Zombie Island'),
-(26, 2, 0, 'Bowls Team', '');
+INSERT INTO `teams` (`id`, `club_id`, `isDeleted`, `home_team`, `team`, `location`) VALUES
+(1, 2, 0, 1, 'St Joseph\'s', 'St Joseph\'s Bowls Club, Llwynfedw Gardens, Birchgrove, Cardiff CF14 4NW'),
+(2, 2, 0, 0, 'Barry Athletic', 'Barry Romilly Bowling Club, Romilly Rd, Barry CF62 6LF'),
+(3, 2, 0, 0, 'Penarth', 'Penarth Bowling Club, Rectory Road, Penarth CF64 3AN'),
+(4, 2, 0, 0, 'Rumney', 'Rumney Hill Gardens, Newport Road, Cardiff CF3 4FD'),
+(5, 2, 0, 0, 'Splott', 'Splott Park, Muirton Road, Splott, Cardiff CF24 2SJ'),
+(6, 2, 0, 0, 'Whitchurch', 'Whitchurch Bowls Club, Penlline Rd, Cardiff CF14 2AD'),
+(7, 3, 0, 1, 'St Joseph\'s', 'St Josephs RFC Clubhouse, 29 Whitchurch Road, Cardiff, CF14 3JN'),
+(8, 3, 0, 0, 'Harlequins', 'Twickenham Stoop, Langhorn Dr, Twickenham, TW2 7SX'),
+(9, 3, 0, 0, 'Saracens', 'Allianz Park, Greenlands Ln, London, NW4 1RL'),
+(10, 3, 0, 0, 'Munster', 'Thomond Park, Cratloe Rd, Limerick, Ireland, IRE YSX'),
+(11, 3, 0, 0, 'Cardiff Blues', 'Cardiff Arms Park, Westgate St, Cardiff, CF10 1JA'),
+(12, 3, 0, 0, 'Scarlets', 'Parc y Scarlets, Pemberton Park, Llanelli, SA14 9UZ'),
+(13, 3, 0, 0, 'Ospreys', 'Liberty Stadium, Plasmarl, Swansea, SA1 2FA'),
+(14, 4, 0, 1, 'St Joseph\'s', 'St Joseph\'s AFC, Maes-y-Coed Road Playing Fields, St Cenydd Road, Cardiff, CF14 4AN'),
+(15, 4, 0, 0, 'Chelsea', 'Stamford Bridge, Fulham Rd, Fulham, London, SW6 1HS'),
+(16, 4, 0, 0, 'Liverpool', 'Anfield, Anfield Rd, Liverpool, L4 0TH'),
+(17, 4, 0, 0, 'Arsenal', 'Emirates Stadium, Hornsey Rd, London, N7 7AJ'),
+(18, 4, 0, 0, 'Tottenham', 'White Hart Lane, 748 High Rd, Tottenham, London, N17 0AP'),
+(19, 4, 0, 0, 'Manchester United', 'Old Trafford, Sir Matt Busby Way, Stretford, Manchester, M16 0RA'),
+(20, 4, 0, 0, 'Newcastle', 'St. James\' Park, Barrack Rd, Newcastle upon Tyne, NE1 4ST'),
+(24, 1, 0, 0, 'Dark Army', 'Zombie Island'),
+(28, 2, 1, 0, 'Test', 'Nowhere');
 
 -- --------------------------------------------------------
 
@@ -573,6 +578,7 @@ INSERT INTO `users` (`id`, `created_date`, `username`, `password`, `salt`, `name
 CREATE TABLE `venues` (
   `id` int(11) NOT NULL,
   `club_id` int(11) NOT NULL,
+  `isDeleted` tinyint(1) NOT NULL DEFAULT '0',
   `venue` varchar(255) NOT NULL,
   `location` varchar(1024) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -581,27 +587,26 @@ CREATE TABLE `venues` (
 -- Dumping data for table `venues`
 --
 
-INSERT INTO `venues` (`id`, `club_id`, `venue`, `location`) VALUES
-(1, 2, 'St Joseph\'s Bowls Club', 'Llwynfedw Gardens, Birchgrove, Cardiff, CF14 4NW'),
-(2, 2, 'Whitchurch Bowls Club', 'Penlline Rd, Cardiff CF14 2AD'),
-(3, 2, 'Barry Romilly Bowling Club', 'Romilly Rd, Barry, CF62 6LF'),
-(5, 2, 'Newport Bowling Club', 'Newport Road, Cardiff, CF3 4FD'),
-(6, 2, 'Splott Park', 'Muirton Road, Splott, Cardiff, CF24 2SJ'),
-(7, 3, 'St Josephs RFC Clubhouse', '29 Whitchurch Road, Cardiff, CF14 3JN'),
-(8, 3, 'Liberty Stadium', 'Plasmarl, Swansea, SA1 2FA'),
-(9, 3, 'Twickenham Stoop', 'Langhorn Dr, Twickenham, TW2 7SX'),
-(10, 3, 'Allianz Park', 'Greenlands Ln, London, NW4 1RL'),
-(11, 3, 'Thomond Park', 'Cratloe Rd, Limerick, Ireland, IRE YSX'),
-(12, 3, 'Cardiff Arms Park', 'Westgate St, Cardiff, CF10 1JA'),
-(13, 3, 'Parc y Scarlets', 'Pemberton Park, Llanelli, SA14 9UZ'),
-(14, 4, 'St Joseph\'s AFC', 'Maes-y-Coed Road Playing Fields, St Cenydd Road, Cardiff, CF14 4AN'),
-(15, 4, 'St. James\' Park', 'Barrack Rd, Newcastle upon Tyne, NE1 4ST'),
-(16, 4, 'Stamford Bridge', 'Fulham Rd, Fulham, London, SW6 1HS'),
-(17, 4, 'Anfield', 'Anfield Rd, Liverpool, L4 0TH'),
-(18, 4, 'Emirates Stadium', 'Hornsey Rd, London, N7 7AJ'),
-(19, 4, 'White Hart Lane', '748 High Rd, Tottenham, London, N17 0AP'),
-(20, 4, 'Old Trafford', 'Sir Matt Busby Way, Stretford, Manchester, M16 0RA'),
-(21, 5, 'Heath Lake', 'Cardiff, CF22 WAT');
+INSERT INTO `venues` (`id`, `club_id`, `isDeleted`, `venue`, `location`) VALUES
+(1, 2, 0, 'St Joseph\'s Bowls Club', 'Llwynfedw Gardens, Birchgrove, Cardiff, CF14 4NW'),
+(2, 2, 0, 'Whitchurch Bowls Club', 'Penlline Rd, Cardiff CF14 2AD'),
+(3, 2, 1, 'Barry Romilly Bowling Club', 'Romilly Rd, Barry, CF62 6LF'),
+(5, 2, 0, 'Newport Bowling Club', 'Newport Road, Cardiff, CF3 4FD'),
+(7, 3, 0, 'St Josephs RFC Clubhouse', '29 Whitchurch Road, Cardiff, CF14 3JN'),
+(8, 3, 0, 'Liberty Stadium', 'Plasmarl, Swansea, SA1 2FA'),
+(9, 3, 0, 'Twickenham Stoop', 'Langhorn Dr, Twickenham, TW2 7SX'),
+(10, 3, 0, 'Allianz Park', 'Greenlands Ln, London, NW4 1RL'),
+(11, 3, 0, 'Thomond Park', 'Cratloe Rd, Limerick, Ireland, IRE YSX'),
+(12, 3, 0, 'Cardiff Arms Park', 'Westgate St, Cardiff, CF10 1JA'),
+(13, 3, 0, 'Parc y Scarlets', 'Pemberton Park, Llanelli, SA14 9UZ'),
+(14, 4, 0, 'St Joseph\'s AFC', 'Maes-y-Coed Road Playing Fields, St Cenydd Road, Cardiff, CF14 4AN'),
+(15, 4, 0, 'St. James\' Park', 'Barrack Rd, Newcastle upon Tyne, NE1 4ST'),
+(16, 4, 0, 'Stamford Bridge', 'Fulham Rd, Fulham, London, SW6 1HS'),
+(17, 4, 0, 'Anfield', 'Anfield Rd, Liverpool, L4 0TH'),
+(18, 4, 0, 'Emirates Stadium', 'Hornsey Rd, London, N7 7AJ'),
+(19, 4, 0, 'White Hart Lane', '748 High Rd, Tottenham, London, N17 0AP'),
+(20, 4, 0, 'Old Trafford', 'Sir Matt Busby Way, Stretford, Manchester, M16 0RA'),
+(21, 5, 0, 'Heath Lake', 'Cardiff, CF22 WAT');
 
 --
 -- Indexes for dumped tables
@@ -760,7 +765,7 @@ ALTER TABLE `fixtures_rugby`
 -- AUTO_INCREMENT for table `leagues`
 --
 ALTER TABLE `leagues`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `menu_links`
@@ -778,13 +783,13 @@ ALTER TABLE `notices`
 -- AUTO_INCREMENT for table `outings`
 --
 ALTER TABLE `outings`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `people`
 --
 ALTER TABLE `people`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
 
 --
 -- AUTO_INCREMENT for table `phone_numbers`
@@ -796,13 +801,13 @@ ALTER TABLE `phone_numbers`
 -- AUTO_INCREMENT for table `squads`
 --
 ALTER TABLE `squads`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=91;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=115;
 
 --
 -- AUTO_INCREMENT for table `teams`
 --
 ALTER TABLE `teams`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT for table `users`

@@ -1,14 +1,48 @@
 #sidebar {
     width: $sidebar-width;
-    background: $grey;
-    min-height: 100vh;
+    background: darken($grey, 5%);
+    // min-height: 300vh;
     transition: all 0.3s;
     position: fixed;
     top: 0;
-    left: 0;
-    border-right: 1px solid $gold;
+    bottom: 0;
+    border-right: 2px solid darken($grey, 10%);
     margin-left: -#{$sidebar-width};
     z-index: 999;
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    &::-webkit-scrollbar {
+        width: 10px;
+        height: 10px;
+    }
+    &::-webkit-scrollbar-button {
+        width: 0px;
+        height: 0px;
+    }
+    &::-webkit-scrollbar-thumb {
+        background: $dark-gold;
+        border-radius: 50px;
+    }
+    &::-webkit-scrollbar-thumb:hover {
+        background: $gold;
+    }
+    &::-webkit-scrollbar-thumb:active {
+        background: $dark-gold;
+    }
+    &::-webkit-scrollbar-track {
+        background: $grey;
+        border-radius: 50px;
+    }
+    &::-webkit-scrollbar-track:hover {
+        background: $grey;
+    }
+    &::-webkit-scrollbar-track:active {
+        background: $grey;
+    }
+    &::-webkit-scrollbar-corner {
+        background: transparent;
+    }
 
     &.active {
         margin-left: 0;
@@ -16,46 +50,84 @@
 
     .sidebar-header {
         padding: 20px;
-        overflow-wrap: break-word;
-        word-wrap: break-word;
-        background: $white;
+        border-bottom: 2px solid $dark-gold;
+        background-color: darken($gold, 10%);
+        min-height: $admin-nav-bar-height;
+        text-align: center;
+        font-size: 1.4em;
+        font-weight: 750;
+        font-family: 'Roboto', sans-serif;
+        
+        a {
+            color: $grey;
+            &:hover {
+                text-decoration: none;
+            }
+        }
+
+        img {
+            display: block;
+            margin: 10px auto;
+            height: 80px;
+        }
     }
 
-    ul li a {
+    ul {
+        padding-bottom: 10px;
+    }
+    
+
+    ul li a:not([data-toggle="collapse"]) {
         font-size: 1.1em;
         display: block;
         padding: 10px;
+        background-color: lighten($grey, 1%);
+        color: $dark-gold;
+        transition: all 0.3s;
+        border-bottom: 1px solid darken($grey, 3%);
 
         &.active {
             background: #FFF;
+            color: $gold;
+            padding-left: 20px;
         }
 
         i {
             min-width: 30px;
             margin-right: 10px;
+            margin-left: 5px;
+        }
+
+        &:hover {
+            color: $gold;
+            background: #FFF;
+            text-decoration: none;
+            padding-left: 20px; 
         }
     }
 
-    ul li a:hover {
-        color: $gold;
-        background: #FFF;
-        text-decoration: none;
+    ul li a[data-toggle="collapse"] {
+        position: relative;
+        font-size: 1.1em;
+        display: block;
+        padding: 10px;
+        background-color: darken($gold, 15%);
+        color: #FFF;
+        transition: all 0.3s;
+        border-bottom: 1px solid darken($grey, 3%);
+
+        &:hover {
+            background: $dark-gold;
+            text-decoration: none;
+        }
     }
 
     ul li.active > a, a[aria-expanded="true"] {
-        color: #FFF;
-        background: $gold;
-    }
-
-    ul li ul {
-        padding-left: 20px;
+        background: $dark-gold;
     }
 
 }
 
-a[data-toggle="collapse"] {
-    position: relative;
-}
 
 .dropdown-toggle::after {
     display: block;
@@ -68,10 +140,18 @@ a[data-toggle="collapse"] {
 @media (max-width: 768px) {
     #sidebar {
         margin-left: 0;
-        width: 80vw;
+        width: 90vw;
+
+        .sidebar-header {
+            padding-top: 85px;
+
+            img {
+                display: none;
+            }
+        }
     }
     #sidebar.active {
-        margin-left: -80vw;
+        margin-left: -90vw;
     }
     #content {
         // width: calc(100% - #{$sidebar-width});

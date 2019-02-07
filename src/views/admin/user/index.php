@@ -14,13 +14,13 @@
     <form action="<?php echo ADMIN_URLROOT . 'user'; ?>" method="POST">
         <input name="userDetailsForm" type="hidden"/>
         <div class="form-group row">
-            <label for="email" class="col-sm-2 col-form-label">Email</label>
+            <label for="email" class="col-sm-2 col-form-label d-none d-md-flex">Email</label>
             <div class="col-10">
                 <input name="email" type="email" class="form-control" value="<?php echo isset($data['email']) ? $data['email'] : ''; ?>" placeholder="Email Address"/>
             </div>
         </div>
         <div class="form-group row">
-            <label for="name" class="col-sm-2 col-form-label">Name</label>
+            <label for="name" class="col-sm-2 col-form-label d-none d-md-flex">Name</label>
             <div class="col-10">
                 <input name="name" type="text" class="form-control" value="<?php echo isset($data['name']) ? $data['name'] : ''; ?>" placeholder="Name"/>
             </div>
@@ -37,19 +37,19 @@
     <form action="<?php echo ADMIN_URLROOT . 'user'; ?>" method="POST">
         <input name="resetPasswordForm" type="hidden"/>
         <div class="form-group row">
-            <label for="name" class="col-sm-2 col-form-label">Old Password</label>
+            <label for="name" class="col-sm-2 col-form-label d-none d-md-flex">Old Password</label>
             <div class="col-10">
                 <input name="old_password" type="password" class="form-control" value="<?php echo isset($data['old_password']) ? $data['old_password'] : ''; ?>" placeholder="Old Password"/>
             </div>
         </div>
         <div class="form-group row">
-            <label for="name" class="col-sm-2 col-form-label">New Password</label>
+            <label for="name" class="col-sm-2 col-form-label d-none d-md-flex">New Password</label>
             <div class="col-10">
                 <input name="new_password" type="password" class="form-control" value="<?php echo isset($data['new_password']) ? $data['new_password'] : ''; ?>" placeholder="New Password"/>
             </div>
         </div>
         <div class="form-group row">
-            <label for="name" class="col-sm-2 col-form-label">Confirm New Password</label>
+            <label for="name" class="col-sm-2 col-form-label d-none d-md-flex">Confirm New Password</label>
             <div class="col-10">
                 <input name="confirm_new_password" type="password" class="form-control" value="<?php echo isset($data['confirm_new_password']) ? $data['confirm_new_password'] : ''; ?>" placeholder="Confirm New Password"/>
             </div>

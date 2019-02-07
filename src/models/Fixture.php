@@ -18,6 +18,7 @@ class Fixture extends Controller {
     }
 
     public function getFixtures($club_id, $n = 0) {
+
         // Need to get table name.
         $table_name = 'fixtures_' . $this->getClubName($club_id);
 
@@ -55,6 +56,9 @@ class Fixture extends Controller {
             if (!empty($fixture->squad[0])) {
                 $fixture->substitutes = !empty($fixture->squad[0]) ? implode(", ", $fixture->squad[0]) : '';
                 unset($fixture->squad[0]); // Remove 0 index which are substitutes.
+            }
+            foreach ($fixture->squad as $i => $names_arr) {
+                $fixture->squad[$i] = implode(", ", $names_arr);
             }
         }
         return $fixture;
@@ -132,7 +136,7 @@ class Fixture extends Controller {
                     if ($this->db->execute()) {
                         $name_id = $this->db->lastInsertId();
                     } else {
-                        return false; // There was an error adding a name, so reutnr false and break adding new fixture.
+                        return false; // There was an error adding a name, so return false and break adding new fixture.
                     }
                 }
                 // Now need to add row to squads.

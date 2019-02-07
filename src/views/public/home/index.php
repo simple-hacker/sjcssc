@@ -45,8 +45,8 @@
                 </div>
             </div>
 <?php
-            if (file_exists(PUBLIC_VIEWS . 'home\\sections\\' . $section . '.php')) {
-                include (PUBLIC_VIEWS . 'home\\sections\\' . $section . '.php');
+            if (file_exists(PUBLIC_VIEWS . 'home/sections/' . $section . '.php')) {
+                include (PUBLIC_VIEWS . 'home/sections/' . $section . '.php');
             } else {
                die('<strong>Fatal Error: </strong> File section\\' . $section . '.php doesn\'t exist');
             }

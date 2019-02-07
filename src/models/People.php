@@ -9,7 +9,7 @@ class People {
     }
 
     public function getPeople($club_id) {
-        $sql = "SELECT * FROM `people` WHERE `club_id`=:club_id ORDER BY `name` ASC";
+        $sql = "SELECT * FROM `people` WHERE `club_id`=:club_id AND `isDeleted`=0 ORDER BY `name` ASC";
         $this->db->query($sql);
         $this->db->bind(':club_id', $club_id);
         return $this->db->results();
@@ -54,6 +54,26 @@ class People {
             }
         }
         return true; // Else no errors with db, return true
+    }
+
+    public function deletePeople($person_id) {
+        if (isset($person_id)) {
+            // Don't want to delete people as it affects historical data.
+            $sql = "UPDATE `people` SET `isDeleted`=1 WHERE `id`=:person_id";
+            $this->db->query($sql);
+            $this->db->bind(':person_id', $person_id);
+            return $this->db->execute();
+        } else {
+            return false;
+        }
+    }
+
+    public function toggleActive($club_id, $person_id) {
+        $sql = "UPDATE `people` SET `active`= NOT `active` WHERE `club_id`=:club_id AND `id`=:person_id";
+        $this->db->query($sql);
+        $this->db->bind(':club_id', $club_id);
+        $this->db->bind(':person_id', $person_id);
+        return $this->db->execute();
     }
 
 }

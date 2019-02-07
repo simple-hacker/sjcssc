@@ -32,7 +32,7 @@
             } else {
                 $data = [
                     'club' => $this->clubModel->getClubByID($this->club_id),
-                    'results' => $this->resultModel->getResults($this->club_id),
+                    'results' => $this->fixtureModel->getPastFixtures($this->club_name),
                 ];
             }
             $this->view('results/index', $data);

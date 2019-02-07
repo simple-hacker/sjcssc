@@ -14,14 +14,6 @@
         }
 
         public function index() {
-            $data = [
-                'users' => $this->userModel->getUsers(),
-            ];
-            $this->view('users/index', $data);
-        }
-
-        public function add(){
-            
             if ($_SERVER['REQUEST_METHOD'] === "POST") {
 
                 $_POST  = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
@@ -62,7 +54,8 @@
                     'admin' => isset($_POST['admin']) ? $_POST['admin'] : '',
                     'username_err' => isset($username_err) ? $username_err : '',
                     'password_err' => isset($password_err) ? $password_err : '',
-                    'confirm_password_err' => isset($confirm_password_err) ? $confirm_password_err : ''
+                    'confirm_password_err' => isset($confirm_password_err) ? $confirm_password_err : '',
+                    'users' => $this->userModel->getUsers(),
                 ];
                 
                 // If no errors exists then register new user.
@@ -87,10 +80,11 @@
                     'admin' => '',
                     'username_err' => '',
                     'password_err' => '',
-                    'confirm_password_err' => ''
+                    'confirm_password_err' => '',
+                    'users' => $this->userModel->getUsers(),
                 ];
             }            
-            $this->view('users/add', $data);
+            $this->view('users/index', $data);
         }
 
         public function edit($user_id){

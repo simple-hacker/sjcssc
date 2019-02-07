@@ -16,7 +16,7 @@
 
         public function __construct() {
 
-            $this->clubModel = $this->model('Club');            
+            $this->clubModel = $this->model('Club');
 
             // Sort out non admin side first.
             if (!isset($_GET['admin'])) {
@@ -30,7 +30,7 @@
                 } else {
                     $club_name = 'social';  // Default club.
                 }
-
+                
                 // Check if it's an actual club first.
                 if (array_key_exists($club_name, CLUBS)) {
                     // Check if it's an actual club first.
@@ -40,6 +40,8 @@
                     redirect('404.html');
                 }
 
+
+                
                 // CONTROLLER
                 // =====================================================        
                 // If Controller is set, make sure it is a valid club section or admin controller.

@@ -37,8 +37,12 @@
         }
     }
 
-    function display_invalid($error) {
+    function display_invalid($error, $ret = false) {
         if (!empty($error)) {
-            echo "<span class=\"invalid\">" . $error . "</span>";
+            if ($ret == true) {
+                return "<span class=\"invalid\">" . $error . "</span>";
+            } else {
+                echo "<span class=\"invalid\">" . $error . "</span>";
+            }
         }
     }

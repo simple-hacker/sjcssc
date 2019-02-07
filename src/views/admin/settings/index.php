@@ -24,7 +24,9 @@
     </div>
 
     <div class="wrap">
-        <h3>Addresses</h3>
+        <h3>Contact Information</h3>
+        <br>
+        <h4>Addresses</h4>
 <?php
     foreach ($data['addresses'] as $i => $address) {
 ?>
@@ -43,10 +45,14 @@
             <div class="col-6"><input type="text" name="address_title[]" class="form-control" value="" placeholder="Address Title"/></div>
             <div class="col-6"><input type="text" name="address[]" class="form-control" value="" placeholder="Address"/></div>
         </div>
-    </div>
 
-    <div class="wrap">
-        <h3>Emails</h3>
+        <div class="form-group row">
+            <div class="col-6 ml-auto text-right">
+                <button type="button" class="addRow btn btn-dark"><i class="fas fa-plus-square mr-2"></i> Another Row</button>
+            </div>
+        </div>
+
+        <h4>Emails</h4>
 <?php
     foreach ($data['emails'] as $i => $email) {
 ?>
@@ -65,10 +71,14 @@
             <div class="col-6"><input type="text" name="email_title[]" class="form-control" value="" placeholder="Email Title"/></div>
             <div class="col-6"><input type="text" name="email[]" class="form-control" value="" placeholder="Email Address"/></div>
         </div>
-    </div>
 
-    <div class="wrap">
-        <h3>Phone Numbers</h3>
+        <div class="form-group row">
+            <div class="col-6 ml-auto text-right">
+                <button type="button" class="addRow btn btn-dark"><i class="fas fa-plus-square mr-2"></i> Another Row</button>
+            </div>
+        </div>
+
+        <h4>Phone Numbers</h4>
 <?php
     foreach ($data['phone_numbers'] as $i => $phone_number) {
 ?>
@@ -86,6 +96,12 @@
             <input type="hidden" name="phone_number_id[]" value=""/>
             <div class="col-6"><input type="text" name="phone_number_title[]" class="form-control" value="" placeholder="Phone Number Title"/></div>
             <div class="col-6"><input type="text" name="phone_number[]" class="form-control" value="" placeholder="Phone Number"/></div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-6 ml-auto text-right">
+                <button type="button" class="addRow btn btn-dark"><i class="fas fa-plus-square mr-2"></i> Another Row</button>
+            </div>
         </div>
     </div>
 
@@ -114,12 +130,12 @@
         <div class="wrap">
             <h3>Sport Settings</h3>
             <div class="form-group row">
-                <label for="home_team" class="col-sm-2 col-form-label">Home Team</label>
+                <label for="home_team" class="col-sm-2 col-form-label d-none d-md-flex">Home Team</label>
                 <div class="col-10">
 <?php
             if (!empty($data['teams'])) {
 ?>  
-                <select name="team_id" class="form-control">
+                <select id="team_id" name="team_id" class="form-control">
 <?php
                 foreach ($data['teams'] as $team) {
 ?>
@@ -141,15 +157,15 @@
             </div>
 
             <div class="form-group row">
-                <label class="col-sm-2 col-form-label">Teams</label>
+                <label class="col-sm-2 col-form-label d-none d-md-flex">Teams</label>
                 <div class="col-4"><a href="<?php echo ADMIN_URLROOT . $data['club']->club . '/settings/teams'; ?>" class="btn btn-block btn-brown-secondary">View All Teams</a></div>
-                <label class="col-sm-2 col-form-label">Leagues</label>
+                <label class="col-sm-2 col-form-label d-none d-md-flex">Leagues</label>
                 <div class="col-4"><a href="<?php echo ADMIN_URLROOT . $data['club']->club . '/settings/leagues'; ?>" class="btn btn-block btn-brown-secondary">View All Leagues</a></div>
             </div>
             <div class="form-group row">
-                <label class="col-sm-2 col-form-label">Venues</label>
+                <label class="col-sm-2 col-form-label d-none d-md-flex">Venues</label>
                 <div class="col-4"><a href="<?php echo ADMIN_URLROOT . $data['club']->club . '/settings/venues'; ?>" class="btn btn-block btn-brown-secondary">View All Venues</a></div>
-                <label class="col-sm-2 col-form-label">People</label>
+                <label class="col-sm-2 col-form-label d-none d-md-flex">People</label>
                 <div class="col-4"><a href="<?php echo ADMIN_URLROOT . $data['club']->club . '/settings/people'; ?>" class="btn btn-block btn-brown-secondary">View All People</a></div>
             </div>            
         </div>
@@ -162,6 +178,22 @@
             </div>
         </div>
     </form>
+
+
+    <script>
+        var lastValue;
+
+        $("#team_id").bind("click", function(e){
+            lastValue = $(this).val();
+        }).bind("change", function(e){
+            changeConfirmation = confirm("Are you sure you want to change the home team?");
+            if (changeConfirmation) {
+                // Proceed as planned
+            } else {
+                $(this).val(lastValue);
+            }
+        });
+    </script>
 
 <?php
     if (file_exists(ADMIN_VIEWS . 'inc/footer.php')) {

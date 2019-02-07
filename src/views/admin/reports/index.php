@@ -8,42 +8,40 @@
     display_flash_messages('reports');
 ?>
 
-<h1>Reports</h1>
 <?php
     if (!empty($data['reports'])) {
 ?>
-        <table>
-            <thead>
-                <tr>
-                    <th>Date</th>
-                    <th>Title</th>
-                    <th>Report</th>
-                    <th>Edit</th>
-                </tr>
-            </thead>
-            <tbody>
+    <div class="wrap">
+        <h3>Reports</h3>
+        <div class="table-responsive">
+            <table class="table table-bordered table-sm">
+                <thead>
+                    <tr class="thead-light text-center">
+                        <th>Date</th>
+                        <th>Title</th>
+                        <th>Report</th>
+                        <th>Edit</th>
+                    </tr>
+                </thead>
+                <tbody>
 <?php
         foreach ($data['reports'] as $report) {
 ?>
-            <tr>
-                <td><?php echo $report->date; ?></td>
-                <td><?php echo $report->title; ?></td>
-                <td><?php echo substr($report->report, 0, 100); ?>...</td>
-                <td><a href="<?php echo ADMIN_URLROOT . $data['club']->club . "/reports/edit/" . $report->id;  ?>">Edit</a></td>
-            </tr>
+                <tr>
+                    <td><?php echo date("d/m/y", strtotime($report->date)); ?></td>
+                    <td><?php echo $report->title; ?></td>
+                    <td><?php echo substr($report->report, 0, 100); ?>...</td>
+                    <td class="text-center"><a href="<?php echo ADMIN_URLROOT . $data['club']->club . "/reports/edit/" . $report->id; ?>" class="btn btn-small btn-primary"><i class="fas fa-sm fa-edit"></i></a></td>
+                </tr>
 <?php
         }
 ?>
-            </tbody>
-        </table>
-<?php
-    } else {
-?>
-        <p>No Reports available.</p>
-<?php
-    }
-?>
-
+                </tbody>
+            </table>
+        </div>
+    </div>
+<?php   } ?>
+    
 <?php
     if (file_exists(ADMIN_VIEWS . 'inc/footer.php')) {
         require_once(ADMIN_VIEWS . 'inc/footer.php');

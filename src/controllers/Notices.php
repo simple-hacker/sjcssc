@@ -101,6 +101,7 @@
                 if ($this->noticeModel->getNotice($this->club_id, $notice_id)) {
 
                     if ($_SERVER['REQUEST_METHOD'] === "POST") {
+
                         // Validate POST data.
                         $_POST  = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 

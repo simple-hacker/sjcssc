@@ -194,8 +194,7 @@
                 }
 
                 $data = [
-                    'club_id' => $this->club_id,
-                    'club_name' => $this->club_name,
+                    'club' => $this->clubModel->getClubByID($this->club_id),
                     'teams' => isset($teams) ? $teams : [],
                     'teams_err' => isset($teams_err) ? $teams_err : [],
                     'teams_with_id_err' => isset($teams_with_id_err) ? $teams_with_id_err : [],
@@ -204,9 +203,9 @@
                 // If no errors exist then proceed with saving all data.
                 if (!isset($teams_err) && !isset($teams_with_id_err)) {
                     // Save all data.
-                    if ($this->clubModel->updateTeams($this->club_id, $data['teams'])) {
-                        create_flash_message('settings', 'Successfully saved club teams.');
-                        redirect($this->club_name . '/settings', true);
+                    if ($this->teamModel->updateTeams($this->club_id, $data['teams'])) {
+                        create_flash_message('teams', 'Successfully saved club teams.');
+                        redirect($this->club_name . '/settings/teams', true);
                     } else {
                         die('<strong>Fatal Error: </strong> Something went wrong when saving club teams.');
                     }
@@ -216,9 +215,8 @@
 
             } else {
                 $data = [
-                    'club_id' => $this->club_id,
-                    'club_name' => $this->club_name,
-                    'teams' => $this->clubModel->getData('teams', $this->club_id),
+                    'club' => $this->clubModel->getClubByID($this->club_id),
+                    'teams' => $this->teamModel->getTeams($this->club_id),
                 ];
             }           
             $this->view('settings/teams', $data);
@@ -244,8 +242,7 @@
                 }
 
                 $data = [
-                    'club_id' => $this->club_id,
-                    'club_name' => $this->club_name,
+                    'club' => $this->clubModel->getClubByID($this->club_id),
                     'leagues' => isset($leagues) ? $leagues : [],
                     'leagues_err' => isset($leagues_err) ? $leagues_err : [],
                     'leagues_with_id_err' => isset($leagues_with_id_err) ? $leagues_with_id_err : [],
@@ -254,9 +251,9 @@
                 // If no errors exist then proceed with saving all data.
                 if (!isset($leagues_err) && !isset($leagues_with_id_err)) {
                     // Save all data.
-                    if ($this->clubModel->updateLeagues($this->club_id, $data['leagues'])) {
-                        create_flash_message('settings', 'Successfully saved club leagues.');
-                        redirect($this->club_name . '/settings', true);
+                    if ($this->leagueModel->updateLeagues($this->club_id, $data['leagues'])) {
+                        create_flash_message('leagues', 'Successfully saved club leagues.');
+                        redirect($this->club_name . '/settings/leagues', true);
                     } else {
                         die('<strong>Fatal Error: </strong> Something went wrong when saving club leagues.');
                     }
@@ -266,9 +263,8 @@
 
             } else {
                 $data = [
-                    'club_id' => $this->club_id,
-                    'club_name' => $this->club_name,
-                    'leagues' => $this->clubModel->getData('leagues', $this->club_id),
+                    'club' => $this->clubModel->getClubByID($this->club_id),
+                    'leagues' => $this->leagueModel->getLeagues($this->club_id),
                 ];
             }           
             $this->view('settings/leagues', $data);
@@ -294,8 +290,7 @@
                 }
 
                 $data = [
-                    'club_id' => $this->club_id,
-                    'club_name' => $this->club_name,
+                    'club' => $this->clubModel->getClubByID($this->club_id),
                     'venues' => isset($venues) ? $venues : [],
                     'venues_err' => isset($venues_err) ? $venues_err : [],
                     'venues_with_id_err' => isset($venues_with_id_err) ? $venues_with_id_err : [],
@@ -304,9 +299,9 @@
                 // If no errors exist then proceed with saving all data.
                 if (!isset($venues_err) && !isset($venues_with_id_err)) {
                     // Save all data.
-                    if ($this->clubModel->updateVenues($this->club_id, $data['venues'])) {
-                        create_flash_message('settings', 'Successfully saved club venues.');
-                        redirect($this->club_name . '/settings', true);
+                    if ($this->venueModel->updateVenues($this->club_id, $data['venues'])) {
+                        create_flash_message('venues', 'Successfully saved club venues.');
+                        redirect($this->club_name . '/settings/venues', true);
                     } else {
                         die('<strong>Fatal Error: </strong> Something went wrong when saving club venues.');
                     }
@@ -316,9 +311,8 @@
 
             } else {
                 $data = [
-                    'club_id' => $this->club_id,
-                    'club_name' => $this->club_name,
-                    'venues' => $this->clubModel->getData('venues', $this->club_id),
+                    'club' => $this->clubModel->getClubByID($this->club_id),
+                    'venues' => $this->venueModel->getVenues($this->club_id),
                 ];
             }           
             $this->view('settings/venues', $data);
@@ -349,8 +343,7 @@
                 }
 
                 $data = [
-                    'club_id' => $this->club_id,
-                    'club_name' => $this->club_name,
+                    'club' => $this->clubModel->getClubByID($this->club_id),
                     'people' => isset($people) ? $people : [],
                     'people_err' => isset($people_err) ? $people_err : [],
                     'people_with_id_err' => isset($people_with_id_err) ? $people_with_id_err : [],
@@ -359,9 +352,9 @@
                 // If no errors exist then proceed with saving all data.
                 if (!isset($people_err) && !isset($people_with_id_err)) {
                     // Save all data.
-                    if ($this->clubModel->updatePeople($this->club_id, $data['people'])) {
-                        create_flash_message('settings', 'Successfully saved club people.');
-                        redirect($this->club_name . '/settings', true);
+                    if ($this->peopleModel->updatePeople($this->club_id, $data['people'])) {
+                        create_flash_message('people', 'Successfully saved club people.');
+                        redirect($this->club_name . '/settings/people', true);
                     } else {
                         die('<strong>Fatal Error: </strong> Something went wrong when saving club people.');
                     }
@@ -371,9 +364,8 @@
 
             } else {
                 $data = [
-                    'club_id' => $this->club_id,
-                    'club_name' => $this->club_name,
-                    'people' => $this->clubModel->getData('people', $this->club_id),
+                    'club' => $this->clubModel->getClubByID($this->club_id),
+                    'people' => $this->peopleModel->getPeople($this->club_id),
                 ];
             }           
             $this->view('settings/people', $data);

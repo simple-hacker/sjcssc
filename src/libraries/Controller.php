@@ -4,7 +4,7 @@
 
     public function model($model){
 
-      $model = ucwords(strtolower($model)); // Convert to camelcase in case I make a mistake in each Controller.
+      // $model = ucwords(strtolower($model)); // Convert to camelcase in case I make a mistake in each Controller.  // Doesn't work with UserModel
 
       if(file_exists('../src/models/' . $model . '.php')){
         require_once '../src/models/' . $model . '.php';

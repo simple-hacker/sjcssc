@@ -37,14 +37,17 @@
 
                     // Validate Form
                     if (empty($_POST['home_team_id'])) {
-                        $home_team_err = 'Please select a home team.';
+                        $home_team_id_err = 'Please select a home team.';
                     }
                     if (empty($_POST['away_team_id'])) {
-                        $home_team_err = 'Please select an away team.';
+                        $away_team_id_err = 'Please select an away team.';
                     }
-                    // TODO: Make sure home_team and away_team are not the same.
+                    if (!empty($_POST['home_team_id']) && !empty($_POST['away_team_id']) && $_POST['home_team_id'] == $_POST['away_team_id']) {
+                        $home_team_id_err = 'Please make sure teams are not the same.';
+                        $away_team_id_err = 'Please make sure teams are not the same.';
+                    }
                     if (empty($_POST['league_id'])) {
-                        $league_err = 'Please select a league.';
+                        $league_id_err = 'Please select a league.';
                     }
                     if (empty($_POST['date'])) {
                         $date_err = 'Please select a date.';
@@ -91,14 +94,14 @@
                         'venues' => $this->venueModel->getVenues($this->club_id),
                         'fixtures' => $this->fixtureModel->getFixtures($this->club_id),
                         'fixture' => (object) $fixture_arr,
-                        'home_team_err' => isset($home_team_err) ? $home_team_err : '',
-                        'away_team_err' => isset($away_team_err) ? $away_team_err : '',
-                        'league_err' => isset($league_err) ? $league_err : '',
+                        'home_team_id_err' => isset($home_team_id_err) ? $home_team_id_err : '',
+                        'away_team_id_err' => isset($away_team_id_err) ? $away_team_id_err : '',
+                        'league_id_err' => isset($league_id_err) ? $league_id_err : '',
                         'date_err' => isset($date_err) ? $date_err : '',
                         'time_err' => isset($time_err) ? $time_err : '',
                     ];
 
-                    if (!isset($home_team_err) && !isset($away_team_err) && !isset($league_err) && !isset($date_err) && !isset($time_err)) {
+                    if (!isset($home_team_id_err) && !isset($away_team_id_err) && !isset($league_id_err) && !isset($date_err) && !isset($time_err)) {
                         // Proceed with saving fixture.
                         if ($this->fixtureModel->addFixture($this->club_id, $this->club_name, $data['fixture'])) {
                             create_flash_message('fixtures', 'Successfully added the fixture <strong>' . $data['fixture']->home_team_name . ' v ' . $data['fixture']->away_team_name . '</strong>');
@@ -110,6 +113,7 @@
                         create_flash_message('fixtures', 'Please correct all highlighted errors and try again.', 'danger');
                     }
                 } else {
+
                     $data = [
                         'club' => $this->clubModel->getClubByID($this->club_id),
                         'teams' => $this->teamModel->getTeams($this->club_id),
@@ -134,14 +138,17 @@
 
                         // Validate Form
                         if (empty($_POST['home_team_id'])) {
-                            $home_team_err = 'Please select a home team.';
+                            $home_team_id_err = 'Please select a home team.';
                         }
                         if (empty($_POST['away_team_id'])) {
-                            $home_team_err = 'Please select an away team.';
+                            $away_team_id_err = 'Please select an away team.';
                         }
-                        // TODO: Make sure home_team and away_team are not the same.
+                        if (!empty($_POST['home_team_id']) && !empty($_POST['away_team_id']) && $_POST['home_team_id'] == $_POST['away_team_id']) {
+                            $home_team_id_err = 'Please make sure teams are not the same.';
+                            $away_team_id_err = 'Please make sure teams are not the same.';
+                        }
                         if (empty($_POST['league_id'])) {
-                            $league_err = 'Please select a league.';
+                            $league_id_err = 'Please select a league.';
                         }
                         if (empty($_POST['date'])) {
                             $date_err = 'Please select a date.';
@@ -189,14 +196,14 @@
                             'venues' => $this->venueModel->getVenues($this->club_id),
                             'fixtures' => $this->fixtureModel->getFixtures($this->club_id),  // Send club_name instead of club_id because tables are fixtures_bowls etc
                             'fixture' => (object) $fixture_arr,
-                            'home_team_err' => isset($home_team_err) ? $home_team_err : '',
-                            'away_team_err' => isset($away_team_err) ? $away_team_err : '',
-                            'league_err' => isset($league_err) ? $league_err : '',
+                            'home_team_id_err' => isset($home_team_id_err) ? $home_team_id_err : '',
+                            'away_team_id_err' => isset($away_team_id_err) ? $away_team_id_err : '',
+                            'league_id_err' => isset($league_id_err) ? $league_id_err : '',
                             'date_err' => isset($date_err) ? $date_err : '',
                             'time_err' => isset($time_err) ? $time_err : '',
                         ];
 
-                        if (!isset($home_team_err) && !isset($away_team_err) && !isset($league_err) && !isset($date_err) && !isset($time_err)) {
+                        if (!isset($home_team_id_err) && !isset($away_team_id_err) && !isset($league_id_err) && !isset($date_err) && !isset($time_err)) {
                             // Proceed with saving fixture.
                             if ($this->fixtureModel->updateFixture($this->club_id, $this->club_name, $data['fixture'])) {
                                 create_flash_message('fixtures', 'Successfully edited the fixture <strong>' . $data['fixture']->home_team_name . ' v ' . $data['fixture']->away_team_name . '</strong>');
