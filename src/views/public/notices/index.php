@@ -37,7 +37,9 @@
                 }
             } else {
 ?>
-                <h1>No news.</h1>
+                <div class="empty-section">
+                    <p>Unfortunately there isn't any latest news.</p>
+                </div>
 <?php
             }
 ?>

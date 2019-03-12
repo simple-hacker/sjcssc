@@ -123,7 +123,9 @@
 <?php
     } else {
 ?>
-        <h1>No Reports</h1>
+        <div class="empty-section">
+            <p>Unfortunately there aren't any reports to show.</p>
+        </div>
 <?php
     }
 ?>

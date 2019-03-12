@@ -32,7 +32,7 @@
             } else {
                 $data = [
                     'club' => $this->clubModel->getClubByID($this->club_id),
-                    'results' => $this->fixtureModel->getPastFixtures($this->club_name),
+                    'results' => ($this->admin === true) ? $this->resultModel->getResults($this->club_id, 0, true) : $this->resultModel->getResults($this->club_id, 0),
                 ];
             }
             $this->view('results/index', $data);
@@ -89,7 +89,7 @@
                         $data = [
                             'club' => $this->clubModel->getClubByID($this->club_id),
                             'result' => $this->fixtureModel->getFixture($this->club_id, $this->club_name, $result_id),
-                            'results' => $this->fixtureModel->getPastFixtures($this->club_name),
+                            'results' => $this->resultModel->getResults($this->club_id, 0, true),
                         ];
                     }
                 } else {

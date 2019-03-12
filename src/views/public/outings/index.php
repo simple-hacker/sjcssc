@@ -113,7 +113,9 @@
 <?php
     } else {
 ?>
-        <h1>No Outings</h1>
+        <div class="empty-section">
+            <p>Unfortunately there aren't any outings to show.</p>
+        </div>
 <?php
     }
 ?>

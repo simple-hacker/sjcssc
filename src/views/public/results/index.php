@@ -169,7 +169,13 @@
                 </table>
             </div>
 <?php
-            }
+        } else {
+?>
+                <div class="empty-section">
+                    <p>Unfortunately there aren't any results to show.</p>
+                </div>
+<?php
+             }
 ?>
             </div>
         </div>

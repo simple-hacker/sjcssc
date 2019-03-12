@@ -6,3 +6,17 @@ section {
         width: 100%;
     }
 }
+
+.empty-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    min-height: 20vh;
+
+    p {
+        color: #555;
+        font-style: italic;
+        font-size: 1.4rem;
+    }
+}

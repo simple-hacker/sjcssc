@@ -128,7 +128,9 @@
                 }
             } else {
 ?>
-                <h1>No Events</h1>
+                <div class="empty-section">
+                    <p>Unfortunately there aren't any events to show.</p>
+                </div>
 <?php
              }
 ?>

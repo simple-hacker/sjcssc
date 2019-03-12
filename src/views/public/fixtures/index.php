@@ -151,8 +151,10 @@
             </div>
 <?php
             } else {
-?>
-                <h1>No Fixtures</h1>
+?>     
+                <div class="empty-section">
+                    <p>Unfortunately there aren't any fixtures to show.</p>
+                </div>
 <?php
              }
 ?>

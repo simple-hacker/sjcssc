@@ -36,16 +36,18 @@ class Result extends Controller {
         return $result;
     }
 
-    public function getResults($club_id, $n = 0) {
+    public function getResults($club_id, $n = 0, $all_results = false) {
         $club_name = $this->clubModel->getClubName($club_id);
         $table_name = 'fixtures_' . $club_name;
         $sql = "SELECT {$table_name}.*, home_teams.team AS home_team, away_teams.team AS away_team, leagues.league AS league FROM {$table_name}
                     LEFT JOIN leagues ON {$table_name}.league_id = leagues.id
                     LEFT JOIN teams AS home_teams ON {$table_name}.home_team_id = home_teams.id
                     LEFT JOIN teams AS away_teams ON {$table_name}.away_team_id = away_teams.id
-                    WHERE {$table_name}.date <= DATE(NOW())
-                    AND `publish_results` = true
-                    ORDER BY {$table_name}.date DESC";
+                    WHERE {$table_name}.date <= DATE(NOW())";
+        if ($all_results == false) {
+            $sql .= " AND publish_results = true";
+        }
+        $sql .= " ORDER BY {$table_name}.date DESC";
         if ($n > 0) {
             // To prevent negative numbers.  If n isn't provided then get unlimited events, else only return n events.
             $sql .= " LIMIT 0, {$n}";
