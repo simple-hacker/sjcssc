@@ -222,6 +222,7 @@ fieldset[disabled] .btn-brown-secondary.active {
   position: relative;
   top: 2px;
   left: 2px;
+  cursor: pointer;
 }
 
 .db-btn .db-btn-icon {

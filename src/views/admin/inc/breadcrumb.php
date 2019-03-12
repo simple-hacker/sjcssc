@@ -1,5 +1,6 @@
 
 <?php
+if (isset($_SESSION['user'])) {
     if (isset($page)) {
         $page = explode("/", $page);
 
@@ -52,5 +53,6 @@
     </div>
 <?php
     }
+}
 ?>
         

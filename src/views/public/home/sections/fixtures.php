@@ -16,9 +16,10 @@
                                 <div class="col-3"><i class="fa fa-star border"></i></div>
                                 <div class="col-9">
                                     <?php
-                                        echo ($fixture->home_team_id === $data['club']->team_id) ? '<strong>' . $fixture->home_team . '</strong>' : $fixture->home_team;
-                                        echo ' v ';
-                                        echo ($fixture->away_team_id === $data['club']->team_id) ? '<strong>' . $fixture->away_team . '</strong>' : $fixture->away_team;
+                                        // echo ($fixture->home_team_id === $data['club']->team_id) ? '<strong>' . $fixture->home_team . '</strong>' : $fixture->home_team;
+                                        // echo ' v ';
+                                        // echo ($fixture->away_team_id === $data['club']->team_id) ? '<strong>' . $fixture->away_team . '</strong>' : $fixture->away_team;
+                                        echo $fixture->home_team . " v " . $fixture->away_team;
                                     ?>
                                 </div>
                             </div>

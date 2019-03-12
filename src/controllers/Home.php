@@ -17,7 +17,6 @@
                 $this->userModel->permissionCheckRedirect($this->club_id);
             }
 
-
             // Load all the Models needed by looping through CLUBS sections.
             foreach (CLUBS[$this->club_name]['sections'] as $section) {
                 $sectionModel = trim($section, "s") . 'Model';  // Get the model name by trimming s off sections and adding Model.;
@@ -30,6 +29,7 @@
                 'club' => $this->clubModel->getClubByID($this->club_id),
             ];
 
+            // Get all events, fixtures, results etc.
             foreach (CLUBS[$this->club_name]['sections'] as $section) {
                 $n = ($section === "notices") ? 0 : 4;
                 $sectionModel = trim($section, "s") . 'Model';  // Get the model name by trimming s off sections and adding Model.
@@ -38,6 +38,18 @@
                     $data[$section] = $this->{$sectionModel}->{$sectionMethod}($this->club_id, $n);
                 }
             }
+
+            // Results/Reports
+            foreach (RESULT_SECTIONS as $section) {
+                if (in_array($section, CLUBS[$this->club_name]['sections'])) {
+                        $sectionModel = trim($section, "s") . 'Model';  // Get the model name by trimming s off sections and adding Model.
+                        $sectionMethod = 'getUnpublished' . ucwords($section); // Get method name by prepending get to section name, e.g getNotices.
+                        if (isset($this->{$sectionModel})) {
+                            $data['unpublished_'.$section] = $this->{$sectionModel}->{$sectionMethod}($this->club_name);
+                        }
+                }
+            }
+
             $this->view('home/index', $data);
         }
     }

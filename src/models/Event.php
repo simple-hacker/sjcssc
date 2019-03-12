@@ -10,9 +10,8 @@ class Event {
 
     public function getEvents($club_id, $n = 0) {
         if (isset($club_id)) {
-            $sql = "SELECT `events`.`id`, `events`.`club_id`, `events`.`event_id`, `events`.`created_date`, `events`.`title`, `events`.`date`, `events`.`time`, `events`.`location_id`, `venues`.`venue` as `venue`, `venues`.`location` as `location`, `events`.`meet_at`, `events`.`contact`, `events`.`other_information`
+            $sql = "SELECT *
                     FROM `events`
-                    LEFT JOIN `venues` ON `events`.`location_id`=`venues`.`id`
                     WHERE `events`.`club_id` = :club_id AND `date` >= DATE(NOW())
                     ORDER BY `events`.`date` ASC";
             
@@ -30,9 +29,8 @@ class Event {
 
     public function getEvent($club_id, $event_id) {
         if (isset($club_id) && isset($event_id)) {
-            $sql = "SELECT `events`.`id`, `events`.`club_id`, `events`.`event_id`, `events`.`created_date`, `events`.`title`, `events`.`date`, `events`.`time`, `events`.`location_id`, `venues`.`venue` as `venue`, `venues`.`location` as `location`, `events`.`meet_at`, `events`.`contact`, `events`.`other_information`
+            $sql = "SELECT *
                     FROM `events`
-                    LEFT JOIN `venues` ON `events`.`location_id`=`venues`.`id`
                     WHERE `events`.`club_id` = :club_id AND `events`.`event_id` = :event_id";
             $this->db->query($sql);
             $this->db->bind(':club_id', $club_id);
@@ -45,32 +43,32 @@ class Event {
 
     public function addEvent($club_id, $event) {
         $lastID = $this->getLastID($club_id);
-        $sql = "INSERT INTO `events` (club_id, event_id, title, date, time, location_id, meet_at, contact, other_information) VALUES (:club_id, :event_id, :title, :date, :time, :location_id, :meet_at, :contact, :other_information)";
+        $sql = "INSERT INTO `events` (club_id, event_id, title, date, time, location, meet_at, contact, other_information) VALUES (:club_id, :event_id, :title, :date, :time, :location, :meet_at, :contact, :other_information)";
         $this->db->query($sql);
         $this->db->bind(':club_id', $club_id);
         $this->db->bind(':event_id', $lastID + 1); // Get the lastest event ID of club and add 1.
         $this->db->bind(':title', $event->title);
         $this->db->bind(':date', $event->date);
         $this->db->bind(':time', $event->time);
-        $this->db->bind(':location_id', $event->location_id);
-        $this->db->bind(':meet_at', $event->meet_at);
-        $this->db->bind(':contact', $event->contact);
-        $this->db->bind(':other_information', $event->other_information);
+        $this->db->bind(':location', trim($event->location));
+        $this->db->bind(':meet_at', trim($event->meet_at));
+        $this->db->bind(':contact', trim($event->contact));
+        $this->db->bind(':other_information', trim($event->other_information));
         return $this->db->execute();
     }
 
     public function updateEvent($club_id, $event) {
-        $sql = "UPDATE `events` SET `title`=:title, `date`=:date, `time`=:time, `location_id`=:location_id, `meet_at`=:meet_at, `contact`=:contact, `other_information`=:other_information WHERE `club_id`=:club_id AND `event_id`=:event_id";
+        $sql = "UPDATE `events` SET `title`=:title, `date`=:date, `time`=:time, `location`=:location, `meet_at`=:meet_at, `contact`=:contact, `other_information`=:other_information WHERE `club_id`=:club_id AND `event_id`=:event_id";
         $this->db->query($sql);
         $this->db->bind(':club_id', $club_id);
         $this->db->bind(':event_id', $event->event_id);
         $this->db->bind(':title', $event->title);
         $this->db->bind(':date', $event->date);
         $this->db->bind(':time', $event->time);
-        $this->db->bind(':location_id', $event->location_id);
-        $this->db->bind(':meet_at', $event->meet_at);
-        $this->db->bind(':contact', $event->contact);
-        $this->db->bind(':other_information', $event->other_information);
+        $this->db->bind(':location', trim($event->location));
+        $this->db->bind(':meet_at', trim($event->meet_at));
+        $this->db->bind(':contact', trim($event->contact));
+        $this->db->bind(':other_information', trim($event->other_information));
         return $this->db->execute();
     }
 

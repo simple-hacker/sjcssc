@@ -22,7 +22,7 @@
                     ['name' => 'league_id', 'type' => 'select', 'size' => 12, 'label' => 'League', 'placeholder' => 'Select a League', 'select_item_model' => 'leagues', 'select_item' => 'league'],
                     ['name' => 'date', 'type' => 'date', 'size' => 6, 'label' => 'Date', ],
                     ['name' => 'time', 'type' => 'time', 'size' => 6, 'label' => 'Time', ],
-                    ['name' => 'venue_id', 'type' => 'select', 'size' => 12, 'label' => 'Venue', 'placeholder' => 'Select a Venue', 'select_item_model' => 'venues', 'select_item' => 'venue'],
+                    ['name' => 'venue', 'type' => 'text', 'size' => 12, 'label' => 'Venue', 'placeholder' => 'Enter Venue Location'],
                     ['name' => 'meet_at', 'type' => 'text', 'size' => 12, 'label' => 'Meet At', 'placeholder' => 'Enter Meet At Location'],
                     ['name' => 'contact', 'type' => 'text', 'size' => 12, 'label' => 'Contact', 'placeholder' => 'Contact Information'],
                     ['name' => 'other_information', 'type' => 'textarea', 'size' => 12, 'label' => 'Other Information', 'placeholder' => 'Other Information'],
@@ -60,12 +60,12 @@
                     ['name' => 'league_id', 'type' => 'select', 'size' => 12, 'label' => 'League', 'placeholder' => 'Select a League', 'select_item_model' => 'leagues', 'select_item' => 'league'],
                     ['name' => 'date', 'type' => 'date', 'label' => 'Date', 'size' => 6],
                     ['name' => 'time', 'type' => 'time', 'label' => 'Time', 'size' => 6],
-                    ['name' => 'venue_id', 'type' => 'select', 'size' => 12, 'label' => 'Venue', 'placeholder' => 'Select a Venue', 'select_item_model' => 'venues', 'select_item' => 'venue'],
+                    ['name' => 'venue', 'type' => 'text', 'size' => 12, 'label' => 'Venue', 'placeholder' => 'Enter Venue Location'],
                     ['name' => 'meet_at', 'type' => 'text', 'size' => 12, 'label' => 'Meet At', 'placeholder' => 'Enter Meet At Location'],
                     ['name' => 'contact', 'type' => 'text', 'size' => 12, 'label' => 'Contact', 'placeholder' => 'Contact Information'],
                     ['name' => 'other_information', 'type' => 'textarea', 'size' => 12, 'label' => 'Other Information', 'placeholder' => 'Other Information'],
                     ['name' => 'squad', 'type' => 'text', 'size' => 6, 'label' => 'Player', 'placeholder' => 'Player', 'count' => 15],
-                    ['name' => 'substitutes', 'type' => 'text', 'size' => 12, 'label' => 'Substitutes', 'placeholder' => 'Substitutes'],
+                    ['name' => 'substitutes', 'type' => 'text', 'size' => 12, 'label' => 'Substitutes', 'placeholder' => 'Substitutes (Separate names with a comma)'],
                 ],
                 'squad_title' => 'Squad',
                 'position_title' => 'Player',
@@ -94,12 +94,12 @@
                     ['name' => 'league_id', 'type' => 'select', 'size' => 12, 'label' => 'League', 'placeholder' => 'Select a League', 'select_item_model' => 'leagues', 'select_item' => 'league'],
                     ['name' => 'date', 'type' => 'date', 'label' => 'Date', 'size' => 6],
                     ['name' => 'time', 'type' => 'time', 'label' => 'Time', 'size' => 6],
-                    ['name' => 'venue_id', 'type' => 'select', 'size' => 12, 'label' => 'Venue', 'placeholder' => 'Select a Venue', 'select_item_model' => 'venues', 'select_item' => 'venue'],
+                    ['name' => 'venue', 'type' => 'text', 'size' => 12, 'label' => 'Venue', 'placeholder' => 'Enter Venue Location'],
                     ['name' => 'meet_at', 'type' => 'text', 'size' => 12, 'label' => 'Meet At', 'placeholder' => 'Enter Meet At Location'],
                     ['name' => 'contact', 'type' => 'text', 'size' => 12, 'label' => 'Contact', 'placeholder' => 'Contact Information'],
                     ['name' => 'other_information', 'type' => 'textarea', 'size' => 12, 'label' => 'Other Information', 'placeholder' => 'Other Information'],
                     ['name' => 'squad', 'type' => 'text', 'size' => 6, 'label' => 'Player', 'placeholder' => 'Player', 'count' => 11],
-                    ['name' => 'substitutes', 'type' => 'text', 'size' => 12, 'label' => 'Substitutes', 'placeholder' => 'Substitutes'],
+                    ['name' => 'substitutes', 'type' => 'text', 'size' => 12, 'label' => 'Substitutes', 'placeholder' => 'Substitutes (Separate names with a comma)'],
                 ],
                 'squad_title' => 'Squad',
                 'position_title' => 'Player',
@@ -126,7 +126,7 @@
                     ['name' => 'title', 'type' => 'text', 'size' => 12, 'label' => 'Title', 'placeholder' => 'Enter Outing Title'],
                     ['name' => 'date', 'type' => 'date', 'label' => 'Date', 'size' => 6],
                     ['name' => 'time', 'type' => 'time', 'label' => 'Time', 'size' => 6],
-                    ['name' => 'venue_id', 'type' => 'select', 'size' => 12, 'label' => 'Venue', 'placeholder' => 'Select a Venue', 'select_item_model' => 'venues', 'select_item' => 'venue'],
+                    ['name' => 'venue', 'type' => 'text', 'size' => 12, 'label' => 'Venue', 'placeholder' => 'Enter Venue Location'],
                     ['name' => 'meet_at', 'type' => 'text', 'size' => 12, 'label' => 'Meet At', 'placeholder' => 'Enter Meet At Location'],
                     ['name' => 'contact', 'type' => 'text', 'size' => 12, 'label' => 'Contact', 'placeholder' => 'Contact Information'],
                     ['name' => 'other_information', 'type' => 'textarea', 'size' => 12, 'label' => 'Other Information', 'placeholder' => 'Enter extra information here.']
@@ -147,6 +147,7 @@
     // define('PAGES', ['index', 'add', 'edit', 'delete', 'view', 'show', 'login', 'settings']);
 
     define('ICONS', [
+        'default' => '<i class="fas fa-star"></i>',
         'notices' => '<i class="fas fa-edit"></i>',
         'events' => '<i class="fas fa-calendar-alt"></i>',
         'fixtures' => '<i class="fas fa-calendar-plus"></i>',
@@ -154,3 +155,5 @@
         'outings' => '<i class="fas fa-calendar-plus"></i>',
         'reports' => '<i class="fas fa-star"></i>',
     ]);
+
+    define('RESULT_SECTIONS', ['results', 'reports']);

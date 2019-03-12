@@ -31,15 +31,21 @@
                 </div>
             </div>
             <div class="form-group row">
+                <label for="location" class="col-sm-2 col-form-label d-none d-md-flex">Location</label>
+                <div class="col-12 col-md-10">
+                    <input type="text" name="location" class="form-control" placeholder="Enter Event Location" value="<?php echo (isset($data['event']->location)) ? $data['event']->location : ''; ?>"/>
+                </div>
+            </div>
+            <div class="form-group row">
                 <label for="meet_at" class="col-sm-2 col-form-label d-none d-md-flex">Meet At</label>
                 <div class="col-12 col-md-10">
-                    <input type="meet_at" name="meet_at" class="form-control" placeholder="Enter Meet At" value="<?php echo (isset($data['event']->meet_at)) ? $data['event']->meet_at : ''; ?>"/>
+                    <input type="text" name="meet_at" class="form-control" placeholder="Enter Meet At" value="<?php echo (isset($data['event']->meet_at)) ? $data['event']->meet_at : ''; ?>"/>
                 </div>
             </div>
             <div class="form-group row">
                 <label for="contact" class="col-sm-2 col-form-label d-none d-md-flex">Contact</label>
                 <div class="col-12 col-md-10">
-                    <input type="contact" name="contact"  class="form-control" placeholder="Enter Contact Information" value="<?php echo (isset($data['event']->contact)) ? $data['event']->contact : ''; ?>"/>
+                    <input type="text" name="contact"  class="form-control" placeholder="Enter Contact Information" value="<?php echo (isset($data['event']->contact)) ? $data['event']->contact : ''; ?>"/>
                 </div>
             </div>
             <div class="form-group row">
@@ -82,7 +88,7 @@
                     <tr class="thead-light text-center">
                         <th>Event Date</th>
                         <th>Title</th>
-                        <th>Venue</th>
+                        <th>Location</th>
                         <th>Edit</th>
                         <th>Delete?</th>
                     </tr>
@@ -94,7 +100,7 @@
                     <tr>
                         <td><?php echo date("d/m/y", strtotime($event->date)); ?></td>
                         <td><?php echo $event->title; ?></td>
-                        <td><?php echo $event->venue; ?></td>
+                        <td><?php echo $event->location; ?></td>
                         <td class="text-center"><a href="<?php echo ADMIN_URLROOT . $data['club']->club . "/events/edit/" . $event->event_id; ?>" class="btn btn-small btn-primary"><i class="fas fa-sm fa-edit"></i></a></td>
                         <td class="text-center"><a href="<?php echo ADMIN_URLROOT . $data['club']->club . "/events/delete/" . $event->event_id; ?>" class="btn btn-small btn-danger"><i class="fas fa-sm fa-trash-alt"></i></a></td>
                     </tr>

@@ -43,10 +43,10 @@
             $this->db->bind(':club_id', $club_id);
             $this->db->bind(':notice_id', $lastID + 1);
             $this->db->bind(':expiry_date', $notice->expiry_date);
-            $this->db->bind(':expiry_date_option', $notice->expiry_date_option);
+            $this->db->bind(':expiry_date_option', trim($notice->expiry_date_option));
             $this->db->bind(':important', $notice->important);
-            $this->db->bind(':title', $notice->title);
-            $this->db->bind(':notice', $notice->notice);
+            $this->db->bind(':title', trim($notice->title));
+            $this->db->bind(':notice', trim($notice->notice));
             return $this->db->execute();
         }
 
@@ -59,10 +59,10 @@
             $this->db->bind(':club_id', $club_id);
             $this->db->bind(':notice_id', $notice->notice_id);
             $this->db->bind(':expiry_date', $expiry_date);
-            $this->db->bind(':expiry_date_option', $notice->expiry_date_option);
+            $this->db->bind(':expiry_date_option', trim($notice->expiry_date_option));
             $this->db->bind(':important', $notice->important);
-            $this->db->bind(':title', $notice->title);
-            $this->db->bind(':notice', $notice->notice);
+            $this->db->bind(':title', trim($notice->title));
+            $this->db->bind(':notice', trim($notice->notice));
             return $this->db->execute();
         }
 

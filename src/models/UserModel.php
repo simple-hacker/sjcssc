@@ -82,8 +82,8 @@
             $password = password_hash($salt . $user['password'], PASSWORD_DEFAULT); // Hash the generated salt and user's password together.
             $this->db->bind(':password', $password) ;
             $this->db->bind(':salt', $salt);
-            $this->db->bind(':name', $user['name']);
-            $this->db->bind(':email', $user['email']);
+            $this->db->bind(':name', trim($user['name']));
+            $this->db->bind(':email', trim($user['email']));
             $permissions = $this->generatePermissionsString($user['permissions']);
             $this->db->bind(':permissions', $permissions);
             $admin = (!empty($user['admin'])) ? true : false;
@@ -97,8 +97,8 @@
             $sql = 'UPDATE `users` SET `name`=:name, `email`=:email WHERE `id`=:id';
             $this->db->query($sql);
             $this->db->bind(':id', $user['id']);
-            $this->db->bind(':name', $user['name']);
-            $this->db->bind(':email', $user['email']);
+            $this->db->bind(':name', trim($user['name']));
+            $this->db->bind(':email', trim($user['email']));
             return $this->db->execute();
         }
 
@@ -106,8 +106,8 @@
             $sql = 'UPDATE `users` SET `name`=:name, `email`=:email, `permissions`=:permissions, `admin`=:admin WHERE `id`=:id';
             $this->db->query($sql);
             $this->db->bind(':id', $user['id']);
-            $this->db->bind(':name', $user['name']);
-            $this->db->bind(':email', $user['email']);
+            $this->db->bind(':name', trim($user['name']));
+            $this->db->bind(':email', trim($user['email']));
             $permissions = $this->generatePermissionsString($user['permissions']);
             $this->db->bind(':permissions', $permissions);
             $admin = (!empty($user['admin'])) ? true : false;

@@ -36,11 +36,11 @@
                             <div class="col-8"><?php echo date("H:i", strtotime($data['event']->time)); ?></div>
                         </div>
                 <?php
-                        if (!empty($data['event']->venue)) {
+                        if (!empty($data['event']->location)) {
                 ?>
                         <div class="row align-items-center mt-2">
                             <div class="col-4 text-right"><i class="fa fa-map-marker-alt border"></i></div>
-                            <div class="col-8"><?php echo $data['event']->venue; ?></div>
+                            <div class="col-8"><?php echo $data['event']->location; ?></div>
                         </div>
                 <?php
                         }
@@ -102,11 +102,11 @@
                                     <div class="col-10"><?php echo date("H:i", strtotime($event->time)); ?></div>
                                 </div>
                         <?php
-                                if (!empty($event->venue)) {
+                                if (!empty($event->location)) {
                         ?>
                                 <div class="row align-items-center mt-1">
                                     <div class="col-2"><i class="fa fa-map-marker-alt border"></i></div>
-                                    <div class="col-10"><?php echo $event->venue; ?></div>
+                                    <div class="col-10"><?php echo $event->location; ?></div>
                                 </div>
                         <?php
                                 }

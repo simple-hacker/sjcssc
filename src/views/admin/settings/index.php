@@ -157,17 +157,10 @@
             </div>
 
             <div class="form-group row">
-                <label class="col-sm-2 col-form-label d-none d-md-flex">Teams</label>
                 <div class="col-4"><a href="<?php echo ADMIN_URLROOT . $data['club']->club . '/settings/teams'; ?>" class="btn btn-block btn-brown-secondary">View All Teams</a></div>
-                <label class="col-sm-2 col-form-label d-none d-md-flex">Leagues</label>
                 <div class="col-4"><a href="<?php echo ADMIN_URLROOT . $data['club']->club . '/settings/leagues'; ?>" class="btn btn-block btn-brown-secondary">View All Leagues</a></div>
-            </div>
-            <div class="form-group row">
-                <label class="col-sm-2 col-form-label d-none d-md-flex">Venues</label>
-                <div class="col-4"><a href="<?php echo ADMIN_URLROOT . $data['club']->club . '/settings/venues'; ?>" class="btn btn-block btn-brown-secondary">View All Venues</a></div>
-                <label class="col-sm-2 col-form-label d-none d-md-flex">People</label>
                 <div class="col-4"><a href="<?php echo ADMIN_URLROOT . $data['club']->club . '/settings/people'; ?>" class="btn btn-block btn-brown-secondary">View All People</a></div>
-            </div>            
+            </div>          
         </div>
 <?php
     }

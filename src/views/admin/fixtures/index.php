@@ -11,6 +11,7 @@
 <div class="wrap">
     <h3>Add Fixture</h3>
     <form action="<?php echo ADMIN_URLROOT . $data['club']->club . '/fixtures'; ?>" method="POST">
+        <input type="hidden" id="club_id" name="club_id" value="<?php echo $data['club']->id; ?>">
         <div class="row">
 <?php
             if (isset(CLUBS[$data['club']->club]['fixtures']['fields'])) {
@@ -26,8 +27,10 @@
                     $input_data = isset($data['fixture']->{$field['name']}) ? $data['fixture']->{$field['name']} : '';
 
                     if (($name == "squad" || $name == "substitutes") && $squad_title == false) {
-                        $squad_title = (isset(CLUBS[$data['club']->club]['fixtures']['squad_title'])) ? CLUBS[$data['club']->club]['fixtures']['squad_title'] : 'Squaddd';
-                        echo "<div class=\"col-12\"><h4>{$squad_title}</h4><p>If adding more than one person per position please separate names with a comma.</p></div>";
+                        $squad_title = (isset(CLUBS[$data['club']->club]['fixtures']['squad_title'])) ? CLUBS[$data['club']->club]['fixtures']['squad_title'] : 'Squad';
+                        echo "<div class=\"col-12\"><h4>{$squad_title}</h4>";
+                        if ($data['club']->club === 'bowls') echo "<p>Separate each player's name in each rink with a comma.</p>";
+                        echo "</div>";
                         $squad_title = true;
                     }
 
@@ -38,7 +41,7 @@
                             $output .= "<div class=\"form-group row\">";
                             $output .= "<label for=\"{$name}\" class=\"col-{$label_size} col-form-label d-none d-md-flex\">{$label}</label>";
                             $output .= "<div class=\"col-12 col-md-{$input_size}\">";
-                            $output .= "<textarea name=\"{$name}\"";
+                            $output .= "<textarea id=\"{$name}\" name=\"{$name}\"";
                             $output .= (!empty($placeholder)) ? " placeholder=\"{$placeholder}\"" : "";
                             $output .= " class=\"form-control";
                             if (!empty($data[$name.'_err'])) $output .= ' is-invalid';
@@ -54,7 +57,7 @@
                                 $output .= "<div class=\"form-group row\">";
                                 $output .= "<label for=\"{$name}\" class=\"col-{$label_size} col-form-label d-none d-md-flex\">{$label}</label>";
                                 $output .= "<div class=\"col-12 col-md-{$input_size}\">";
-                                $output .= "<select name=\"{$field['name']}\" class=\"form-control";
+                                $output .= "<select id=\"{$name}\" name=\"{$name}\" class=\"form-control";
                                 if (!empty($data[$name.'_err'])) $output .= ' is-invalid';
                                 $output .= "\">";
                                 // Get all the select items from the data. e.g. get all the teams, league or venues.
@@ -81,7 +84,7 @@
                                     $output .= "<div class=\"form-group row\">";
                                     $output .= "<label for=\"{$name}\" class=\"col-{$label_size} col-form-label d-none d-md-flex\">{$label}</label>";
                                     $output .= "<div class=\"col-12 col-md-{$input_size}\">";
-                                    $output .= "<input type=\"text\" name=\"{$field['name']}}\" class=\"form-control";
+                                    $output .= "<input type=\"text\" id=\"{$name}\" name=\"{$field['name']}}\" class=\"form-control";
                                     if (!empty($data[$name.'_err'])) $output .= ' is-invalid';
                                     $output .= "\" value=\"No " . ucwords($field['name']) . "s Found.  Please enter " . ucwords($field['name']) . " in Settings page.\" disabled><br/>";
                                     $output .= "</div></div>";
@@ -97,7 +100,7 @@
                             $output .= "<div class=\"form-group row\">";
                             $output .= "<label for=\"{$name}\" class=\"col-{$label_size} col-form-label d-none d-md-flex\">{$label}</label>";
                             $output .= "<div class=\"col-12 col-md-{$input_size}\">";
-                            $output .= "<input name=\"{$field['name']}\" type=\"{$field['type']}\" class=\"form-control";
+                            $output .= "<input id=\"{$name}\" name=\"{$field['name']}\" type=\"{$field['type']}\" class=\"form-control";
                             if (!empty($data[$name.'_err'])) $output .= ' is-invalid';
                             $output .= "\"";
                             $output .= (isset($field['placeholder'])) ? " placeholder=\"{$field['placeholder']}\"" : "";
@@ -116,7 +119,7 @@
                             $output .= "<div class=\"form-group row\">";
                             $output .= "<label for=\"{$name}\" class=\"col-{$label_size} col-form-label d-none d-md-flex\">{$label} {$i}</label>";
                             $output .= "<div class=\"col-12 col-md-{$input_size}\">";
-                            $output .= "<input name=\"{$field['name']}[]\" type=\"{$field['type']}\" class=\"form-control";
+                            $output .= "<input id=\"{$name}\" name=\"{$field['name']}[]\" type=\"{$field['type']}\" class=\"form-control";
                             if (!empty($data[$name.'_err'])) $output .= ' is-invalid';
                             $output .= "\"";
                             $output .= (isset($field['placeholder'])) ? " placeholder=\"{$field['placeholder']} {$i}\"" : "";
@@ -156,7 +159,6 @@
                         <th>League</th>
                         <th>Home Team</th>
                         <th>Away Team</th>
-                        <th>Venue</th>
                         <th>Edit</th>
                         <th>Delete</th>
                     </tr>
@@ -170,7 +172,6 @@
                     <td><?php echo $fixture->league; ?></td>
                     <td><?php echo $fixture->home_team; ?></td>
                     <td><?php echo $fixture->away_team; ?></td>
-                    <td><?php echo $fixture->venue; ?></td>
                     <td class="text-center"><a href="<?php echo ADMIN_URLROOT . $data['club']->club . "/fixtures/edit/" . $fixture->id; ?>" class="btn btn-small btn-primary"><i class="fas fa-sm fa-edit"></i></a></td>
                     <td class="text-center"><a href="<?php echo ADMIN_URLROOT . $data['club']->club . "/fixtures/delete/" . $fixture->id; ?>" class="btn btn-small btn-danger"><i class="fas fa-sm fa-trash-alt"></i></a></td>
                 </tr>
@@ -184,9 +185,34 @@
 <?php
     }
 ?>
-
-
-
+<script>
+    $('#home_team_id').change(function(){
+        var home_team_id = $('#home_team_id').val();
+        var club_id = $('#club_id').val();
+        $.ajax({
+            url: "ajax/getVenue",
+            type: "POST",
+            data: { 'getVenue' : 1, 'club_id' : club_id, 'home_team_id' : home_team_id},
+            dataType: "json",
+            success: function(data) {
+                if (data.success == true) {
+                    var overwrite = true;
+                    if ($('#venue').val() != "") {
+                        overwrite = confirm("Do you want to overwrite the venue to "+data.venue+"?");
+                    }
+                    if (overwrite == true) {
+                        $('#venue').val(data.venue);		
+                    }
+                } else {
+                    alert("Something went wrong.  Please try again.");
+                }
+            },
+            error: function (data) {
+                console.log("Something went wrong.");
+            }
+        }, "json");
+    });
+</script>
 <?php
     if (file_exists(ADMIN_VIEWS . 'inc/footer.php')) {
         require_once(ADMIN_VIEWS . 'inc/footer.php');

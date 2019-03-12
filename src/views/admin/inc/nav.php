@@ -19,9 +19,9 @@
         <?php
                 if (isset($_SESSION['user'])) {
         ?>
-                <li class="nav-item d-none d-lg-block">
-                    <p class="text-muted pt-3 mr-5">Welcome <?php echo (!empty($_SESSION['user']['name'])) ? $_SESSION['user']['name'] : $_SESSION['user']['username']; ?>!</p> <!-- Either display name if given, or username -->
-                </li>
+                <!-- <li class="nav-item d-none d-lg-block">
+                    <p class="text-muted pt-3 mr-5">Welcome <?php // echo (!empty($_SESSION['user']['name'])) ? $_SESSION['user']['name'] : $_SESSION['user']['username']; ?>!</p>
+                </li> -->
                 <li class="nav-item">
                     <a href="<?php echo URLROOT; ?>" target="_blank" class="nav-link"><i class="fas fa-globe-americas i-lg mr-1"></i> Back To Website</a>
                 </li> 

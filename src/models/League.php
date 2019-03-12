@@ -23,9 +23,9 @@ class League {
                     $sql = "UPDATE `leagues` SET `league`=:league, `league_full`=:league_full, `league_website`=:league_website WHERE `id`=:id";
                     $this->db->query($sql);
                     $this->db->bind(':id', $league->id);
-                    $this->db->bind(':league', $league->league);
-                    $this->db->bind(':league_full', $league->league_full);
-                    $this->db->bind(':league_website', $league->league_website);
+                    $this->db->bind(':league', trim($league->league));
+                    $this->db->bind(':league_full', trim($league->league_full));
+                    $this->db->bind(':league_website', trim($league->league_website));
                     if (!$this->db->execute()) return false; // If sql fails for some reason return false otherwise continue with loop.
                 } else {
                     // ID given but blank league, so DELETE from database.
@@ -39,9 +39,9 @@ class League {
                 $sql = "INSERT INTO `leagues` (`club_id`, `league`, `league_full`, `league_website`) VALUES (:club_id, :league, :league_full, :league_website)";
                 $this->db->query($sql);
                 $this->db->bind(':club_id', $club_id);
-                $this->db->bind(':league', $league->league);
-                $this->db->bind(':league_full', $league->league_full);
-                $this->db->bind(':league_website', $league->league_website);
+                $this->db->bind(':league', trim($league->league));
+                $this->db->bind(':league_full', trim($league->league_full));
+                $this->db->bind(':league_website', trim($league->league_website));
                 if (!$this->db->execute()) return false; // If sql fails for some reason return false otherwise continue with loop.
             }
         }

@@ -35,6 +35,7 @@
                     'reports' => $this->outingModel->getPastOutings(),
                 ];
             }
+
             $this->view('reports/index', $data);
         }
 

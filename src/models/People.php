@@ -31,8 +31,8 @@ class People {
                     $sql = "UPDATE `people` SET `name`=:name, `email`=:email, `active`=:active WHERE `id`=:id";
                     $this->db->query($sql);
                     $this->db->bind(':id', $person->id);
-                    $this->db->bind(':name', $person->name);
-                    $this->db->bind(':email', $person->email);
+                    $this->db->bind(':name', trim($person->name));
+                    $this->db->bind(':email', trim($person->email));
                     $this->db->bind(':active', $person->active);
                     if (!$this->db->execute()) return false; // If sql fails for some reason return false otherwise continue with loop.
                 } else {
@@ -47,8 +47,8 @@ class People {
                 $sql = "INSERT INTO `people` (`club_id`, `name`, `email`, `active`) VALUES (:club_id, :name, :email, :active)";
                 $this->db->query($sql);
                 $this->db->bind(':club_id', $club_id);
-                $this->db->bind(':name', $person->name);
-                $this->db->bind(':email', $person->email);
+                $this->db->bind(':name', trim($person->name));
+                $this->db->bind(':email', trim($person->email));
                 $this->db->bind(':active', $person->active);
                 if (!$this->db->execute()) return false; // If sql fails for some reason return false otherwise continue with loop.
             }

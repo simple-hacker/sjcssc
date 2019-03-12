@@ -75,4 +75,19 @@
             exit;
         }
 
+        public function getVenue() {
+            if ($_SERVER['REQUEST_METHOD'] === "POST") {
+                if (isset($_POST['club_id']) && isset($_POST['home_team_id'])) {
+                    $data['venue'] = $this->teamModel->getVenue($_POST['club_id'], $_POST['home_team_id']);
+                    $data['success'] = ($data['venue'] != "") ? true : false;
+                } else {
+                    $data['success'] = false;
+                }
+            } else {
+                $data['success'] = false;
+            }
+            echo json_encode($data);
+            exit;
+        }
+
     }

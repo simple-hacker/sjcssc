@@ -23,8 +23,8 @@ class Team {
                     $sql = "UPDATE `teams` SET `team`=:team, `location`=:location WHERE `id`=:id";
                     $this->db->query($sql);
                     $this->db->bind(':id', $team->id);
-                    $this->db->bind(':team', $team->team);
-                    $this->db->bind(':location', $team->location);
+                    $this->db->bind(':team', trim($team->team));
+                    $this->db->bind(':location', trim($team->location));
                     if (!$this->db->execute()) return false; // If sql fails for some reason return false otherwise continue with loop.
                 } else {
                     // ID given but blank team, so DELETE from database.
@@ -38,8 +38,8 @@ class Team {
                 $sql = "INSERT INTO `teams` (`club_id`, `team`, `location`) VALUES (:club_id, :team, :location)";
                 $this->db->query($sql);
                 $this->db->bind(':club_id', $club_id);
-                $this->db->bind(':team', $team->team);
-                $this->db->bind(':location', $team->location);
+                $this->db->bind(':team', trim($team->team));
+                $this->db->bind(':location', trim($team->location));
                 if (!$this->db->execute()) return false; // If sql fails for some reason return false otherwise continue with loop.
             }
         }
@@ -59,6 +59,19 @@ class Team {
             $this->db->query($sql);
             $this->db->bind(':team_id', $team_id);
             return $this->db->execute();
+        } else {
+            return false;
+        }
+    }
+
+    public function getVenue($club_id, $team_id) {
+        if (isset($club_id) && isset($team_id)) {
+            $sql = "SELECT CONCAT(team, \", \", location) as venue FROM teams WHERE club_id=:club_id AND id=:team_id";
+            $this->db->query($sql);
+            $this->db->bind(':club_id', $club_id);
+            $this->db->bind(':team_id', $team_id);
+            $venue = $this->db->result();
+            return trim($venue->venue, ", "); // Trim ", " if location is left blank.
         } else {
             return false;
         }

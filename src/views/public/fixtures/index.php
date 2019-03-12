@@ -138,9 +138,7 @@
                         <td><?php echo date("d/m/y", strtotime($fixture->date)); ?></td>
                         <td><?php echo $fixture->league; ?></td>
                         <td>
-                            <?php echo ($fixture->home_team_id === $data['club']->team_id) ? '<strong>' . $fixture->home_team . '</strong>' : $fixture->home_team; ?>
-                            <span> v </span>
-                            <?php echo ($fixture->away_team_id === $data['club']->team_id) ? '<strong>' . $fixture->away_team . '</strong>' : $fixture->away_team; ?>
+                            <?php echo $fixture->home_team . " v " . $fixture->away_team; ?>
                         </td>
                         <td><?php echo $fixture->venue; ?></td>
                         <td><a href="<?php echo URLROOT . $data['club']->club . '/fixtures/' . $fixture->id; ?>" class="btn btn-brown">View Fixture</a></td>

@@ -12,7 +12,7 @@
                 <?php
                     if (!empty($data['club']->emails)) {
                 ?>
-                        <div class="row mb-3">
+                        <div class="row align-items-center mb-3">
                             <div class="col-2">
                                 <i class="fa fa-envelope border"></i>
                             </div>
@@ -35,7 +35,7 @@
                 <?php
                     if (!empty($data['club']->addresses)) {
                 ?>
-                        <div class="row mb-3">
+                        <div class="row align-items-center mb-3">
                             <div class="col-2">
                                 <i class="fas fa-map-marker-alt border"></i>
                             </div>
@@ -58,7 +58,7 @@
                 <?php
                     if (!empty($data['club']->phone_numbers)) {
                 ?>
-                        <div class="row mb-3">
+                        <div class="row align-items-center mb-3">
                             <div class="col-2">
                                 <i class="fa fa-phone border"></i>
                             </div>

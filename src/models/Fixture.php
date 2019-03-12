@@ -22,30 +22,32 @@ class Fixture extends Controller {
         // Need to get table name.
         $table_name = 'fixtures_' . $this->getClubName($club_id);
 
-        $sql = "SELECT {$table_name}.*, home_teams.team AS home_team, away_teams.team AS away_team, leagues.league AS league, venues.venue AS venue, venues.location AS location FROM {$table_name}
+        $sql = "SELECT {$table_name}.*, home_teams.team AS home_team, away_teams.team AS away_team, leagues.league AS league FROM {$table_name}
                     LEFT JOIN leagues ON {$table_name}.league_id = leagues.id
                     LEFT JOIN teams AS home_teams ON {$table_name}.home_team_id = home_teams.id
                     LEFT JOIN teams AS away_teams ON {$table_name}.away_team_id = away_teams.id
-                    LEFT JOIN venues ON {$table_name}.venue_id = venues.id
                     WHERE {$table_name}.date >= DATE(NOW())
-                    ORDER BY {$table_name}.date DESC";
+                    ORDER BY {$table_name}.date ASC";
         if ($n > 0) {
             // To prevent negative numbers.  If n isn't provided then get unlimited fixtures, else only return n fixtures.
             $sql .= " LIMIT 0, {$n}";
         }
         $this->db->query($sql);
-        return $this->db->results();
+        $fixtures = $this->db->results();
+
+        // Edit fixtures before returning.
+
+        return $fixtures;
     }
 
     public function getFixture($club_id, $club_name, $fixture_id) {
         // Need to get table name.
         $table_name = 'fixtures_' . $club_name;
 
-        $sql = "SELECT {$table_name}.*, home_teams.team AS home_team, away_teams.team AS away_team, leagues.league AS league, venues.venue AS venue, venues.location AS location FROM {$table_name}
+        $sql = "SELECT {$table_name}.*, home_teams.team AS home_team, away_teams.team AS away_team, leagues.league AS league FROM {$table_name}
                     LEFT JOIN leagues ON {$table_name}.league_id = leagues.id
                     LEFT JOIN teams AS home_teams ON {$table_name}.home_team_id = home_teams.id
                     LEFT JOIN teams AS away_teams ON {$table_name}.away_team_id = away_teams.id
-                    LEFT JOIN venues ON {$table_name}.venue_id = venues.id
                     WHERE {$table_name}.id = :fixture_id";
         $this->db->query($sql);
         $this->db->bind(':fixture_id', $fixture_id);
@@ -61,6 +63,9 @@ class Fixture extends Controller {
                 $fixture->squad[$i] = implode(", ", $names_arr);
             }
         }
+
+        // Edit fixture before returning.
+
         return $fixture;
     }
 
@@ -94,21 +99,27 @@ class Fixture extends Controller {
 
     public function addFixture($club_id, $club_name, $fixture) {
         $table_name = 'fixtures_' . $club_name;
-        $sql = "INSERT INTO {$table_name} (home_team_id, away_team_id, league_id, date, time, venue_id, meet_at, contact, other_information) VALUES (:home_team_id, :away_team_id, :league_id, :date, :time, :venue_id, :meet_at, :contact, :other_information)";
+        $sql = "INSERT INTO {$table_name} (home_team_id, away_team_id, league_id, date, time, venue, meet_at, contact, other_information) VALUES (:home_team_id, :away_team_id, :league_id, :date, :time, :venue, :meet_at, :contact, :other_information)";
         $this->db->query($sql);
         $this->db->bind(':home_team_id', $fixture->home_team_id);
         $this->db->bind(':away_team_id', $fixture->away_team_id);
         $this->db->bind(':league_id', $fixture->league_id);
         $this->db->bind(':date', $fixture->date);
         $this->db->bind(':time', $fixture->time);
-        $this->db->bind(':venue_id', $fixture->venue_id);
-        $this->db->bind(':meet_at', $fixture->meet_at);
-        $this->db->bind(':contact', $fixture->contact);
-        $this->db->bind(':other_information', $fixture->other_information);
+        $this->db->bind(':venue', trim($fixture->venue, ", "));
+        $this->db->bind(':meet_at', trim($fixture->meet_at));
+        $this->db->bind(':contact', trim($fixture->contact));
+        $this->db->bind(':other_information', trim($fixture->other_information));
         $fixture_exec = $this->db->execute();
         $fixture_id = $this->db->lastInsertId();
 
-        return ($fixture_exec && $this->saveSquad($club_id, $fixture_id, $fixture->squad));
+        $sql = "INSERT IGNORE INTO venues (club_id, location) VALUES (:club_id, :location)";
+        $this->db->query($sql);
+        $this->db->bind(':club_id', $club_id);
+        $this->db->bind(':location', $fixture->venue);
+        $venue_exec = $this->db->execute();
+
+        return ($fixture_exec && $venue_exec && $this->saveSquad($club_id, $fixture_id, $fixture->squad));
     }
 
     public function saveSquad($club_id, $fixture_id, $squad) {
@@ -155,7 +166,7 @@ class Fixture extends Controller {
 
     public function updateFixture($club_id, $club_name, $fixture) {
         $table_name = 'fixtures_' . $club_name;
-        $sql = "UPDATE {$table_name} SET `home_team_id`=:home_team_id, `away_team_id`=:away_team_id, `league_id`=:league_id, `date`=:date, `time`=:time, `venue_id`=:venue_id, `meet_at`=:meet_at, `contact`=:contact, `other_information`=:other_information WHERE `id`=:id";
+        $sql = "UPDATE {$table_name} SET `home_team_id`=:home_team_id, `away_team_id`=:away_team_id, `league_id`=:league_id, `date`=:date, `time`=:time, `venue`=:venue, `meet_at`=:meet_at, `contact`=:contact, `other_information`=:other_information WHERE `id`=:id";
         $this->db->query($sql);
         $this->db->bind(':id', $fixture->id);
         $this->db->bind(':home_team_id', $fixture->home_team_id);
@@ -163,10 +174,10 @@ class Fixture extends Controller {
         $this->db->bind(':league_id', $fixture->league_id);
         $this->db->bind(':date', $fixture->date);
         $this->db->bind(':time', $fixture->time);
-        $this->db->bind(':venue_id', $fixture->venue_id);
-        $this->db->bind(':meet_at', $fixture->meet_at);
-        $this->db->bind(':contact', $fixture->contact);
-        $this->db->bind(':other_information', $fixture->other_information);
+        $this->db->bind(':venue', trim($fixture->venue, ", "));
+        $this->db->bind(':meet_at', trim($fixture->meet_at));
+        $this->db->bind(':contact', trim($fixture->contact));
+        $this->db->bind(':other_information', trim($fixture->other_information));
         $fixture_exec = $this->db->execute();
         // Update Squad too
         // Easiest way is to just delete the squad in db first, then use the same saveSquad function.
@@ -175,8 +186,15 @@ class Fixture extends Controller {
         $this->db->bind(':club_id', $club_id);
         $this->db->bind(':fixture_id', $fixture->id);
         if (!$this->db->execute()) return false;
+
+        $sql = "INSERT IGNORE INTO venues (club_id, location) VALUES (:club_id, :location)";
+        $this->db->query($sql);
+        $this->db->bind(':club_id', $club_id);
+        $this->db->bind(':location', $fixture->venue);
+        $venue_exec = $this->db->execute();
+
         // Save new squad.
-        return ($fixture_exec && $this->saveSquad($club_id, $fixture->id, $fixture->squad));
+        return ($fixture_exec && $venue_exec && $this->saveSquad($club_id, $fixture->id, $fixture->squad));
     }
 
     public function deleteFixture($club_id, $club_name, $fixture_id) {
@@ -198,15 +216,19 @@ class Fixture extends Controller {
 
     public function getPastFixtures($club_name) {
         $table_name = 'fixtures_' . $club_name;
-        $sql = "SELECT {$table_name}.*, home_teams.team AS home_team, away_teams.team AS away_team, leagues.league AS league, venues.venue AS venue, venues.location AS location FROM {$table_name}
+        $sql = "SELECT {$table_name}.*, home_teams.team AS home_team, away_teams.team AS away_team, leagues.league AS league FROM {$table_name}
                     LEFT JOIN leagues ON {$table_name}.league_id = leagues.id
                     LEFT JOIN teams AS home_teams ON {$table_name}.home_team_id = home_teams.id
                     LEFT JOIN teams AS away_teams ON {$table_name}.away_team_id = away_teams.id
-                    LEFT JOIN venues ON {$table_name}.venue_id = venues.id
+                    LEFT JOIN venues ON {$table_name}.venue = venues.id
                     WHERE {$table_name}.date <= DATE(NOW())
                     ORDER BY {$table_name}.date DESC";
         $this->db->query($sql);
-        return $this->db->results();
+        $fixtures = $this->db->results();
+
+        // Edit fixtures before returning.
+
+        return $fixtures;
     }
     
 }

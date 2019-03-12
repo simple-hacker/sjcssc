@@ -61,8 +61,8 @@ Class Club {
         $sql = "UPDATE `clubs` SET `name`=:name, `message`=:message, `team_id`=:team_id WHERE `id`=:id";
         $this->db->query($sql);
         $this->db->bind(':id', $data['club']->id);
-        $this->db->bind(':name', $data['club']->name);
-        $this->db->bind(':message', $data['club']->message);
+        $this->db->bind(':name', trim($data['club']->name));
+        $this->db->bind(':message', trim($data['club']->message));
         $this->db->bind(':team_id', $data['club']->team_id);
         $club = $this->db->execute();
 
@@ -99,8 +99,8 @@ Class Club {
                     $sql = "UPDATE `addresses` SET `address_title`=:address_title, `address`=:address WHERE `id`=:id";
                     $this->db->query($sql);
                     $this->db->bind(':id', $address->id);
-                    $this->db->bind(':address_title', $address->address_title);
-                    $this->db->bind(':address', $address->address);
+                    $this->db->bind(':address_title', trim($address->address_title));
+                    $this->db->bind(':address', trim($address->address));
                     if (!$this->db->execute()) return false; // If sql fails for some reason return false otherwise continue with loop.
                 } else {
                     // ID given but blank address_title and address, so DELETE from database.
@@ -114,8 +114,8 @@ Class Club {
                 $sql = "INSERT INTO `addresses` (`club_id`, `address_title`, `address`) VALUES (:club_id, :address_title, :address)";
                 $this->db->query($sql);
                 $this->db->bind(':club_id', $club_id);
-                $this->db->bind(':address_title', $address->address_title);
-                $this->db->bind(':address', $address->address);
+                $this->db->bind(':address_title', trim($address->address_title));
+                $this->db->bind(':address', trim($address->address));
                 if (!$this->db->execute()) return false; // If sql fails for some reason return false otherwise continue with loop.
             }
         }
@@ -130,8 +130,8 @@ Class Club {
                     $sql = "UPDATE `emails` SET `email_title`=:email_title, `email`=:email WHERE `id`=:id";
                     $this->db->query($sql);
                     $this->db->bind(':id', $email->id);
-                    $this->db->bind(':email_title', $email->email_title);
-                    $this->db->bind(':email', $email->email);
+                    $this->db->bind(':email_title', trim($email->email_title));
+                    $this->db->bind(':email', trim($email->email));
                     if (!$this->db->execute()) return false; // If sql fails for some reason return false otherwise continue with loop.
                 } else {
                     // ID given but blank email_title and email, so DELETE from database.
@@ -145,8 +145,8 @@ Class Club {
                 $sql = "INSERT INTO `emails` (`club_id`, `email_title`, `email`) VALUES (:club_id, :email_title, :email)";
                 $this->db->query($sql);
                 $this->db->bind(':club_id', $club_id);
-                $this->db->bind(':email_title', $email->email_title);
-                $this->db->bind(':email', $email->email);
+                $this->db->bind(':email_title', trim(trim(_title)));
+                $this->db->bind(':email', trim($email->email));
                 if (!$this->db->execute()) return false; // If sql fails for some reason return false otherwise continue with loop.
             }
         }
@@ -161,8 +161,8 @@ Class Club {
                     $sql = "UPDATE `phone_numbers` SET `phone_number_title`=:phone_number_title, `phone_number`=:phone_number WHERE `id`=:id";
                     $this->db->query($sql);
                     $this->db->bind(':id', $phone_number->id);
-                    $this->db->bind(':phone_number_title', $phone_number->phone_number_title);
-                    $this->db->bind(':phone_number', $phone_number->phone_number);
+                    $this->db->bind(':phone_number_title', trim($phone_number->phone_number_title));
+                    $this->db->bind(':phone_number', trim($phone_number->phone_number));
                     if (!$this->db->execute()) return false; // If sql fails for some reason return false otherwise continue with loop.
                 } else {
                     // ID given but blank phone_number_title and phone_number, so DELETE from database.
@@ -176,8 +176,8 @@ Class Club {
                 $sql = "INSERT INTO `phone_numbers` (`club_id`, `phone_number_title`, `phone_number`) VALUES (:club_id, :phone_number_title, :phone_number)";
                 $this->db->query($sql);
                 $this->db->bind(':club_id', $club_id);
-                $this->db->bind(':phone_number_title', $phone_number->phone_number_title);
-                $this->db->bind(':phone_number', $phone_number->phone_number);
+                $this->db->bind(':phone_number_title', trim($phone_number->phone_number_title));
+                $this->db->bind(':phone_number', trim($phone_number->phone_number));
                 if (!$this->db->execute()) return false; // If sql fails for some reason return false otherwise continue with loop.
             }
         }
@@ -192,8 +192,8 @@ Class Club {
                     $sql = "UPDATE `menu_links` SET `menu_link_title`=:menu_link_title, `menu_link`=:menu_link WHERE `id`=:id";
                     $this->db->query($sql);
                     $this->db->bind(':id', $menu_link->id);
-                    $this->db->bind(':menu_link_title', $menu_link->menu_link_title);
-                    $this->db->bind(':menu_link', $menu_link->menu_link);
+                    $this->db->bind(':menu_link_title', trim($menu_link->menu_link_title));
+                    $this->db->bind(':menu_link', trim($menu_link->menu_link));
                     if (!$this->db->execute()) return false; // If sql fails for some reason return false otherwise continue with loop.
                 } else {
                     // ID given but blank menu_link_title and menu_link, so DELETE from database.
@@ -207,8 +207,8 @@ Class Club {
                 $sql = "INSERT INTO `menu_links` (`club_id`, `menu_link_title`, `menu_link`) VALUES (:club_id, :menu_link_title, :menu_link)";
                 $this->db->query($sql);
                 $this->db->bind(':club_id', $club_id);
-                $this->db->bind(':menu_link_title', $menu_link->menu_link_title);
-                $this->db->bind(':menu_link', $menu_link->menu_link);
+                $this->db->bind(':menu_link_title', trim($menu_link->menu_link_title));
+                $this->db->bind(':menu_link', trim($menu_link->menu_link));
                 if (!$this->db->execute()) return false; // If sql fails for some reason return false otherwise continue with loop.
             }
         }

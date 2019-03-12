@@ -11,7 +11,7 @@
             $this->fixtureModel = $this->model('Fixture');
             $this->teamModel = $this->model('Team');
             $this->leagueModel = $this->model('League');
-            $this->venueModel = $this->model('Venue');
+            // $this->venueModel = $this->model('Venue');
 
             $this->admin = $admin;
             $this->club_id = $club_id;
@@ -79,7 +79,7 @@
                         'league_id' => isset($_POST['league_id']) ? $_POST['league_id'] : '',
                         'date' => isset($_POST['date']) ? $_POST['date'] : '',
                         'time' => isset($_POST['time']) ? $_POST['time'] : '',
-                        'venue_id' => isset($_POST['venue_id']) ? $_POST['venue_id'] : '',
+                        'venue' => isset($_POST['venue']) ? $_POST['venue'] : '',
                         'meet_at' => isset($_POST['meet_at']) ? $_POST['meet_at'] : '',
                         'contact' => isset($_POST['contact']) ? $_POST['contact'] : '',
                         'substitutes' => $squad[0],
@@ -91,7 +91,7 @@
                         'club' => $this->clubModel->getClubByID($this->club_id),
                         'teams' => $this->teamModel->getTeams($this->club_id),
                         'leagues' => $this->leagueModel->getLeagues($this->club_id),
-                        'venues' => $this->venueModel->getVenues($this->club_id),
+                        // 'venues' => $this->venueModel->getVenues($this->club_id),
                         'fixtures' => $this->fixtureModel->getFixtures($this->club_id),
                         'fixture' => (object) $fixture_arr,
                         'home_team_id_err' => isset($home_team_id_err) ? $home_team_id_err : '',
@@ -118,7 +118,7 @@
                         'club' => $this->clubModel->getClubByID($this->club_id),
                         'teams' => $this->teamModel->getTeams($this->club_id),
                         'leagues' => $this->leagueModel->getLeagues($this->club_id),
-                        'venues' => $this->venueModel->getVenues($this->club_id),
+                        // 'venues' => $this->venueModel->getVenues($this->club_id),
                         'fixtures' => $this->fixtureModel->getFixtures($this->club_id),
                     ];
                 }
@@ -181,7 +181,7 @@
                             'league_id' => isset($_POST['league_id']) ? $_POST['league_id'] : '',
                             'date' => isset($_POST['date']) ? $_POST['date'] : '',
                             'time' => isset($_POST['time']) ? $_POST['time'] : '',
-                            'venue_id' => isset($_POST['venue_id']) ? $_POST['venue_id'] : '',
+                            'venue' => isset($_POST['venue']) ? $_POST['venue'] : '',
                             'meet_at' => isset($_POST['meet_at']) ? $_POST['meet_at'] : '',
                             'contact' => isset($_POST['contact']) ? $_POST['contact'] : '',
                             'substitutes' => $squad[0],
@@ -193,7 +193,7 @@
                             'club' => $this->clubModel->getClubByID($this->club_id),
                             'teams' => $this->teamModel->getTeams($this->club_id),
                             'leagues' => $this->leagueModel->getLeagues($this->club_id),
-                            'venues' => $this->venueModel->getVenues($this->club_id),
+                            // 'venues' => $this->venueModel->getVenues($this->club_id),
                             'fixtures' => $this->fixtureModel->getFixtures($this->club_id),  // Send club_name instead of club_id because tables are fixtures_bowls etc
                             'fixture' => (object) $fixture_arr,
                             'home_team_id_err' => isset($home_team_id_err) ? $home_team_id_err : '',
@@ -221,7 +221,7 @@
                             'fixtures' => $this->fixtureModel->getFixtures($this->club_id),
                             'teams' => $this->teamModel->getTeams($this->club_id),
                             'leagues' => $this->leagueModel->getLeagues($this->club_id),
-                            'venues' => $this->venueModel->getVenues($this->club_id),
+                            // 'venues' => $this->venueModel->getVenues($this->club_id),
                         ];
                     }
                 } else {

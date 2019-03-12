@@ -14,11 +14,10 @@ class Result extends Controller {
     public function getResult($club_id, $result_id) {
         $club_name = $this->clubModel->getClubName($club_id);
         $table_name = 'fixtures_' . $club_name;
-        $sql = "SELECT {$table_name}.*, home_teams.team AS home_team, away_teams.team AS away_team, leagues.league AS league, venues.venue AS venue, venues.location AS location FROM {$table_name}
+        $sql = "SELECT {$table_name}.*, home_teams.team AS home_team, away_teams.team AS away_team, leagues.league AS league FROM {$table_name}
                     LEFT JOIN leagues ON {$table_name}.league_id = leagues.id
                     LEFT JOIN teams AS home_teams ON {$table_name}.home_team_id = home_teams.id
                     LEFT JOIN teams AS away_teams ON {$table_name}.away_team_id = away_teams.id
-                    LEFT JOIN venues ON {$table_name}.venue_id = venues.id
                     WHERE {$table_name}.`id`=:id";
         $this->db->query($sql);
         $this->db->bind(':id', $result_id);
@@ -31,17 +30,19 @@ class Result extends Controller {
                 unset($result->squad[0]); // Remove 0 index which are substitutes.
             }
         }
+
+        // Edit result before returning.
+        
         return $result;
     }
 
     public function getResults($club_id, $n = 0) {
         $club_name = $this->clubModel->getClubName($club_id);
         $table_name = 'fixtures_' . $club_name;
-        $sql = "SELECT {$table_name}.*, home_teams.team AS home_team, away_teams.team AS away_team, leagues.league AS league, venues.venue AS venue, venues.location AS location FROM {$table_name}
+        $sql = "SELECT {$table_name}.*, home_teams.team AS home_team, away_teams.team AS away_team, leagues.league AS league FROM {$table_name}
                     LEFT JOIN leagues ON {$table_name}.league_id = leagues.id
                     LEFT JOIN teams AS home_teams ON {$table_name}.home_team_id = home_teams.id
                     LEFT JOIN teams AS away_teams ON {$table_name}.away_team_id = away_teams.id
-                    LEFT JOIN venues ON {$table_name}.venue_id = venues.id
                     WHERE {$table_name}.date <= DATE(NOW())
                     AND `publish_results` = true
                     ORDER BY {$table_name}.date DESC";
@@ -50,7 +51,11 @@ class Result extends Controller {
             $sql .= " LIMIT 0, {$n}";
         }
         $this->db->query($sql);
-        return $this->db->results();
+        $results = $this->db->results();
+
+        // Edit results before returning.
+
+        return $results;
     }
 
     public function updateResult($club_name, $result) {
@@ -75,15 +80,18 @@ class Result extends Controller {
 
     public function getUnpublishedResults($club_name) {
         $table_name = 'fixtures_' . $club_name;
-        $sql = "SELECT {$table_name}.*, home_teams.team AS home_team, away_teams.team AS away_team, leagues.league AS league, venues.venue AS venue, venues.location AS location FROM {$table_name}
+        $sql = "SELECT {$table_name}.*, home_teams.team AS home_team, away_teams.team AS away_team, leagues.league AS league FROM {$table_name}
                     LEFT JOIN leagues ON {$table_name}.league_id = leagues.id
                     LEFT JOIN teams AS home_teams ON {$table_name}.home_team_id = home_teams.id
                     LEFT JOIN teams AS away_teams ON {$table_name}.away_team_id = away_teams.id
-                    LEFT JOIN venues ON {$table_name}.venue_id = venues.id
                     WHERE {$table_name}.date <= DATE(NOW())
                     AND `publish_results` = false
-                    ORDER BY {$table_name}.date DESC";
+                    ORDER BY {$table_name}.date ASC";
         $this->db->query($sql);
-        return $this->db->results();
+        $results = $this->db->results();
+
+        // Edit results before returning.
+
+        return $results;
     }
 }

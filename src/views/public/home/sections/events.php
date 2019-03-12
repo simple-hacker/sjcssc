@@ -21,11 +21,11 @@
                                 <div class="col-10"><?php echo date("H:i", strtotime($event->time)); ?></div>
                             </div>
                     <?php
-                            if (!empty($event->venue)) {
+                            if (!empty($event->location)) {
                     ?>
                             <div class="row align-items-center mt-1">
                                 <div class="col-2"><i class="fa fa-map-marker-alt border"></i></div>
-                                <div class="col-10"><?php echo $event->venue; ?></div>
+                                <div class="col-10"><?php echo $event->location; ?></div>
                             </div>
                     <?php
                             }

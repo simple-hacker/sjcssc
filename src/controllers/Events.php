@@ -55,7 +55,7 @@
                         $data = [
                             'club' => $this->clubModel->getClubByID($this->club_id),
                             'events' => $this->eventModel->getEvents($this->club_id),
-                            'event' => (object) ['title' => trim($_POST['title']), 'date' => $_POST['date'], 'time' => $_POST['time'], 'location_id' => NULL, 'meet_at' => trim($_POST['meet_at']), 'contact' => trim($_POST['contact']), 'other_information' => trim($_POST['other_information'])],
+                            'event' => (object) ['title' => trim($_POST['title']), 'date' => $_POST['date'], 'time' => $_POST['time'], 'location' => $_POST['location'], 'meet_at' => trim($_POST['meet_at']), 'contact' => trim($_POST['contact']), 'other_information' => trim($_POST['other_information'])],
                             'title_err' => isset($title_err) ? $title_err : '',
                             'date_err' => isset($date_err) ? $date_err : '',
                             'time_err' => isset($time_err) ? $time_err : '',
@@ -118,7 +118,7 @@
                         $data = [
                             'club' => $this->clubModel->getClubByID($this->club_id),
                             'events' => $this->eventModel->getEvents($this->club_id),
-                            'event' => (object) ['event_id' => $_POST['event_id'], 'title' => trim($_POST['title']), 'date' => $_POST['date'], 'time' => $_POST['time'], 'location_id' => NULL, 'meet_at' => trim($_POST['meet_at']), 'contact' => trim($_POST['contact']), 'other_information' => trim($_POST['other_information'])],
+                            'event' => (object) ['event_id' => $_POST['event_id'], 'title' => trim($_POST['title']), 'date' => $_POST['date'], 'time' => $_POST['time'], 'location' => $_POST['location'], 'meet_at' => trim($_POST['meet_at']), 'contact' => trim($_POST['contact']), 'other_information' => trim($_POST['other_information'])],
                             'title_err' => isset($title_err) ? $title_err : '',
                             'date_err' => isset($date_err) ? $date_err : '',
                             'time_err' => isset($time_err) ? $time_err : '',

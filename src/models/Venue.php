@@ -9,7 +9,7 @@ class Venue {
     }
 
     public function getVenues($club_id) {
-        $sql = "SELECT * FROM `venues` WHERE `club_id`=:club_id AND `isDeleted`=0 ORDER BY `venue` ASC";
+        $sql = "SELECT * FROM `venues` WHERE `club_id`=:club_id AND `isDeleted`=0 ORDER BY `location` ASC";
         $this->db->query($sql);
         $this->db->bind(':club_id', $club_id);
         return $this->db->results();
@@ -23,8 +23,8 @@ class Venue {
                     $sql = "UPDATE `venues` SET `venue`=:venue, `location`=:location WHERE `id`=:id";
                     $this->db->query($sql);
                     $this->db->bind(':id', $venue->id);
-                    $this->db->bind(':venue', $venue->venue);
-                    $this->db->bind(':location', $venue->location);
+                    $this->db->bind(':venue', trim($venue->venue));
+                    $this->db->bind(':location', trim($venue->location));
                     if (!$this->db->execute()) return false; // If sql fails for some reason return false otherwise continue with loop.
                 } else {
                     // ID given but blank venue, so DELETE from database.
@@ -38,8 +38,8 @@ class Venue {
                 $sql = "INSERT INTO `venues` (`club_id`, `venue`, `location`) VALUES (:club_id, :venue, :location)";
                 $this->db->query($sql);
                 $this->db->bind(':club_id', $club_id);
-                $this->db->bind(':venue', $venue->venue);
-                $this->db->bind(':location', $venue->location);
+                $this->db->bind(':venue', trim($venue->venue));
+                $this->db->bind(':location', trim($venue->location));
                 if (!$this->db->execute()) return false; // If sql fails for some reason return false otherwise continue with loop.
             }
         }
