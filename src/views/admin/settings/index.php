@@ -123,6 +123,13 @@
 ?>
     </div>
 
+    <div class="wrap">
+        <h3>Website Images</h3>
+        <div class="form-group row">
+            <div class="col-12"><a href="<?php echo ADMIN_URLROOT . $data['club']->club . '/settings/images'; ?>" class="btn btn-block btn-brown-secondary">View and change website images</a></div>
+        </div>  
+    </div>
+
 <?php
     // Only show team name if the club has a results or outings section.  i.e. All but social should show this.
     if (!empty(array_intersect(['results', 'outings'], CLUBS[$data['club']->club]['sections']))) {

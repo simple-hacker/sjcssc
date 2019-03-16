@@ -85,3 +85,46 @@ function toggleActive(club_id, person_id) {
         }
     }, "json");
 }
+
+function changeSeason(club_id, season) {
+    $.ajax({
+        url: "ajax/changeSeasonAdmin",
+        type: "POST",
+        data: { 'changeSeason' : 1, 'club_id' : club_id, 'season' : season},
+        dataType: "json",
+        success: function(data) {
+            if (data.success == true) {
+                // console.log(data);
+                $("#title").html(data.title);
+                $("#results").hide().html(data.html).fadeIn();
+            } else {
+                console.log("Something went wrong.  Please try again.");
+            }
+        },
+        error: function (data) {
+            // console.log(data);
+            console.log("Error with ajax.");
+        }
+    }, "json");
+}
+
+function changeYear(club_id, season) {
+    $.ajax({
+        url: "ajax/changeYearAdmin",
+        type: "POST",
+        data: { 'changeYear' : 1, 'club_id' : club_id, 'season' : season},
+        dataType: "json",
+        success: function(data) {
+            if (data.success == true) {
+                $("#title").html(data.title);
+                $("#reports").hide().html(data.html).fadeIn();
+            } else {
+                console.log("Something went wrong.  Please try again.");
+            }
+        },
+        error: function (data) {
+            // console.log(data);
+            console.log("Error with ajax.");
+        }
+    }, "json");
+}

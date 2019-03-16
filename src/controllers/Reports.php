@@ -32,7 +32,7 @@
             } else {
                 $data = [
                     'club' => $this->clubModel->getClubByID($this->club_id),
-                    'reports' => $this->outingModel->getPastOutings(),
+                    'reports' => ($this->admin === true) ? $this->reportModel->getReports($this->club_id, 0, true) : $this->reportModel->getReports($this->club_id, 0),
                 ];
             }
 

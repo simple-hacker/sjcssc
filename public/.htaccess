@@ -11,6 +11,7 @@
     ### Admin Regex - Need to run Admin first because "admin" matches ([a-zA-Z]+) in public regex
 
     ### TODO: remove .html from 404.html
+    RewriteRule ^ajax/([a-zA-Z]+)/?$ index.php?controller=ajax&page=$1 [L,QSA]
 
     # Special Rules because these pages have no club, so controllers->club, page->controllers etc.
     RewriteRule ^admin/?$ index.php?admin=true&controller=user&page=login [L,QSA]
@@ -19,7 +20,6 @@
     RewriteRule ^admin/(user|users|ajax)/?$ index.php?admin=true&controller=$1 [L,QSA]
     RewriteRule ^admin/(user|users|ajax)/([a-zA-Z]+)/?$ index.php?admin=true&controller=$1&page=$2 [L,QSA]
     RewriteRule ^admin/(user|users|ajax)/([a-zA-Z]+)/([0-9]+)/?$ index.php?admin=true&controller=$1&page=$2&id=$3 [L,QSA]
-
 
     # This will be given club and default page i.e. social/index or bowls/index
     RewriteRule ^admin/([a-zA-Z]+)/?$ index.php?admin=true&club=$1 [L,QSA]
@@ -32,7 +32,6 @@
     
 
     ### Public Regex
-
     # This will be given club and default page i.e. social/index or bowls/index
     RewriteRule ^([a-zA-Z]+)/?$ index.php?club=$1 [L,QSA]
     # This will be given club and given page

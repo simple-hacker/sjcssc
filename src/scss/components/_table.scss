@@ -1,11 +1,11 @@
 tr {
     &.win {
-        background-color: $win;
+        background-color: $win !important;
     }
     &.draw {
-        background-color: $draw;
+        background-color: $draw !important;
     }
     &.lose {
-        background-color: $lose;
+        background-color: $lose !important;
     }
 }

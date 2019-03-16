@@ -6,6 +6,16 @@ section {
         width: 100%;
     }
 }
+#filter-buttons{
+    display: block;
+    text-align: center;
+    width: 100%;
+}
+
+#results, #reports {
+    display: block;
+    width: 100%;
+} 
 
 .empty-section {
     display: flex;

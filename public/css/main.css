@@ -242,15 +242,15 @@ fieldset[disabled] .btn-brown-secondary.active {
 }
 
 tr.win {
-  background-color: #ccffcc;
+  background-color: #ccffcc !important;
 }
 
 tr.draw {
-  background-color: #ffffe6;
+  background-color: #ffffe6 !important;
 }
 
 tr.lose {
-  background-color: #ffe6e6;
+  background-color: #ffe6e6 !important;
 }
 
 .jumbotron.win {
@@ -486,6 +486,17 @@ section {
 }
 
 section .card {
+  width: 100%;
+}
+
+#filter-buttons {
+  display: block;
+  text-align: center;
+  width: 100%;
+}
+
+#results, #reports {
+  display: block;
   width: 100%;
 }
 

@@ -6,7 +6,8 @@
     }
 ?>
 <?php 
-    $bg_url = URLROOT . 'img/parallax/' . $data['club']->club . '/2.jpg';
+    $bg = 'img/parallax/' . $data['club']->club . '/' . strtolower(basename(dirname(__FILE__))) . '.jpg';
+    $bg_url = (file_exists(PUBLIC_ROOT . $bg)) ? URLROOT . $bg : 'img/parallax/' . $data['club']->club . '/main.jpg';
 ?>
     <div class="parallax">
         <div class="parallax-background" style="background-image: url(<?php echo $bg_url; ?>)"></div>
@@ -31,14 +32,14 @@
                         <?php
                             // Determine if win/draw/lose.
                             if ($data['result']->home_team_score === $data['result']->away_team_score) {
-                                $bg_color = "draw";
+                                $bg_colour = "draw";
                             } elseif ($data['result']->home_team_id === $data['club']->team_id) {
-                                $bg_color = ($data['result']->home_team_score > $data['result']->away_team_score) ? "win" : "lose";
+                                $bg_colour = ($data['result']->home_team_score > $data['result']->away_team_score) ? "win" : "lose";
                             } elseif ($data['result']->away_team_id === $data['club']->team_id) {
-                                $bg_color = ($data['result']->away_team_score > $data['result']->home_team_score) ? "win" : "lose";
+                                $bg_colour = ($data['result']->away_team_score > $data['result']->home_team_score) ? "win" : "lose";
                             }
                         ?>
-                            <div class="jumbotron text-center <?php echo isset($bg_color) ? $bg_color : ''; ?>">
+                            <div class="jumbotron text-center <?php echo isset($bg_colour) ? $bg_colour : ''; ?>">
                                 <h1 class="display-4"><?php echo scoreline($data['club']->club, $data['result'], $data['club']->team_id); ?></h1>
                             </div>
                             <div class="row align-items-center mt-1">
@@ -129,53 +130,102 @@
                     </div>
                 </div>
 <?php
-            } elseif (!empty($data['results'])) {
+            } else {
 ?>
-            <div class="table-responsive">
-                <table class="table table-sm table-bordered text-center">
-                    <thead>
-                        <th>Date</th>
-                        <th class="d-none d-md-table-cell">League</th>
-                        <th>Home Team</th>
-                        <th>Score</th>
-                        <th>Away Team</th>
-                        <th>View Fixture</th>
-                    </thead>
-                    <tbody>
+                <!-- Button group -->
+                <div id="filter-buttons" class="mb-3">
+                    <div class="btn-group" role="group" aria-label="Change Season">
 <?php
-                foreach ($data['results'] as $result) {
+                        if (CLUBS[$data['club']->club]['season']) {
+                            $season_data = CLUBS[$data['club']->club]['season'];
+                            $max_year = date("Y");
+                            $create_date = new DateTime($season_data['start_date'] . " " . $max_year);
+                            $date = date_format($create_date, "Y-m-d H:i:s");
+                            $now = date("Y-m-d H:i:s");
+                            if ($date > $now) {
+                                $max_year--;
+                            }
 
-                    // Determine if win/draw/lose.
-                    if ($result->home_team_score === $result->away_team_score) {
-                        $bg_color = "draw";
-                    } elseif ($result->home_team_id === $data['club']->team_id) {
-                        $bg_color = ($result->home_team_score > $result->away_team_score) ? "win" : "lose";
-                    } elseif ($result->away_team_id === $data['club']->team_id) {
-                        $bg_color = ($result->away_team_score > $result->home_team_score) ? "win" : "lose";
-                    }
+                            for ($year = $season_data['start_year']; $year <= $max_year; $year++) {
+                                if ($season_data['span_years'] == true) {
+                                    $next_year = $year + 1;
+                                    echo "<button type=\"button\" class=\"btn btn-lg btn-light\" onClick=\"changeSeason({$data['club']->id},{$year})\">{$season_data['title']} {$year} / {$next_year}</button>";
+                                } else {
+                                    echo "<button type=\"button\" class=\"btn btn-lg btn-light\" onClick=\"changeSeason({$data['club']->id},{$year})\">{$season_data['title']} {$year}</button>";
+                                }
+                            }
+                        } else {
+                            die('<strong>Fatal Error:</strong> Club\'s season configuration is not set.');
+                        }
 ?>
-                    <tr class="<?php echo isset($bg_color) ? $bg_color : ''; ?>">
-                        <td><?php echo date("d/m/y", strtotime($result->date)); ?></td>
-                        <td class="d-none d-md-table-cell"><?php echo $result->league; ?></td>
-                        <td><?php echo ($result->home_team_score > $result->away_team_score) ? '<strong>' . $result->home_team . '</strong>' : $result->home_team; ?></td>
-                            <td><?php echo scoreline($data['club']->club, $result, $data['club']->team_id) ?></td> <!-- Scoreline function is in helpers folder. -->
-                            <td><?php echo ($result->away_team_score > $result->home_team_score) ? '<strong>' . $result->away_team . '</strong>' : $result->away_team; ?></td>
-                        <td><a href="<?php echo URLROOT . $data['club']->club . '/results/' . $result->id; ?>" class="btn btn-brown">View Fixture</a></td>
-                    </tr>
+                    </div>
+                </div>
+
+                <div id="results">
 <?php
+                if (!empty($data['results'])) {
+?>
+                <!-- Table -->
+                    <div class="table-responsive">
+                        <table class="table table-sm table-bordered text-center">
+                            <thead>
+                                <th>Date</th>
+                                <th class="d-none d-md-table-cell">League</th>
+                                <th>Home Team</th>
+                                <th>Score</th>
+                                <th>Away Team</th>
+                                <th>View Fixture</th>
+                            </thead>
+                            <tbody>
+<?php
+                            foreach ($data['results'] as $result) {
+                                // Determine if win/draw/lose.
+                                if ($result->home_team_score === $result->away_team_score) {
+                                    $bg_colour = "draw";
+                                } elseif ($result->home_team_id === $data['club']->team_id) {
+                                    $bg_colour = ($result->home_team_score > $result->away_team_score) ? "win" : "lose";
+                                } elseif ($result->away_team_id === $data['club']->team_id) {
+                                    $bg_colour = ($result->away_team_score > $result->home_team_score) ? "win" : "lose";
+                                }
+?>
+                                <tr class="<?php echo isset($bg_colour) ? $bg_colour : ''; ?>">
+                                    <td><?php echo date("d M Y", strtotime($result->date)); ?></td>
+                                    <td class="d-none d-md-table-cell"><?php echo $result->league; ?></td>
+                                    <td><?php echo ($result->home_team_score > $result->away_team_score) ? '<strong>' . $result->home_team . '</strong>' : $result->home_team; ?></td>
+                                    <td><?php echo scoreline($data['club']->club, $result, $data['club']->team_id); ?></td> <!-- Scoreline function is in helpers folder. -->
+                                    <td><?php echo ($result->away_team_score > $result->home_team_score) ? '<strong>' . $result->away_team . '</strong>' : $result->away_team; ?></td>
+                                    <td><a href="<?php echo URLROOT . $data['club']->club . '/results/' . $result->id; ?>" class="btn btn-brown">View Fixture</a></td>
+                                </tr>
+<?php
+                            }
+?>
+                            </tbody>
+                        </table>
+                    </div>
+<?php
+                } else {
+                    if (CLUBS[$data['club']->club]['season']) {
+                        $season_data = CLUBS[$data['club']->club]['season'];
+                        $year = date("Y");
+                        $create_date = new DateTime($season_data['start_date'] . " " . $year);
+                        $date = date_format($create_date, "Y-m-d H:i:s");
+                        $now = date("Y-m-d H:i:s");
+                        if ($date > $now) {
+                            $year--;
+                        }
+?>
+                        <div class="empty-section">
+                            <p>There aren't any results to show for the <?php echo strtolower($season_data['title']) . " " . $year; if ($season_data['span_years'] == true) echo " / " . ($year+1); ?>.</p>
+                        </div>
+<?php
+                    } else {
+                        die('<strong>Fatal Error:</strong> Club\'s season configuration is not set.');
+                    }
                 }
 ?>
-                    </tbody>
-                </table>
-            </div>
-<?php
-        } else {
-?>
-                <div class="empty-section">
-                    <p>Unfortunately there aren't any results to show.</p>
                 </div>
 <?php
-             }
+            }
 ?>
             </div>
         </div>

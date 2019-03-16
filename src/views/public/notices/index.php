@@ -7,7 +7,8 @@
 ?>
 
 <?php 
-    $bg_url = URLROOT . 'img/parallax/' . $data['club']->club . '/2.jpg';
+    $bg = 'img/parallax/' . $data['club']->club . '/' . strtolower(basename(dirname(__FILE__))) . '.jpg';
+    $bg_url = (file_exists(PUBLIC_ROOT . $bg)) ? URLROOT . $bg : 'img/parallax/' . $data['club']->club . '/main.jpg';
 ?>
     <div class="parallax">
         <div class="parallax-background" style="background-image: url(<?php echo $bg_url; ?>)"></div>
@@ -38,7 +39,7 @@
             } else {
 ?>
                 <div class="empty-section">
-                    <p>Unfortunately there isn't any latest news.</p>
+                    <p>There isn't any news to show.</p>
                 </div>
 <?php
             }

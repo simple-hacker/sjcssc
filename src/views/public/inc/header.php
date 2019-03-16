@@ -7,7 +7,7 @@
     <title><?php echo $data['club']->name; ?></title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.2/css/all.css" integrity="sha384-/rXc/GQVaYpyDdyxK+ecHPVYJSN9bmVFBvjA/9eOB+pb3F2w2N6fc5qB9Ew5yIns" crossorigin="anonymous">
-    <link rel="stylesheet" href="<?php echo URLROOT; ?>/css/main.css">
+    <link rel="stylesheet" href="<?php echo URLROOT; ?>css/main.css">
     <!-- Favicons -->
     <link rel="apple-touch-icon" sizes="57x57" href="<?php echo URLROOT; ?>img/favicons/apple-icon-57x57.png">
     <link rel="apple-touch-icon" sizes="60x60" href="<?php echo URLROOT; ?>img/favicons/apple-icon-60x60.png">

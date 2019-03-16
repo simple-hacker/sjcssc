@@ -189,6 +189,12 @@
         }
 
         public function permissionCheckRedirect($club_id) {
+
+            // This is not a nice way.  This was so we can use Ajax calls in the admin area.
+            // Re: App.php Line 163
+            // $controller = new $controller($admin, -1);
+            if ($club_id === -1) return true;
+            
             // Perform log in check first.
             $this->loggedInCheckRedirect();
     

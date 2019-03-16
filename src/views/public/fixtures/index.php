@@ -7,7 +7,8 @@
 ?>
 
 <?php 
-    $bg_url = URLROOT . 'img/parallax/' . $data['club']->club . '/2.jpg';
+    $bg = 'img/parallax/' . $data['club']->club . '/' . strtolower(basename(dirname(__FILE__))) . '.jpg';
+    $bg_url = (file_exists(PUBLIC_ROOT . $bg)) ? URLROOT . $bg : 'img/parallax/' . $data['club']->club . '/main.jpg';
 ?>
     <div class="parallax">
         <div class="parallax-background" style="background-image: url(<?php echo $bg_url; ?>)"></div>
@@ -135,7 +136,7 @@
                 foreach ($data['fixtures'] as $fixture) {
 ?>
                     <tr>
-                        <td><?php echo date("d/m/y", strtotime($fixture->date)); ?></td>
+                        <td><?php echo date("D d M", strtotime($fixture->date)); ?></td>
                         <td><?php echo $fixture->league; ?></td>
                         <td>
                             <?php echo $fixture->home_team . " v " . $fixture->away_team; ?>
@@ -153,7 +154,7 @@
             } else {
 ?>     
                 <div class="empty-section">
-                    <p>Unfortunately there aren't any fixtures to show.</p>
+                    <p>There aren't any fixtures to show.</p>
                 </div>
 <?php
              }

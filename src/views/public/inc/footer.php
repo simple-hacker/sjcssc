@@ -91,6 +91,7 @@
             </div>
         </div>
     </footer>
-</div> <!-- wrapper -->
+    </div> <!-- wrapper -->
+    <script src="<?php echo URLROOT; ?>js/main.js"></script>
 </body>
 </html>

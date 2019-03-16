@@ -36,14 +36,38 @@ class Result extends Controller {
         return $result;
     }
 
-    public function getResults($club_id, $n = 0, $all_results = false) {
+    public function getResults($club_id, $n = 0, $all_results = false, $season = 0, $leagues = array()) {
         $club_name = $this->clubModel->getClubName($club_id);
         $table_name = 'fixtures_' . $club_name;
+        $dates = array();
+
+        if (isset(CLUBS[$club_name]['season'])) {
+            $season_data = CLUBS[$club_name]['season'];
+            $current_year = date("Y");
+            if ($season == 0 || $season == $current_year) {
+                $create_date = new DateTime($season_data['start_date'] . " " . $current_year);
+                $date = date_format($create_date, "Y-m-d H:i:s");
+                $now = date("Y-m-d H:i:s");
+                if ($date < $now) {
+                    $dates = [$date, date("Y-m-d H:i:s", strtotime($date . " +1 year -1 second"))];
+                } else {
+                    $dates = [date("Y-m-d H:i:s", strtotime($date . " -1 year")), date("Y-m-d H:i:s", strtotime($date . " -1 second"))];
+                }
+            } else {
+                $season = ($season < $season_data['start_year']) ? $season_data['start_year'] : (int) $season;
+                $create_date = new DateTime($season_data['start_date'] . " " . $season);
+                $date = date_format($create_date, "Y-m-d H:i:s");
+                $dates = [$date, date("Y-m-d H:i:s", strtotime($date . " +1 year -1 second"))];
+            }
+        } else {
+            die('<strong>Fatal Error:</strong> Club\'s season configuration is not set.');
+        }
+
         $sql = "SELECT {$table_name}.*, home_teams.team AS home_team, away_teams.team AS away_team, leagues.league AS league FROM {$table_name}
                     LEFT JOIN leagues ON {$table_name}.league_id = leagues.id
                     LEFT JOIN teams AS home_teams ON {$table_name}.home_team_id = home_teams.id
                     LEFT JOIN teams AS away_teams ON {$table_name}.away_team_id = away_teams.id
-                    WHERE {$table_name}.date <= DATE(NOW())";
+                    WHERE {$table_name}.date >= :date_from AND {$table_name}.date <= :date_to AND {$table_name}.date <= NOW()";
         if ($all_results == false) {
             $sql .= " AND publish_results = true";
         }
@@ -52,7 +76,10 @@ class Result extends Controller {
             // To prevent negative numbers.  If n isn't provided then get unlimited events, else only return n events.
             $sql .= " LIMIT 0, {$n}";
         }
+
         $this->db->query($sql);
+        $this->db->bind(':date_from', $dates[0]);
+        $this->db->bind(':date_to', $dates[1]);
         $results = $this->db->results();
 
         // Edit results before returning.

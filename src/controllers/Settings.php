@@ -370,4 +370,31 @@
             }           
             $this->view('settings/people', $data);
         }
+
+        public function images() {
+            
+            if ($_SERVER['REQUEST_METHOD'] === "POST") {
+
+                if (isset($_FILES)) {
+                    // print_var($_FILES);
+                    foreach ($_FILES as $section => $image) {
+                        if ($image['error'] == 4) continue; // Error 4 is no image uploaded, so continue to next one.
+                        image_upload($this->club_name, $section, $image);
+                    }
+                    // die();
+                } else {
+                    create_flash_message('images', 'No files were selected to be uploaded.', 'warning');
+                }
+
+                $data = [
+                    'club' => $this->clubModel->getClubByID($this->club_id),
+                ];
+            } else {
+                $data = [
+                    'club' => $this->clubModel->getClubByID($this->club_id),
+                ];
+            }
+
+            $this->view('settings/images', $data);
+        }
     }

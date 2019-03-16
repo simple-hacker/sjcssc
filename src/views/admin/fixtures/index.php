@@ -168,7 +168,7 @@
             foreach ($data['fixtures'] as $fixture) {
 ?>
                 <tr>
-                    <td><?php echo date("d/m/y", strtotime($fixture->date)); ?></td>
+                    <td><?php echo date("D d M", strtotime($fixture->date)); ?></td>
                     <td><?php echo $fixture->league; ?></td>
                     <td><?php echo $fixture->home_team; ?></td>
                     <td><?php echo $fixture->away_team; ?></td>

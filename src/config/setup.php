@@ -7,6 +7,7 @@
 
   // App Root
   define('APPROOT', dirname(dirname(__FILE__)) . '\\');
+  define('PUBLIC_ROOT', dirname(dirname(dirname(__FILE__))) . '\\public\\');
   // Public Views Root
   define('PUBLIC_VIEWS', APPROOT . 'views\\public\\');
   // Admin Views Root

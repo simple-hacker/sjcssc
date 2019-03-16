@@ -11,6 +11,7 @@
     require_once 'helpers/flash_messages.php';
     require_once 'helpers/redirect.php';
     require_once 'helpers/scoreline.php';
+    require_once 'helpers/image.php';
     // require_once 'helpers/user_session.php';
     
     

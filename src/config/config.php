@@ -43,7 +43,14 @@
                     ['name' => 'away_team_bonus_points', 'type' => 'number', 'size' => 6, 'label' => 'Away Team Bonus Points', 'placeholder' => 'Enter Away Team Bonus Points']
                 ],
                 'scoreline' => 'home_team_score (home_team_points+home_team_bonus_points) - away_team_score (away_team_points+away_team_bonus_points)',
-            ],          
+            ],
+            'season' => [
+                'title' => 'Season',
+                // 'start_date' => '1st August',
+                'start_date' => '1st January',
+                'start_year' => 2018,
+                'span_years' => false,
+            ],
         ],
         'rugby' => [
             'sections' => ['notices', 'events', 'fixtures', 'results'],
@@ -77,7 +84,13 @@
                     ['name' => 'away_team_score', 'type' => 'number', 'size' => 6, 'label' => 'Away Team Score', 'placeholder' => 'Enter Away Team Score']
                 ],
                 'scoreline' => 'home_team_score - away_team_score',
-            ]
+            ],
+            'season' => [
+                'title' => 'Season',
+                'start_date' => '1st August',
+                'start_year' => 2017,
+                'span_years' => true,
+            ],
         ],
         'football' => [
             'sections' => ['notices', 'events', 'fixtures', 'results'],
@@ -111,7 +124,13 @@
                     ['name' => 'away_team_score', 'type' => 'number', 'size' => 6, 'label' => 'Away Team Score', 'placeholder' => 'Enter Away Team Score']
                 ],
                 'scoreline' => 'home_team_score - away_team_score',
-            ]
+            ],
+            'season' => [
+                'title' => 'Season',
+                'start_date' => '1st August',
+                'start_year' => 2017,
+                'span_years' => true,
+            ],
         ],
         'fishing' => [
             'sections' => ['notices', 'events', 'outings', 'reports'],
@@ -136,7 +155,14 @@
                 'fields' => [
                     ['name' => 'report', 'type' => 'textarea', 'size' => 12, 'label' => 'Report', 'placeholder' => 'Enter Report']
                 ]
-            ]
+            ],
+            'season' => [
+                'title' => 'Year',
+                // 'start_date' => '1st August',
+                'start_date' => '1st January',
+                'start_year' => 2018,
+                'span_years' => false,
+            ],
         ],
     ]);
 

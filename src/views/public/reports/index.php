@@ -8,7 +8,8 @@
 
 
 <?php 
-    $bg_url = URLROOT . 'img/parallax/' . $data['club']->club . '/2.jpg';
+    $bg = 'img/parallax/' . $data['club']->club . '/' . strtolower(basename(dirname(__FILE__))) . '.jpg';
+    $bg_url = (file_exists(PUBLIC_ROOT . $bg)) ? URLROOT . $bg : 'img/parallax/' . $data['club']->club . '/main.jpg';
 ?>
     <div class="parallax">
         <div class="parallax-background" style="background-image: url(<?php echo $bg_url; ?>)"></div>
@@ -20,7 +21,7 @@
 <section>
     <div class="container">
         <div class="row">
-        <?php
+<?php
     if (!empty($data['report'])) {
 ?>
         <div class="card mb-3">
@@ -46,11 +47,15 @@
                         <div class="col-4 text-right"><span class="mr-3">Date</span><i class="fa fa-calendar-alt border"></i></div>
                         <div class="col-8"><?php echo date("l jS F, Y", strtotime($data['report']->date)); ?></div>
                     </div>
+            <?php
+                    if ($data['report']->time != "00:00:00") {
+            ?>
                     <div class="row mt-1">
                         <div class="col-4 text-right"><span class="mr-3">Time</span><i class="fa fa-clock border"></i></div>
                         <div class="col-8"><?php echo date("H:i", strtotime($data['report']->time)); ?></div>
                     </div>
             <?php
+                    }
                     if (!empty($data['report']->venue)) {
             ?>
                     <div class="row mt-1">
@@ -94,7 +99,40 @@
             </div>
         </div>
 <?php
-    } elseif (!empty($data['reports'])) {
+    } else {
+?>
+        <!-- Button group -->
+        <div id="filter-buttons" class="mb-3">
+            <div class="btn-group" role="group" aria-label="Change Season">
+<?php
+                if (CLUBS[$data['club']->club]['season']) {
+                    $season_data = CLUBS[$data['club']->club]['season'];
+                    $max_year = date("Y");
+                    $create_date = new DateTime($season_data['start_date'] . " " . $max_year);
+                    $date = date_format($create_date, "Y-m-d H:i:s");
+                    $now = date("Y-m-d H:i:s");
+                    if ($date > $now) {
+                        $max_year--;
+                    }
+
+                    for ($year = $season_data['start_year']; $year <= $max_year; $year++) {
+                        if ($season_data['span_years'] == true) {
+                            $next_year = $year + 1;
+                            echo "<button type=\"button\" class=\"btn btn-lg btn-light\" onClick=\"changeYear({$data['club']->id},{$year})\">{$season_data['title']} {$year} / {$next_year}</button>";
+                        } else {
+                            echo "<button type=\"button\" class=\"btn btn-lg btn-light\" onClick=\"changeYear({$data['club']->id},{$year})\">{$season_data['title']} {$year}</button>";
+                        }
+                    }
+                } else {
+                    die('<strong>Fatal Error:</strong> Club\'s season configuration is not set.');
+                }
+?>
+            </div>
+        </div>
+
+        <div id="reports">
+<?php
+        if (!empty($data['reports'])) {
 ?>
     <div class="table-responsive">
         <table class="table table-sm table-striped table-bordered text-center">
@@ -109,7 +147,7 @@
         foreach ($data['reports'] as $report) {
 ?>
                 <tr>
-                    <td><?php echo date("d/m/y", strtotime($report->date)); ?></td>
+                    <td><?php echo date("d M Y", strtotime($report->date)); ?></td>
                     <td><?php echo $report->title; ?></td>
                     <td class="d-none d-md-table-cell"><?php echo $report->venue; ?></td>
                     <td><a href="<?php echo URLROOT . $data['club']->club . '/reports/' . $report->id; ?>" class="btn btn-brown">View Report</a></td>
@@ -121,12 +159,23 @@
         </table>
     </div>
 <?php
-    } else {
+        } else {
+            if (CLUBS[$data['club']->club]['season']) {
+                $season_data = CLUBS[$data['club']->club]['season'];
+                $year = date("Y");
+                $create_date = new DateTime($season_data['start_date'] . " " . $year);
+                $date = date_format($create_date, "Y-m-d H:i:s");
+                $now = date("Y-m-d H:i:s");
+                if ($date > $now) {
+                    $year--;
+                }
 ?>
-        <div class="empty-section">
-            <p>Unfortunately there aren't any reports to show.</p>
-        </div>
+                <div class="empty-section">
+                    <p>There aren't any reports to show for the <?php echo strtolower($season_data['title']) . " " . $year; if ($season_data['span_years'] == true) echo " / " . ($year+1); ?>.</p>
+                </div>
 <?php
+            }
+        }
     }
 ?>
         </div>

@@ -39,8 +39,6 @@
                     // Incorrect URL, so redirect.
                     redirect('404.html');
                 }
-
-
                 
                 // CONTROLLER
                 // =====================================================        
@@ -49,7 +47,7 @@
                     // Set controller to given in URL.
                     $controller = ucwords(strtolower($_GET['controller']));
                     // If $controller provided is not in club sections then an invalid controller was provided, so redirect.
-                    if (!in_array(strtolower($controller), CLUBS[$club->club]['sections'])) {
+                    if (!in_array(strtolower($controller), CLUBS[$club->club]['sections']) && !in_array(strtolower($controller), CONTROLLERS) ) {
                         redirect('404.html');
                     }
                 } else {
@@ -60,8 +58,9 @@
                 // ID
                 // =====================================================
                 // Page is always index in the public area
-                $page = 'index';
-
+                // $page = 'index';
+                // page is no longer always index because of Ajax methods
+                $page = (isset($_GET['page'])) ? $_GET['page'] : 'index';
             } 
             // Work through admin URLS.
             else {    
@@ -129,11 +128,7 @@
 
                 // PAGE (i.e. edit/delete etc)
                 // =====================================================
-                if (isset($_GET['page'])) {
-                    $page = strtolower($_GET['page']);
-                } else {
-                    $page = 'index';
-                }
+                $page = (isset($_GET['page'])) ? strtolower($_GET['page']) : 'index';
             }
 
 
@@ -165,7 +160,7 @@
                     $controller = new $controller($admin, $club->id);
                 } else {
                     // Else it's only /admin/users CONTROLLERS which doesn't need a club.
-                    $controller = new $controller($admin);
+                    $controller = new $controller($admin, -1);
                 }
             } else {
                 die('<strong>Fatal Error:</strong> Controller ' . $controller . ' does not exist');

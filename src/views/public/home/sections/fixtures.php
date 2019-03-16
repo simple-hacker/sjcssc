@@ -1,11 +1,12 @@
 <section>
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
 <?php
     if (!empty($data['fixtures'])) {
+        $col = (int)(12 / sizeof($data['fixtures']));
         foreach ($data['fixtures'] as $fixture) {
 ?>
-            <div class="col-12 col-lg-4">
+            <div class="col-12 col-md-6 col-lg-4 col-xl-<?php echo $col; ?>">
                 <div class="card mb-3">
                     <div class="card-header text-center sj-heading-small">
                         <?php echo $fixture->league; ?>

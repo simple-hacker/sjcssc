@@ -6,7 +6,7 @@
     }
 ?>
 <?php 
-    $bg_url = URLROOT . 'img/parallax/' . $data['club']->club . '/1.jpg';
+    $bg_url = URLROOT . 'img/parallax/' . $data['club']->club . '/main.jpg';
 ?>
     <div class="parallax">
         <div class="parallax-background" style="background-image: url(<?php echo $bg_url; ?>)"></div>
@@ -17,9 +17,7 @@
     <section>
         <div class="container mt-2">
             <div class="row">
-                <blockquote class="blockquote">
-                    <p class="mb-0"><?php echo nl2br($data['club']->message); ?></p>
-                </blockquote>
+                <p class="mb-0"><?php echo nl2br($data['club']->message); ?></p>
             </div>
         </div>
     </section>
@@ -30,9 +28,8 @@
 
         // Check if there is any data before trying to load the section.
         if (!empty($data[$section])) {
-            $bg_url = URLROOT . 'img/parallax/' . $data['club']->club . '/' . ($i+2) . '.jpg';
-
-            // TODO: Check if Image exists first.
+            $bg = 'img/parallax/' . $data['club']->club . '/' . $section . '.jpg';
+            $bg_url = (file_exists(PUBLIC_ROOT . $bg)) ? URLROOT . $bg : 'img/parallax/' . $data['club']->club . '/main.jpg';
 ?>
             <div class="parallax">
                 <div class="parallax-background" style="background-image: url(<?php echo $bg_url; ?>)"></div>
