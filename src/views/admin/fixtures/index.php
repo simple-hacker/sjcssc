@@ -149,9 +149,27 @@
 <?php
     if (!empty($data['fixtures'])) {
 ?>
+    <input type="hidden" id="season" name="season" value="<?php echo getSeason($data['club']->club); ?>">
+    <input type="hidden" id="section" name="section" value="fixtures">
+    <input type="hidden" id="club_id" name="club_id" value="<?php echo $data['club']->id; ?>">
+
     <div class="wrap">
         <h3>Edit Fixtures</h3>
-        <div class="table-responsive">
+        <!-- League filters -->
+        <div id="league-filters" class="mb-3">
+            <div class="btn-group" data-toggle="buttons" aria-label="Filter league">
+<?php
+                foreach ($data['leagues'] as $i => $league) {
+?>
+                    <label for="<?php echo $league->league; ?>" class="btn btn-lg btn-brown-secondary">
+                        <input type="checkbox" id="<?php echo $league->league; ?>" name="leagues" value="<?php echo $league->id; ?>"><?php echo $league->league; ?>
+                    </label>
+<?php
+                }
+?>
+            </div>
+        </div>
+        <div id="table" class="table-responsive">
             <table class="table table-bordered table-sm">
                 <thead>
                     <tr class="thead-light text-center">

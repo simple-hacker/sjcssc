@@ -1,43 +1,48 @@
-function changeSeason(club_id, season) {
-    $.ajax({
-        url: "../ajax/changeSeason",
-        type: "POST",
-        data: { 'changeSeason' : 1, 'club_id' : club_id, 'season' : season},
-        dataType: "json",
-        success: function(data) {
-            if (data.success == true) {
-                // console.log(data);
-                $(".sj-heading-large").html(data.title);
-                $("#results").hide().html(data.html).fadeIn();
-            } else {
-                console.log("Something went wrong.  Please try again.");
-            }
-        },
-        error: function (data) {
-            // console.log(data);
-            console.log("Error with ajax.");
-        }
-    }, "json");
-}
+$(document).ready(function() {
+    $('#league-filters label').click(function() {
+        let inp = $(this).children('input');
+        inp.prop("checked", !inp.prop("checked"));
+        let leagues = [];
+        $.each($('input[name="leagues"]:checked'), function () {
+            leagues.push($(this).val());
+        });
+        let section = $('#section').val();
+        let club_id = $('#club_id').val();
+        let season = $('#season').val();
 
-function changeYear(club_id, season) {
+        filter(section, club_id, season, leagues);
+    });
+
+    $('#season-filters button').click(function() {
+        $('#season').val($(this).attr('data-season'));
+        let leagues = [];
+        $.each($('input[name="leagues"]:checked'), function () {
+            leagues.push($(this).val());
+        });
+        let section = $('#section').val();
+        let club_id = $('#club_id').val();
+        let season = $('#season').val();
+
+        filter(section, club_id, season, leagues);
+    });
+});
+
+function filter(section, club_id, season, leagues) {
     $.ajax({
-        url: "../ajax/changeYear",
+        url: "../ajax/filter",
         type: "POST",
-        data: { 'changeYear' : 1, 'club_id' : club_id, 'season' : season},
+        data: { 'filter' : 1, 'section' : section, 'club_id' : club_id, 'season' : season, 'leagues' : leagues},
         dataType: "json",
         success: function(data) {
             if (data.success == true) {
-                // console.log(data);
                 $(".sj-heading-large").html(data.title);
-                $("#reports").hide().html(data.html).fadeIn();
+                $("#table").hide().html(data.html).fadeIn();
             } else {
-                console.log("Something went wrong.  Please try again.");
+                alert("Error: "+data.message);
             }
         },
-        error: function (data) {
-            // console.log(data);
-            console.log("Error with ajax.");
+        error: function (request, status, error) {
+            alert("Fatal error: "+error);
         }
     }, "json");
 }

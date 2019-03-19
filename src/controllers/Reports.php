@@ -11,6 +11,7 @@
             $this->clubModel = $this->model('Club');
             $this->outingModel = $this->model('Outing');
             $this->reportModel = $this->model('Report');
+            $this->leagueModel = $this->model('League');
             
             $this->admin = $admin;
             $this->club_id = $club_id;
@@ -32,6 +33,7 @@
             } else {
                 $data = [
                     'club' => $this->clubModel->getClubByID($this->club_id),
+                    'leagues' => $this->leagueModel->getLeagues($this->club_id),
                     'reports' => ($this->admin === true) ? $this->reportModel->getReports($this->club_id, 0, true) : $this->reportModel->getReports($this->club_id, 0),
                 ];
             }
@@ -55,6 +57,7 @@
                         
                         $data = [
                             'club' => $this->clubModel->getClubByID($this->club_id),
+                            'leagues' => $this->leagueModel->getLeagues($this->club_id),
                             'report' => $report,
                             'reports' => $this->outingModel->getPastOutings(),
                             'report_err' => isset($report_err) ? $report_err : '',
@@ -74,6 +77,7 @@
                     } else {
                         $data = [
                             'club' => $this->clubModel->getClubByID($this->club_id),
+                            'leagues' => $this->leagueModel->getLeagues($this->club_id),
                             'reports' => $this->outingModel->getPastOutings(),
                             'report' => $this->outingModel->getOuting($report_id),
                         ];

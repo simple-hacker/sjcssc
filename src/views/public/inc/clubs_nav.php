@@ -6,7 +6,11 @@
         ?>
                 <a href="<?php echo URLROOT . $club_name; ?>" class="<?php echo ($club_name === $data['club']->club) ? 'active' : ''; ?>">
                     <div class="nav-club-image">
-                        <img src="<?php echo URLROOT . 'img/sportsbar/' . $club_name . '.png'; ?>" alt="St Joseph's <?php echo ucwords($club_name) ?> Club">
+        <?php
+                $file = PUBLIC_ROOT . "img/sportsbar/" . $club_name . ".png";
+                $icon = (file_exists($file)) ? URLROOT . "img/sportsbar/" . $club_name . ".png" : URLROOT . "img/sportsbar/default.png";
+        ?>
+                        <img src="<?php echo $icon; ?>" alt="St Joseph's <?php echo ucwords($club_name) ?> Club">
                     </div>
                     <div class="nav-club-text d-none d-lg-block">
                         <?php echo ucwords($club_name); ?>

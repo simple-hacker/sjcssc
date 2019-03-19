@@ -12,6 +12,8 @@
     require_once 'helpers/redirect.php';
     require_once 'helpers/scoreline.php';
     require_once 'helpers/image.php';
+    require_once 'helpers/url.php';
+    require_once 'helpers/functions.php';
     // require_once 'helpers/user_session.php';
     
     

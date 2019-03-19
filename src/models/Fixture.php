@@ -17,7 +17,7 @@ class Fixture extends Controller {
         return $this->db->result()->club;
     }
 
-    public function getFixtures($club_id, $n = 0) {
+    public function getFixtures($club_id, $n = 0, $leagues = array()) {
 
         // Need to get table name.
         $table_name = 'fixtures_' . $this->getClubName($club_id);
@@ -26,8 +26,12 @@ class Fixture extends Controller {
                     LEFT JOIN leagues ON {$table_name}.league_id = leagues.id
                     LEFT JOIN teams AS home_teams ON {$table_name}.home_team_id = home_teams.id
                     LEFT JOIN teams AS away_teams ON {$table_name}.away_team_id = away_teams.id
-                    WHERE {$table_name}.date >= DATE(NOW())
-                    ORDER BY {$table_name}.date ASC";
+                    WHERE {$table_name}.date >= DATE(NOW())";
+        if (!empty($leagues)) {
+            $league_ids = "(" . implode(",", $leagues) . ")";
+            $sql .= " AND {$table_name}.league_id IN {$league_ids}";
+        }
+        $sql .= " ORDER BY {$table_name}.date ASC";
         if ($n > 0) {
             // To prevent negative numbers.  If n isn't provided then get unlimited fixtures, else only return n fixtures.
             $sql .= " LIMIT 0, {$n}";

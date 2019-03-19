@@ -30,24 +30,20 @@
         // i.e. no .exe, .pdf etc.
         if (in_array(strtolower(pathinfo($image['name'], PATHINFO_EXTENSION)), FILETYPES)) {
             // If valid image then create new image from uploaded image.
-            // Need to resize and rename.
-            // Save it to img directory with $section file name.
-            // TODO: Maybe create different sized images for quicker loading?
-
             $tmp_name = $image["tmp_name"];
 
             // Set all variables such as file path, extension, image resize widths etc.
             if ($section == "icon") {
                 // Create png
-                $new_image_path = PUBLIC_ROOT . "img\\sportsbar\\" . $club_name . ".png";
-                $new_thumb_path = PUBLIC_ROOT . "img\\sportsbar\\" . $club_name . "_thumb.png";
+                $new_image_path = PUBLIC_ROOT . "img/sportsbar/" . $club_name . ".png";
+                $new_thumb_path = PUBLIC_ROOT . "img/sportsbar/" . $club_name . "_thumb.png";
                 $ext = IMAGETYPE_PNG;
                 $size = ['width' => 80, 'height' => 80];
                 $thumb = ['width' => 200, 'height' => 200];
             } else {
                 // Create jpg
-                $new_image_path = PUBLIC_ROOT . "img\\parallax\\" . $club_name . "\\" . $section . ".jpg";
-                $new_thumb_path = PUBLIC_ROOT . "img\\parallax\\" . $club_name . "\\" . $section . "_thumb.jpg";
+                $new_image_path = PUBLIC_ROOT . "img/parallax/" . $club_name . "/" . $section . ".jpg";
+                $new_thumb_path = PUBLIC_ROOT . "img/parallax/" . $club_name . "/" . $section . "_thumb.jpg";
                 $ext = IMAGETYPE_JPEG;
                 $size = ['width' => 1920, 'height' => 1080];
                 $thumb = ['width' => 300, 'height' => 300];

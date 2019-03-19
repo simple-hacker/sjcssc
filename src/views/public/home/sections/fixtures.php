@@ -37,7 +37,7 @@
                     ?>
                             <div class="row align-items-center mt-1">
                                 <div class="col-3"><i class="fa fa-map-marker-alt border"></i></div>
-                                <div class="col-9"><?php echo $fixture->venue; ?></div>
+                                <div class="col-9"><a href="<?php echo google_maps($fixture->venue); ?>" target="_blank"><?php echo $fixture->venue; ?></a></div>
                             </div>
                     <?php
                             }

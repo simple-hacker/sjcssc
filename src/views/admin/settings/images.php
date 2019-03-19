@@ -39,11 +39,13 @@
                                 <img id="icon" src="<?php echo URLROOT . $image; ?>" width="200px">
                             </div>
                             <div class="col-2 d-flex align-items-center">
-                                <i class="fa fa-2x fa-trash" aria-hidden="true"></i>
+                                <button type="button" class="deleteImage btn btn-danger" data-item="icon" data-club="<?php echo $data['club']->club; ?>" data-section="icon"><i class="fa fa-2x fa-trash" aria-hidden="true"></i></button>
                             </div>
                     <?php
                         }
                     ?>
+                </div>
+                <div class="row">
                     <div class="col-12">
                         <h5>Upload Image</h5>
                         <input type="file" name="icon" id="icon" accept="image/*">
@@ -65,11 +67,13 @@
                                 <img id="main" src="<?php echo URLROOT . $image; ?>" width="100%">
                             </div>
                             <div class="col-2 d-flex align-items-center">
-                                <i class="fa fa-2x fa-trash" aria-hidden="true"></i>
+                                <button type="button" class="deleteImage btn btn-danger" data-item="image" data-club="<?php echo $data['club']->club; ?>" data-section="main"><i class="fa fa-2x fa-trash" aria-hidden="true"></i></button>
                             </div>
                     <?php
                         }
                     ?>
+                </div>
+                <div class="row">
                     <div class="col-12">
                         <h5>Upload Image</h5>
                         <input type="file" name="main" id="main" accept="image/*">
@@ -97,11 +101,13 @@
                                         <img id="<?php echo $section; ?>" src="<?php echo URLROOT . $image; ?>" width="100%">
                                     </div>
                                     <div class="col-2 d-flex align-items-center">
-                                        <i class="fa fa-2x fa-trash" aria-hidden="true"></i>
+                                        <button type="button" class="deleteImage btn btn-danger" data-item="image" data-club="<?php echo $data['club']->club; ?>" data-section="<?php echo $section; ?>"><i class="fa fa-2x fa-trash" aria-hidden="true"></i></button>
                                     </div>
                             <?php
                                 }
                             ?>
+                        </div>
+                        <div class="row">
                             <div class="col-12">
                                 <h5>Upload Image</h5>
                                 <input type="file" name="<?php echo $section; ?>" id="<?php echo $section; ?>" accept="image/*">

@@ -57,7 +57,7 @@ Class Club {
         return $result->id;
     }
 
-    public function getTeamId($club_id) {
+    public function getTeamID($club_id) {
         $sql = "SELECT `team_id` FROM `clubs` WHERE `id`= :club_id";
         $this->db->query($sql);
         $this->db->bind(':club_id', $club_id);

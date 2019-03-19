@@ -11,6 +11,7 @@
             $this->clubModel = $this->model('Club');
             $this->fixtureModel = $this->model('Fixture');
             $this->resultModel = $this->model('Result');
+            $this->leagueModel = $this->model('League');
             
             $this->admin = $admin;
             $this->club_id = $club_id;
@@ -32,6 +33,7 @@
             } else {
                 $data = [
                     'club' => $this->clubModel->getClubByID($this->club_id),
+                    'leagues' => $this->leagueModel->getLeagues($this->club_id),
                     'results' => ($this->admin === true) ? $this->resultModel->getResults($this->club_id, 0, true) : $this->resultModel->getResults($this->club_id, 0),
                 ];
             }
@@ -69,6 +71,7 @@
                             'club' => $this->clubModel->getClubByID($this->club_id),
                             'result' => $result,
                             'results' => $this->fixtureModel->getPastFixtures($this->club_name),
+                            'leagues' => $this->leagueModel->getLeagues($this->club_id),
                             'home_team_score_err' => isset($home_team_score_err) ? $home_team_score_err : '',
                             'away_team_score_err' => isset($away_team_score_err) ? $away_team_score_err : '',
                         ];
@@ -88,6 +91,7 @@
                     } else {
                         $data = [
                             'club' => $this->clubModel->getClubByID($this->club_id),
+                            'leagues' => $this->leagueModel->getLeagues($this->club_id),
                             'result' => $this->fixtureModel->getFixture($this->club_id, $this->club_name, $result_id),
                             'results' => $this->resultModel->getResults($this->club_id, 0, true),
                         ];

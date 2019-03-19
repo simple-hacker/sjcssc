@@ -42,23 +42,7 @@ class Result extends Controller {
         $dates = array();
 
         if (isset(CLUBS[$club_name]['season'])) {
-            $season_data = CLUBS[$club_name]['season'];
-            $current_year = date("Y");
-            if ($season == 0 || $season == $current_year) {
-                $create_date = new DateTime($season_data['start_date'] . " " . $current_year);
-                $date = date_format($create_date, "Y-m-d H:i:s");
-                $now = date("Y-m-d H:i:s");
-                if ($date < $now) {
-                    $dates = [$date, date("Y-m-d H:i:s", strtotime($date . " +1 year -1 second"))];
-                } else {
-                    $dates = [date("Y-m-d H:i:s", strtotime($date . " -1 year")), date("Y-m-d H:i:s", strtotime($date . " -1 second"))];
-                }
-            } else {
-                $season = ($season < $season_data['start_year']) ? $season_data['start_year'] : (int) $season;
-                $create_date = new DateTime($season_data['start_date'] . " " . $season);
-                $date = date_format($create_date, "Y-m-d H:i:s");
-                $dates = [$date, date("Y-m-d H:i:s", strtotime($date . " +1 year -1 second"))];
-            }
+            $dates = getDates($club_name, $season);
         } else {
             die('<strong>Fatal Error:</strong> Club\'s season configuration is not set.');
         }
@@ -68,6 +52,10 @@ class Result extends Controller {
                     LEFT JOIN teams AS home_teams ON {$table_name}.home_team_id = home_teams.id
                     LEFT JOIN teams AS away_teams ON {$table_name}.away_team_id = away_teams.id
                     WHERE {$table_name}.date >= :date_from AND {$table_name}.date <= :date_to AND {$table_name}.date <= NOW()";
+        if (!empty($leagues)) {
+            $league_ids = "(" . implode(",", $leagues) . ")";
+            $sql .= " AND {$table_name}.league_id IN {$league_ids}";
+        }
         if ($all_results == false) {
             $sql .= " AND publish_results = true";
         }

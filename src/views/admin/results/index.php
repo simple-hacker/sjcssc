@@ -9,8 +9,12 @@
 ?>
 
 <div class="wrap">
-    <!-- Button group -->
-    <div id="filter-buttons" class="mb-3">
+    <input type="hidden" id="season" name="season" value="<?php echo getSeason($data['club']->club); ?>">
+    <input type="hidden" id="section" name="section" value="results">
+    <input type="hidden" id="club_id" name="club_id" value="<?php echo $data['club']->id; ?>">
+
+    <!-- Season Filters -->
+    <div id="season-filters" class="mb-3">
         <div class="btn-group" role="group" aria-label="Change Season">
 <?php
             if (CLUBS[$data['club']->club]['season']) {
@@ -26,9 +30,9 @@
                 for ($year = $season_data['start_year']; $year <= $max_year; $year++) {
                     if ($season_data['span_years'] == true) {
                         $next_year = $year + 1;
-                        echo "<button type=\"button\" class=\"btn btn-lg btn-light\" onClick=\"changeSeason({$data['club']->id},{$year})\">{$season_data['title']} {$year} / {$next_year}</button>";
+                        echo "<button type=\"button\" class=\"btn btn-lg btn-light\" data-season=\"{$year}\">{$season_data['title']} {$year} / {$next_year}</button>";
                     } else {
-                        echo "<button type=\"button\" class=\"btn btn-lg btn-light\" onClick=\"changeSeason({$data['club']->id},{$year})\">{$season_data['title']} {$year}</button>";
+                        echo "<button type=\"button\" class=\"btn btn-lg btn-light\" data-season=\"{$year}\">{$season_data['title']} {$year}</button>";
                     }
                 }
             } else {
@@ -37,16 +41,29 @@
 ?>
         </div>
     </div>
+    <!-- League Filters -->
+    <div id="league-filters" class="mb-3">
+        <div class="btn-group" data-toggle="buttons" aria-label="Filter league">
+<?php
+        foreach ($data['leagues'] as $i => $league) {
+?>
+            <label for="<?php echo $league->league; ?>" class="btn btn-lg btn-brown-secondary">
+                <input type="checkbox" id="<?php echo $league->league; ?>" name="leagues" value="<?php echo $league->id; ?>"><?php echo $league->league; ?>
+            </label>
+<?php
+        }
+?>
+        </div>
+    </div>
 </div>
 
 <div class="wrap">
     <h3 id="title">Latest Results</h3>
-    <div id="results">
+    <div id="table" class="table-responsive">
 <?php
     if (!empty($data['results'])) {
 ?>
         
-        <div class="table-responsive">
             <table class="table table-bordered table-striped table-sm">
                 <thead>
                     <tr class="thead-light text-center">
@@ -83,11 +100,11 @@
                         <td class="text-center"><a href="<?php echo ADMIN_URLROOT . $data['club']->club . "/results/edit/" . $result->id;  ?>" class="btn btn-primary"><i class="fas fa-sm fa-edit"></i></a></td>
                     </tr>
 <?php
+                unset($bg_colour);
             }
 ?>
                 </tbody>
             </table>
-        </div>
 <?php 
         } else {
             if (CLUBS[$data['club']->club]['season']) {

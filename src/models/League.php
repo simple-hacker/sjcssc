@@ -15,6 +15,18 @@ class League {
         return $this->db->results();
     }
 
+    public function getLeagueNames($club_id) {
+        $sql = "SELECT league FROM `leagues` WHERE `club_id`=:club_id AND `isDeleted`=0 ORDER BY `league` ASC";
+        $this->db->query($sql);
+        $this->db->bind(':club_id', $club_id);
+        $res = $this->db->results();
+        $leagues = array();
+        foreach ($res as $i => $league) {
+            $leagues[] = $league->league;
+        }
+        return $leagues;
+    }
+
     public function updateLeagues($club_id, $leagues) {
         foreach ($leagues as $league) {
             if (!empty($league->id)) {

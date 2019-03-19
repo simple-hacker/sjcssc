@@ -9,8 +9,12 @@
 ?>
 
 <div class="wrap">
-    <!-- Button group -->
-    <div id="filter-buttons" class="mb-3">
+    <input type="hidden" id="season" name="season" value="<?php echo getSeason($data['club']->club); ?>">
+    <input type="hidden" id="section" name="section" value="reports">
+    <input type="hidden" id="club_id" name="club_id" value="<?php echo $data['club']->id; ?>">
+
+    <!-- Season Filters -->
+    <div id="season-filters" class="mb-3">
         <div class="btn-group" role="group" aria-label="Change Season">
 <?php
             if (CLUBS[$data['club']->club]['season']) {
@@ -26,9 +30,9 @@
                 for ($year = $season_data['start_year']; $year <= $max_year; $year++) {
                     if ($season_data['span_years'] == true) {
                         $next_year = $year + 1;
-                        echo "<button type=\"button\" class=\"btn btn-lg btn-light\" onClick=\"changeYear({$data['club']->id},{$year})\">{$season_data['title']} {$year} / {$next_year}</button>";
+                        echo "<button type=\"button\" class=\"btn btn-lg btn-light\" data-season=\"{$year}\">{$season_data['title']} {$year} / {$next_year}</button>";
                     } else {
-                        echo "<button type=\"button\" class=\"btn btn-lg btn-light\" onClick=\"changeYear({$data['club']->id},{$year})\">{$season_data['title']} {$year}</button>";
+                        echo "<button type=\"button\" class=\"btn btn-lg btn-light\" data-season=\"{$year}\">{$season_data['title']} {$year}</button>";
                     }
                 }
             } else {
@@ -42,11 +46,10 @@
 
 <div class="wrap">
     <h3 id="title">Latest Reports</h3>
-    <div id="reports">
+    <div id="table" class="table-responsive">
 <?php
     if (!empty($data['reports'])) {
 ?>
-        <div class="table-responsive">
             <table class="table table-bordered table-sm">
                 <thead>
                     <tr class="thead-light text-center">
@@ -71,7 +74,6 @@
 ?>
                 </tbody>
             </table>
-        </div>
 <?php 
     } else {
         if (CLUBS[$data['club']->club]['season']) {

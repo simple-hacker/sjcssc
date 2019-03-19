@@ -172,6 +172,16 @@ fieldset[disabled] .btn-brown.active {
   border-color: #7C4B14;
 }
 
+.btn-brown-secondary:hover.active,
+.btn-brown-secondary:focus.active,
+.btn-brown-secondary:active.active,
+.btn-brown-secondary.active.active,
+.open .dropdown-toggle.btn-brown-secondary.active {
+  color: #FFFFFF;
+  background-color: #be721f;
+  border-color: #7C4B14;
+}
+
 .btn-brown-secondary:active,
 .btn-brown-secondary.active,
 .open .dropdown-toggle.btn-brown-secondary {
@@ -251,6 +261,14 @@ tr.draw {
 
 tr.lose {
   background-color: #ffe6e6 !important;
+}
+
+.w-10 {
+  width: 10%;
+}
+
+.w-40 {
+  width: 40%;
 }
 
 .jumbotron.win {
@@ -489,10 +507,20 @@ section .card {
   width: 100%;
 }
 
-#filter-buttons {
+#season-filters {
   display: block;
   text-align: center;
   width: 100%;
+}
+
+#league-filters {
+  display: block;
+  text-align: center;
+  width: 100%;
+}
+
+#league-filters input[type=checkbox] {
+  display: none;
 }
 
 #results, #reports {

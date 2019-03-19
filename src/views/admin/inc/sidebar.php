@@ -3,7 +3,12 @@
 <nav id="sidebar"<?php if (isset($_SESSION['user'])) echo " class=\"active\""; ?>>
     <div class="sidebar-header">
         <a href="<?php echo isset($data['club']->club) ? ADMIN_URLROOT . $data['club']->club : ADMIN_URLROOT; ?>" class=""><?php echo isset($data['club']->name) ? $data['club']->name : 'St Joseph\'s Catholic Sports and Social Club'; ?></a>
-        <img src="<?php echo URLROOT . 'img/sportsbar/' . ( isset($data['club']->club) ? $data['club']->club : 'social') . '.png'; ?>" alt="<?php echo isset($data['club']->name) ? $data['club']->name : 'St Joseph\'s Catholic Sports and Social Club'; ?>">
+        <?php
+
+                $file = PUBLIC_ROOT . "img/sportsbar/" . (isset($data['club']->club) ? $data['club']->club : 'social') . ".png";
+                $icon = (file_exists($file)) ? URLROOT . "img/sportsbar/" . (isset($data['club']->club) ? $data['club']->club : 'social') . ".png" : URLROOT . "img/sportsbar/default.png";
+        ?>
+        <img src="<?php echo $icon; ?>" alt="<?php echo isset($data['club']->name) ? $data['club']->name : 'St Joseph\'s Catholic Sports and Social Club'; ?>">
     </div>
     <ul class="list-unstyled">
     <?php

@@ -57,7 +57,7 @@
                     ?>
                             <div class="row align-items-center mt-1">
                                 <div class="col-4 text-right"><span class="mr-3">Venue</span><i class="fa fa-map-marker-alt border"></i></div>
-                                <div class="col-8"><?php echo $data['fixture']->venue; ?></div>
+                                <div class="col-8"><a href="<?php echo google_maps($data['fixture']->venue); ?>" target="_blank"><?php echo $data['fixture']->venue; ?></a></div>
                             </div>
                     <?php
                             }
@@ -118,16 +118,34 @@
                     </div>
                 </div>
 <?php
-            } elseif (!empty($data['fixtures'])) {              
+            } elseif (!empty($data['fixtures'])) {
 ?>
-            <div class="table-responsive">
+            <input type="hidden" id="season" name="season" value="<?php echo getSeason($data['club']->club); ?>">
+            <input type="hidden" id="section" name="section" value="fixtures">
+            <input type="hidden" id="club_id" name="club_id" value="<?php echo $data['club']->id; ?>">
+
+            <!-- League filters -->
+            <div id="league-filters" class="mb-3">
+                <div class="btn-group" data-toggle="buttons" aria-label="Filter league">
+<?php
+                foreach ($data['leagues'] as $i => $league) {
+?>
+                    <label for="<?php echo $league->league; ?>" class="btn btn-lg btn-brown-secondary">
+                        <input type="checkbox" id="<?php echo $league->league; ?>" name="leagues" value="<?php echo $league->id; ?>"><?php echo $league->league; ?>
+                    </label>
+<?php
+                }
+?>
+                </div>
+            </div>
+            <div id="table" class="table-responsive">
                 <table class="table table-sm table-striped table-bordered text-center">
                     <thead>
                         <tr>
-                            <th>Date</th>
-                            <th>League</th>
+                            <th class="w-10">Date</th>
+                            <th class="d-none d-md-table-cell w-10">League</th>
                             <th>Match</th>
-                            <th>Venue</th>
+                            <th class="w-40">Venue</th>
                             <th>View Fixture</th>
                         </tr>
                     </thead>
@@ -141,7 +159,7 @@
                         <td>
                             <?php echo $fixture->home_team . " v " . $fixture->away_team; ?>
                         </td>
-                        <td><?php echo $fixture->venue; ?></td>
+                        <td><a href="<?php echo google_maps($fixture->venue); ?>" target="_blank"><?php echo $fixture->venue; ?></a></td>
                         <td><a href="<?php echo URLROOT . $data['club']->club . '/fixtures/' . $fixture->id; ?>" class="btn btn-brown">View Fixture</a></td>
                     </tr>
 <?php

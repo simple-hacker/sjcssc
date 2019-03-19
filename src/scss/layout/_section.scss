@@ -6,10 +6,21 @@ section {
         width: 100%;
     }
 }
-#filter-buttons{
+
+#season-filters{
     display: block;
     text-align: center;
     width: 100%;
+}
+
+#league-filters{
+    display: block;
+    text-align: center;
+    width: 100%;
+
+    input[type=checkbox] {
+        display: none;
+    }
 }
 
 #results, #reports {
@@ -29,4 +40,8 @@ section {
         font-style: italic;
         font-size: 1.4rem;
     }
+}
+
+#league-filters {
+    
 }
