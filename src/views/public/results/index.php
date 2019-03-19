@@ -7,7 +7,7 @@
 ?>
 <?php 
     $bg = 'img/parallax/' . $data['club']->club . '/' . strtolower(basename(dirname(__FILE__))) . '.jpg';
-    $bg_url = (file_exists(PUBLIC_ROOT . $bg)) ? URLROOT . $bg : 'img/parallax/' . $data['club']->club . '/main.jpg';
+    $bg_url = (file_exists(PUBLIC_ROOT . $bg)) ? URLROOT . $bg : URLROOT . 'img/parallax/' . $data['club']->club . '/main.jpg';
 ?>
     <div class="parallax">
         <div class="parallax-background" style="background-image: url(<?php echo $bg_url; ?>)"></div>

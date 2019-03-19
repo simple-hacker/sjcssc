@@ -29,7 +29,7 @@ $(document).ready(function() {
 
 function filter(section, club_id, season, leagues) {
     $.ajax({
-        url: "../ajax/filter",
+        url: ajaxBase+"ajax/filter",
         type: "POST",
         data: { 'filter' : 1, 'section' : section, 'club_id' : club_id, 'season' : season, 'leagues' : leagues},
         dataType: "json",

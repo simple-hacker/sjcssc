@@ -1,0 +1,1 @@
+const ajaxBase = window.location.protocol+"//"+window.location.hostname+"/sjcssc/";

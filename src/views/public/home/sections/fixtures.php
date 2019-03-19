@@ -58,7 +58,7 @@
         </div>
         <div class="row">
             <div class="col-12 text-center">
-                <a href="<?php echo URLROOT . $data['club']->club . '/fixtures/'; ?>" class="btn btn-lg btn-brown">View All Upcoming Fixtures</a>
+                <a href="<?php echo URLROOT . $data['club']->club . '/fixtures'; ?>" class="btn btn-lg btn-brown">View All Upcoming Fixtures</a>
             </div>
         </div>
     </div>

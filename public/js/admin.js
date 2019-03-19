@@ -29,7 +29,7 @@ $(document).ready(function () {
         const id = $(this).attr("data-id");
         const el = $(this);
         $.ajax({
-			url: "../ajax/deleteRow",
+			url: ajaxBase+"ajax/deleteRow",
 			type: "POST",
 			data: { 'deleteRow' : 1, 'item' : item, 'id' : id},
 			dataType: "json",
@@ -54,7 +54,7 @@ $(document).ready(function () {
             const el = $(this);
 
             $.ajax({
-                url: "../ajax/deleteImage",
+                url: ajaxBase+"ajax/deleteImage",
                 type: "POST",
                 data: { 'deleteImage' : 1, 'item' : item, 'club' : club, 'section' : section},
                 dataType: "json",
@@ -103,7 +103,7 @@ $(document).ready(function () {
 
 function toggleImportant(club_id, notice_id) {
     $.ajax({
-        url: "ajax/toggleImportant",
+        url: ajaxBase+"ajax/toggleImportant",
         type: "POST",
         data: { 'toggleImportant' : 1, 'club_id' : club_id, 'notice_id' : notice_id},
         dataType: "json",
@@ -122,7 +122,7 @@ function toggleImportant(club_id, notice_id) {
 
 function toggleActive(club_id, person_id) {
     $.ajax({
-        url: "../ajax/toggleActive",
+        url: ajaxBase+"ajax/toggleActive",
         type: "POST",
         data: { 'toggleActive' : 1, 'club_id' : club_id, 'person_id' : person_id},
         dataType: "json",
@@ -142,7 +142,7 @@ function toggleActive(club_id, person_id) {
 
 function filter(section, club_id, season, leagues) {
     $.ajax({
-        url: "ajax/filter",
+        url: ajaxBase+"ajax/filter",
         type: "POST",
         data: { 'filter' : 1, 'section' : section, 'club_id' : club_id, 'season' : season, 'leagues' : leagues, 'admin' : true},
         dataType: "json",

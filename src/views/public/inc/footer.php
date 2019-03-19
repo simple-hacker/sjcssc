@@ -92,6 +92,7 @@
         </div>
     </footer>
     </div> <!-- wrapper -->
+    <script src="<?php echo URLROOT; ?>js/variables.js"></script>
     <script src="<?php echo URLROOT; ?>js/main.js"></script>
 </body>
 </html>

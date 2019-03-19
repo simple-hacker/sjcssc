@@ -206,7 +206,7 @@
         var home_team_id = $('#home_team_id').val();
         var club_id = $('#club_id').val();
         $.ajax({
-            url: "../../ajax/getVenue",
+            url: ajaxBase+"ajax/getVenue",
             type: "POST",
             data: { 'getVenue' : 1, 'club_id' : club_id, 'home_team_id' : home_team_id},
             dataType: "json",

@@ -29,7 +29,7 @@
         // Check if there is any data before trying to load the section.
         if (!empty($data[$section])) {
             $bg = 'img/parallax/' . $data['club']->club . '/' . $section . '.jpg';
-            $bg_url = (file_exists(PUBLIC_ROOT . $bg)) ? URLROOT . $bg : 'img/parallax/' . $data['club']->club . '/main.jpg';
+            $bg_url = (file_exists(PUBLIC_ROOT . $bg)) ? URLROOT . $bg : URLROOT . 'img/parallax/' . $data['club']->club . '/main.jpg';
 ?>
             <div class="parallax">
                 <div class="parallax-background" style="background-image: url(<?php echo $bg_url; ?>)"></div>
