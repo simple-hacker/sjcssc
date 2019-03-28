@@ -1,10 +1,12 @@
 <?php
 
-Class Club {
+Class Club extends Controller {
     private $db;
 
     public function __construct() {
         $this->db = new Database;
+
+        $this->pageModel = $this->model('Page');
     }
 
     public function getClubByName($club_name) {
@@ -17,6 +19,7 @@ Class Club {
         $club->addresses = $this->getData('addresses', $club->id);
         $club->emails = $this->getData('emails', $club->id);
         $club->phone_numbers = $this->getData('phone_numbers', $club->id);
+        $club->page_links = $this->pageModel->getPagesMenuLinks($club->id);
         return $club;
     }
 
@@ -30,6 +33,7 @@ Class Club {
         $club->addresses = $this->getData('addresses', $club->id);
         $club->emails = $this->getData('emails', $club->id);
         $club->phone_numbers = $this->getData('phone_numbers', $club->id);
+        $club->page_links = $this->pageModel->getPagesMenuLinks($club->id);
         return $club;
     }
 

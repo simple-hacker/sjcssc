@@ -16,6 +16,16 @@
                     </li> 
             <?php
                 }
+                if (isset($data['club']->page_links)) {
+                    foreach ($data['club']->page_links as $page_link) {
+                        $url = URLROOT . $data['club']->club . "/pages/" . $page_link->page_id . "/" . $page_link->page_url;
+            ?>
+                    <li class="nav-item">
+                        <a href="<?php echo $url; ?>" class="nav-link"><?php echo ucwords($page_link->page); ?></a>
+                    </li> 
+            <?php
+                    }
+                }
                 if (isset($data['club']->menu_links)) {
                     foreach ($data['club']->menu_links as $menu_link) {
             ?>

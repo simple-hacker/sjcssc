@@ -43,6 +43,14 @@
                 }
             }
         ?>
+        <a href="<?php echo ADMIN_URLROOT . $data['club']->club . "/pages/add/"; ?>" class="db-btn">
+            <div class="db-btn-icon">
+                <i class="fas fa-file-alt"></i>
+            </div>
+            <div class="db-btn-text">
+                Page
+            </div>
+        </a>
         </div>
     </div>
 </div>

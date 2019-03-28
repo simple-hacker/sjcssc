@@ -1,5 +1,31 @@
 $(document).ready(function () {
 
+    $('#editor').trumbowyg({
+        btns: [
+            ['undo', 'redo'], // Only supported in Blink browsers
+            ['formatting'],
+            ['fontfamily', 'fontsize'],
+            ['strong', 'em', 'del'],
+            ['foreColor', 'backColor'],
+            ['link'],
+            ['insertImage'],
+            // ['insertImage', 'upload'],
+            ['justifyLeft', 'justifyCenter', 'justifyRight', 'justifyFull'],
+            ['unorderedList', 'orderedList'],
+            ['table'],
+            ['horizontalRule'],
+            ['removeformat'],
+            ['viewHTML'],
+        ],
+        urlProtocol: true,
+        minimalLinks: true,
+
+    }).on('tbwchange', function() {
+      $('#html').val($('#editor').trumbowyg('html'));
+    });
+
+    $('#editor').trumbowyg('html', $('#html').val());
+
     $('#sidebarCollapse').click(function () {
         $('#sidebar, #content').toggleClass('active');
         $('.collapse.in').toggleClass('in');
@@ -98,7 +124,6 @@ $(document).ready(function () {
 
         filter(section, club_id, season, leagues);
     });
-
 });
 
 function toggleImportant(club_id, notice_id) {
@@ -158,4 +183,8 @@ function filter(section, club_id, season, leagues) {
             alert("Fatal error: "+error);
         }
     }, "json");
+}
+
+function saveHTML() {
+    $('#html').val($('#editor').trumbowyg('html'));
 }

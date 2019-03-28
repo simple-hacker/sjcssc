@@ -8,6 +8,9 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.2/css/all.css" integrity="sha384-/rXc/GQVaYpyDdyxK+ecHPVYJSN9bmVFBvjA/9eOB+pb3F2w2N6fc5qB9Ew5yIns" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pretty-checkbox@3.0/dist/pretty-checkbox.min.css">
+    <link rel="stylesheet" href="<?php echo URLROOT; ?>css/trumbowyg/trumbowyg.min.css">
+    <link rel="stylesheet" href="<?php echo URLROOT; ?>css/trumbowyg/trumbowyg.colors.min.css">
+    <link rel="stylesheet" href="<?php echo URLROOT; ?>css/trumbowyg/trumbowyg.table.min.css">
     <link rel="stylesheet" href="<?php echo URLROOT; ?>css/main.css">
     <!-- Favicons -->
     <link rel="apple-touch-icon" sizes="57x57" href="<?php echo URLROOT; ?>img/favicons/apple-icon-57x57.png">
@@ -29,6 +32,12 @@
     <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <script src="<?php echo URLROOT; ?>js/trumbowyg/trumbowyg.min.js"></script>
+    <script src="<?php echo URLROOT; ?>js/trumbowyg/trumbowyg.colors.min.js"></script>
+    <script src="<?php echo URLROOT; ?>js/trumbowyg/trumbowyg.fontfamily.min.js"></script>
+    <script src="<?php echo URLROOT; ?>js/trumbowyg/trumbowyg.fontsize.min.js"></script>
+    <script src="<?php echo URLROOT; ?>js/trumbowyg/trumbowyg.table.min.js"></script>
+    <script src="<?php echo URLROOT; ?>js/trumbowyg/trumbowyg.upload.min.js"></script>
     <script src="<?php echo URLROOT; ?>js/variables.js"></script>
     <script src="<?php echo URLROOT; ?>js/admin.js"></script>
 </head>

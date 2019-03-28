@@ -33,6 +33,9 @@
                         }
     ?>
                         <li>
+                            <a href="<?php echo ADMIN_URLROOT . $club_name . '/pages'; ?>" class="<?php echo ($data['club']->club === $club_name && $controller === 'pages') ? 'active' : ''; ?>"><i class="fas fa-file-alt"></i>Pages</a>
+                        </li>
+                        <li>
                             <a href="<?php echo ADMIN_URLROOT . $club_name . '/settings'; ?>" class="<?php echo ($data['club']->club === $club_name && $controller === 'settings') ? 'active' : ''; ?>"><i class="fas fa-cog"></i>Settings</a>
                         </li>
                     </ul>

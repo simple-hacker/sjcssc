@@ -137,7 +137,7 @@
             // Get id if provided, else NULL.
             // In controller method that pass id, need to check if id is empty or has value.
             if (isset($_GET['id'])) {
-                $id = (int)$_GET['id'];
+                $id = $_GET['id'];
             } else {
                 $id = NULL;
             }

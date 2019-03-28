@@ -17,9 +17,9 @@
     RewriteRule ^admin/?$ index.php?admin=true&controller=user&page=login [L,QSA]
     RewriteRule ^admin/user/settings?$ index.php?admin=true&controller=user&page=index [L,QSA]
     RewriteRule ^admin/([a-zA-Z]+)/dashboard/?$ index.php?admin=true&club=$1 [L,QSA]
-    RewriteRule ^admin/(user|users|ajax)/?$ index.php?admin=true&controller=$1 [L,QSA]
-    RewriteRule ^admin/(user|users|ajax)/([a-zA-Z]+)/?$ index.php?admin=true&controller=$1&page=$2 [L,QSA]
-    RewriteRule ^admin/(user|users|ajax)/([a-zA-Z]+)/([0-9]+)/?$ index.php?admin=true&controller=$1&page=$2&id=$3 [L,QSA]
+    RewriteRule ^admin/(user|users|ajax|pages)/?$ index.php?admin=true&controller=$1 [L,QSA]
+    RewriteRule ^admin/(user|users|ajax|pages)/([a-zA-Z]+)/?$ index.php?admin=true&controller=$1&page=$2 [L,QSA]
+    RewriteRule ^admin/(user|users|ajax|pages)/([a-zA-Z]+)/([0-9]+)/?$ index.php?admin=true&controller=$1&page=$2&id=$3 [L,QSA]
 
     # This will be given club and default page i.e. social/index or bowls/index
     RewriteRule ^admin/([a-zA-Z]+)/?$ index.php?admin=true&club=$1 [L,QSA]
@@ -32,6 +32,9 @@
     
 
     ### Public Regex
+    RewriteRule ^([a-zA-Z]+)/pages/([a-zA-Z0-9-]+)/?$ index.php?club=$1&controller=pages&page=index&id=$2 [L,QSA]
+    RewriteRule ^([a-zA-Z]+)/pages/([0-9]+)/?$ index.php?club=$1&controller=pages&page=index&id=$2 [L,QSA]
+    RewriteRule ^([a-zA-Z]+)/pages/([0-9]+)/([a-zA-Z0-9-]+)/?$ index.php?club=$1&controller=pages&page=index&id=$2 [L,QSA]
     # This will be given club and default page i.e. social/index or bowls/index
     RewriteRule ^([a-zA-Z]+)/?$ index.php?club=$1 [L,QSA]
     # This will be given club and given page
